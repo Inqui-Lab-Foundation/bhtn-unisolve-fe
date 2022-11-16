@@ -4,7 +4,7 @@ import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
 // import { useHistory } from 'react-router-dom';
 // import { CommonDropDownComp } from '../stories/CommonDropdown/CommonDropdownComp.jsx';
-import LanguageSelectorComp from '../components/LanguageSelectorComp';
+//import LanguageSelectorComp from '../components/LanguageSelectorComp';
 
 // import { VscBell } from 'react-icons/vsc';
 import AvatarImg from '../assets/media/img/Avatar.png';
@@ -120,9 +120,9 @@ const Header = (props) => {
                                             {currentUser.data[0].full_name}
                                         </span> 
                                         {/* <CommonDropDownComp {...profileOpt} /> */}
-                                        <span className="common-language-selc">
+                                        {/* <span className="common-language-selc">
                                             <LanguageSelectorComp module="student" />
-                                        </span>
+                                        </span> */}
                                     </div>
                                 </Col>
                             </Row>
