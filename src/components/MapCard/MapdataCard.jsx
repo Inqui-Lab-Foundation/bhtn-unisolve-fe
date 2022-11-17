@@ -64,7 +64,7 @@ const MapdataCard = ({ values, all,districtName }) => {
                 <div className="d-flex flex-column card-width">
                     <Card className="card text-dark bg-light mb-3">
                         <CardBody>
-                            <h2 className="">{'Bhutan'}</h2>
+                            <h2 className="">{'Karnataka'}</h2>
                         </CardBody>
                     </Card>
                     <div className="mb-5 d-flex align-items-center">
