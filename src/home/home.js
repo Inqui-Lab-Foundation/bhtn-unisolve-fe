@@ -41,22 +41,15 @@ import map_icon_pitch from '../assets/media/home/icon_solution_pichting.png';
 import map_icon_incu from '../assets/media/home/icon_incubation.png';
 
 // ta brans
-import SSA_Tamilnadu from '../assets/media/tn-brands/1_SSA_Tamilnadu.jpg';
-import SIDP_tamilnadu from '../assets/media/tn-brands/2_SIDP_tamilnadu.jpg';
-import EDII_tamilnadu from '../assets/media/tn-brands/3_EDII_tamilnadu.jpg';
-import UpShift_Tamilnadu from '../assets/media/tn-brands/4_UpShift_Tamilnadu.png';
-import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_Tamilnadu.jpg';
-import IIF_Tamilnadu from '../assets/media/tn-brands/7_IIF_Tamilnadu.png';
-import SS_Tamilnadu from '../assets/media/tn-brands/8_SS_Tamilnadu.jpg';
-import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/9_Unicef OOI_Tamilnadu.jpg';
-import LogoTn from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import LogoTs1 from '../assets/media/1_SSA_Telangana.png';
-import LogoTs2 from '../assets/media/2_TSIC_Telangana.png';
-
-import LogoTsF1 from '../assets/media/ts_footer/2_TSIC_Telangana1.png';
-import LogoTsF2 from '../assets/media/ts_footer/1_SSA_Telangana1.png';
-import LogoTsF3 from '../assets/media/ts_footer/5_nif_karnataka2.png';
-import LogoTsF4 from '../assets/media/ts_footer/5_Yuwaah_Tamilnadu.png';
+import SSA_Tamilnadu from '../assets/media/tn-brands/1_govt_karnataka.png';
+import SIDP_tamilnadu from '../assets/media/tn-brands/2_SSA_karnataka.png';
+import EDII_tamilnadu from '../assets/media/tn-brands/3_nif_karnataka.png';
+import UpShift_Tamilnadu from '../assets/media/tn-brands/4_UpShift_karnataka.png';
+import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_karnataka.png';
+import IIF_Tamilnadu from '../assets/media/tn-brands/6_IIF_karnataka.png';
+import SS_Tamilnadu from '../assets/media/tn-brands/7_SS_karnataka.png';
+import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/8_Unicef_karnataka.png';
+import LogoTn from '../assets/media/tn-brands/UPSHIFT_SIDP_KA_logo.png';
 
 import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
 import Blog2 from '../assets/media/home/blog/agriculture_bag.jpeg';
@@ -72,6 +65,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { getSchedulesForTeacherAndStudents } from '../redux/schedules/actions';
 import { compareDates } from '../helpers/Utils';
 import Vimeo from '@u-wave/react-vimeo';
+import i18next from 'i18next';
 
 const Home = () => {
     const { t } = useTranslation();
@@ -174,7 +168,7 @@ const Home = () => {
             id: 1,
             key: 'SSA',
             // imageUrl: Unicef
-            imageUrl: SIDP_tamilnadu
+            imageUrl: SSA_Tamilnadu
         },
         {
             id: 2,
@@ -207,13 +201,13 @@ const Home = () => {
             imageUrl: IIF_Tamilnadu
         },
         {
-            id: 6,
+            id: 7,
             key: 'SS',
             // imageUrl: Congnizant
             imageUrl: SS_Tamilnadu
         },
         {
-            id: 6,
+            id: 8,
             key: 'Unicef',
             // imageUrl: Congnizant
             imageUrl: Unicef_OOI_Tamilnadu
@@ -422,24 +416,6 @@ const Home = () => {
                                             />
                                         </figure>
                                     </Link>
-                                    <Link className="" exact="true" to="/">
-                                        <figure>
-                                            <img
-                                                src={LogoTs1}
-                                                alt="logo"
-                                                className="img-fluid w-5 logoImg"
-                                            />
-                                        </figure>
-                                    </Link>
-                                    <Link className="" exact="true" to="/">
-                                        <figure>
-                                            <img
-                                                src={LogoTs2}
-                                                alt="logo"
-                                                className="img-fluid w-5 logoImg"
-                                            />
-                                        </figure>
-                                    </Link>
                                     {/* <LanguageSelectorComp module="general" /> */}
                                 </h2>
                             </Col>
@@ -575,7 +551,7 @@ const Home = () => {
                 <Container>
                     <Row>
                         <Col md={12} className="text-center">
-                            <div className="heading">
+                            <div className="heading" >
                                 <h5>{t('home_tl.about_us')}</h5>
                                 <h2 className="sub-heading text-center">
                                     <div
@@ -639,9 +615,12 @@ const Home = () => {
                             lg={6}
                             className="my-auto mx-auto student-heading px-5 "
                         >
-                            <h2 className="mb-5 sub-heading">
-                                UPSHIFT {t('home_tl.power_by')}{' '}
-                                <span className="green">UNISOLVE</span>{' '}
+                            <h2 className="mb-5 sub-heading"
+                            dangerouslySetInnerHTML={{
+                                __html: t('home_tl.power_by')
+                            }}>
+                                {/* UPSHIFT {' '}
+                                <span className="green">UNISOLVE</span>{' '} */}
                             </h2>
                             <div
                                 dangerouslySetInnerHTML={{
@@ -758,7 +737,7 @@ const Home = () => {
                             <img src={map_icon_awa} />
                         </div>
                         <div className="timeline__event__date text-white">
-                            Step-1
+                            {t('home_tl.step')}-1
                         </div>
                         <div className="timeline__event__content ">
                             <div className="timeline__event__title">
@@ -778,7 +757,7 @@ const Home = () => {
                             <img src={map_icon_reg} />
                         </div>
                         <div className="timeline__event__date text-white">
-                            Step-2
+                            {t('home_tl.step')}-2
                         </div>
                         <div className="timeline__event__content">
                             <div className="timeline__event__title">
@@ -798,7 +777,7 @@ const Home = () => {
                             <img src={map_icon_prob} />
                         </div>
                         <div className="timeline__event__date text-white">
-                            Step-3
+                            {t('home_tl.step')}-3
                         </div>
                         <div className="timeline__event__content">
                             <div className="timeline__event__title">
@@ -818,7 +797,7 @@ const Home = () => {
                             <img src={map_icon_test} />
                         </div>
                         <div className="timeline__event__date text-white">
-                            Step-4
+                            {t('home_tl.step')}-4
                         </div>
                         <div className="timeline__event__content">
                             <div className="timeline__event__title">
@@ -838,7 +817,7 @@ const Home = () => {
                             <img src={map_icon_pitch} />
                         </div>
                         <div className="timeline__event__date text-white">
-                            Step-5
+                            {t('home_tl.step')}-5
                         </div>
                         <div className="timeline__event__content">
                             <div className="timeline__event__title">
@@ -858,7 +837,7 @@ const Home = () => {
                             <img src={map_icon_incu} />
                         </div>
                         <div className="timeline__event__date text-white">
-                            Step-6
+                            {t('home_tl.step')}-6
                         </div>
                         <div className="timeline__event__content">
                             <div className="timeline__event__title">
@@ -957,7 +936,7 @@ const Home = () => {
             <section className="testimonials ">
                 <Container>
                     <Row className="text-center justify-content-md-center">
-                        <div className="heading">
+                        <div className="heading" style={{zIndex:1}}>
                             <h2 className="sub-heading">
                                 {t('home.testimonials')}
                             </h2>
