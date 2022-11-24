@@ -101,7 +101,7 @@ const MapdataCard = ({ values, all, districtName }) => {
                                 <div>
                                     <h4>
                                         {values?.students
-                                            ? values?.students
+                                            ? values?.boys
                                             : '0'}
                                     </h4>
                                     <small className="blue">
@@ -116,7 +116,7 @@ const MapdataCard = ({ values, all, districtName }) => {
                                 <div>
                                     <h4>
                                         {values?.students
-                                            ? values?.students
+                                            ? values?.girls
                                             : '0'}
                                     </h4>
                                     <small className="blue">
