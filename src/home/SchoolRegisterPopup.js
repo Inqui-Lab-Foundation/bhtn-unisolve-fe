@@ -175,13 +175,13 @@ function SchoolRegisterPopup(props) {
                             </small>
                         ) : null}
                         <Label className="mb-2" htmlFor="organization_code">
-                        UDISE Code
+                        Teacher Unique Code
                         </Label>
                         <InputBox
                             {...inputDICE}
                             id="organization_code"
                             name="organization_code"
-                            placeholder="Please enter UDISE code"
+                            placeholder="Please enter Teacher Unique Code"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.organization_code}

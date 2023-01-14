@@ -1,6 +1,7 @@
 import { notification } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { userLogout } from '../redux/studentRegistration/actions';
 // import { useTranslation } from 'react-i18next';
 
 export const getCurrentUser = () => {
@@ -79,8 +80,8 @@ export const compareDates = (filterDate) => {
         moment(date).isSameOrBefore(filterDate.end_date)
     );
 };
-export const logout = (history, t,module) => {
-    // const { t } = useTranslation();
+
+export const logout = (history, t,module,dispatch) => {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -105,13 +106,11 @@ export const logout = (history, t,module) => {
         .then((result) => {
             if (result.isConfirmed) {
                 if (result.isConfirmed) {
-                    localStorage.removeItem('current_user');
-                    localStorage.removeItem('headerOption');
-                    localStorage.removeItem('teamId');
-                    localStorage.removeItem('mobile');
-                    if(module){
+                    localStorage.clear();
+                    if(module)
                         localStorage.removeItem('module');
-                    }
+                    if(dispatch)
+                        dispatch(userLogout());
                     history.push('/');
                 }
             } else if (
@@ -119,8 +118,8 @@ export const logout = (history, t,module) => {
                 result.dismiss === Swal.DismissReason.cancel
             ) {
                 swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'You are Logged in',
+                    t('general_req.cancelled'),
+                    t('general_req.logged_in'),
                     'error'
                 );
             }

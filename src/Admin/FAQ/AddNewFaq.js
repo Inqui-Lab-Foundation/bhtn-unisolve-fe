@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import '../../Student/Pages/Student.scss';
 import React, { useEffect, useState, Fragment } from 'react';
 import {
@@ -35,12 +36,11 @@ import { getLanguage } from '../../constants/languageOptions';
 import { useSelector } from 'react-redux';
 
 const AddNewFaq = (props) => {
-    const language = useSelector(state=>state?.admin?.adminLanguage);
+    const language = useSelector((state) => state?.admin?.adminLanguage);
     const headingDetails = {
         title: 'Create a new FAQ',
 
         options: [
-           
             {
                 title: 'FAQ’s',
                 path: '/admin/faq'
@@ -76,6 +76,7 @@ const AddNewFaq = (props) => {
         setEditorState(state);
         formik.setFieldValue(
             'answer',
+            // a
             state.getCurrentContent().getPlainText()
         );
     };
@@ -140,7 +141,10 @@ const AddNewFaq = (props) => {
     const getFaqCategoryList = async () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         return await axios
-            .get(`${URL.getFaqCategoryList}?${getLanguage(language)}`, axiosConfig)
+            .get(
+                `${URL.getFaqCategoryList}?${getLanguage(language)}`,
+                axiosConfig
+            )
             .then((categoryListRes) => {
                 if (categoryListRes?.status == 200) {
                     let dataValue = categoryListRes?.data?.data[0]?.dataValues;
@@ -167,7 +171,9 @@ const AddNewFaq = (props) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         return await axios
             .get(
-                faqID ? `${URL.getFaqList}/${faqID}` : `${URL.getFaqList}?${getLanguage(language)}`,
+                faqID
+                    ? `${URL.getFaqList}/${faqID}`
+                    : `${URL.getFaqList}?${getLanguage(language)}`,
                 axiosConfig
             )
             .then((faqResData) => {
@@ -289,13 +295,13 @@ const AddNewFaq = (props) => {
 
                                                     {formik.errors
                                                         .faq_category_id ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik.errors
-                                                                        .faq_category_id
-                                                                }
-                                                            </small>
-                                                        ) : null}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .faq_category_id
+                                                            }
+                                                        </small>
+                                                    ) : null}
                                                 </Col>
 
                                                 <Col

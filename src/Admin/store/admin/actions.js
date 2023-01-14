@@ -28,19 +28,19 @@ export const getAdminError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminByIdData = (id) => async (dispatch) => {
+export const getAdmin = () => async (dispatch) => {
     try {
         dispatch({ type: GET_ADMINS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getStudentById}${id}`, axiosConfig)
+            .get(`${URL.getAdmin}`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data =
-                result.data && result.data.data[0] && result.data.data[0];
+            const data = result.data?.data[0]?.dataValues || [];
+            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
             dispatch(getAdminSuccess(data));
         } else {
             dispatch(getAdminError(result.statusText));
@@ -136,11 +136,10 @@ export const deleteTempMentorById = async (id) => {
             .catch((err) => {
                 return err.response;
             });
-        console.log(result);
         if (result && result.status === 202) {
             openNotificationWithIcon(
                 'success',
-                result.data && result.data?.message
+                'Deleted Successfully'
             );
         } else {
             openNotificationWithIcon(
@@ -152,6 +151,34 @@ export const deleteTempMentorById = async (id) => {
         openNotificationWithIcon(
             'error',
             error.response.data && error.response.data?.message
+        );
+    }
+};
+
+export const teacherResetPassword = (body) => async () => {
+    try {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        const result = await axios
+            .put(`${URL.putResetPassword}`, body, axiosConfig)
+            .then((user) => user)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 202) {
+            openNotificationWithIcon(
+                'success',
+                'Password Successfully Updated'
+            );
+        } else {
+            openNotificationWithIcon(
+                'error',
+                'Something went wrong'
+            );
+        }
+    } catch (error) {
+        openNotificationWithIcon(
+            'error',
+            'Something went wrong'
         );
     }
 };

@@ -386,8 +386,8 @@ const ManageFaq = (props) => {
 
     return (
         <Layout>
-            <Container className="ticket-page mb-50 userlist faqList">
-                <Row className="mt-5 pt-2">
+            <Container className="ticket-page mt-5 mb-50 userlist faqList">
+                <Row className="pt-2">
                     <Col className="col-auto mb-5 mb-sm-5 mb-md-5 mb-lg-0">
                         <h2>Manage FAQ’s</h2>
                     </Col>

@@ -76,7 +76,7 @@ const ViewTeamMember = () => {
                 '?status=ACTIVE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
@@ -239,7 +239,7 @@ const ViewTeamMember = () => {
                             item.student_id,
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer ${currentUser.data[0].token}`
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
                     axios(config)
@@ -272,8 +272,8 @@ const ViewTeamMember = () => {
 
     return (
         <Layout>
-            <Container className="ticket-page mb-50 userlist">
-                <Row className="mt-5 pt-5">
+            <Container className="ticket-page mt-5 mb-50 userlist">
+                <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
                             <BreadcrumbTwo {...headingDetails} />

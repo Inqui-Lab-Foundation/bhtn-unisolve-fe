@@ -41,7 +41,8 @@ import TeamMemberPage from './Student/Pages/TeamsMentors/TeamMember';
 import AddNewMember from './Student/Pages/TeamsMentors/AddNewMember';
 import EditMember from './Student/Pages/TeamsMentors/EditMember';
 // import IdeasPage from './Student/Pages/Ideas/IdeasPage';
-import IdeasPageNew from './Student/Pages/Ideas/IdeasPageCopy';
+import IdeasPageNew from './Student/Pages/Ideas/IdeaSubmission';
+import SDG from './Student/Pages/Ideas/SDG';
 import SubmittedIdeas from './Student/Pages/Ideas/SubmittedIdeas';
 import TicketViewDetails from './Student/Pages/HelpPages/TicketViewDetails';
 // ADMIN ROUTES
@@ -50,7 +51,9 @@ import AdminDashboard from './Admin/Dashboard/index';
 import AdminMyProfile from './Admin/MyProfile';
 import AdminMySettings from './Admin/MySettings';
 
-import AdminBadgesComp from './Admin/Badges/Badges';
+import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
+import AdminEvaluation from './Admin/Evaluation/index';
+import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import AdminNewBadge from './Admin/Badges/NewBadge';
 import AdminCourses from './Admin/Courses';
 import AdminCourseView from './Admin/Courses/coursesView';
@@ -91,11 +94,11 @@ import IndividualReport from './Admin/Reports/ReportFilter';
 import StudentSignup from './Admin/StudentSignup';
 import Home from './home/home';
 import Terms from './home/termsandconditions';
-import AdminChallengesComp from './Admin/Challenges/Badges';
+import AdminChallengesComp from './Admin/Badges/Badges';
 import Preservey from './Admin/PreSurvey';
 import StudentPostservey from './Student/PostSurvey/PostSurvey';
-// import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
-import TeacherPostservey from './Teachers/PostSurvey/PostSurveyStatic';
+import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
+// import TeacherPostservey from './Teachers/PostSurvey/PostSurveyStatic';
 // const hashHistory = createHashHistory();.
 
 // TEACHER ROUTES
@@ -109,6 +112,7 @@ import TeacherTeamList from './Teachers/Teams/Ticket';
 import TeacherCreateTeam from './Teachers/Teams/CreateTeam';
 import TeacherPreservey from './Teachers/PreSurvey/PreSurvey';
 import StudentPreservey from './Student/PreSurvey/PreSurvey';
+import StudentCertificate from './Student/Pages/Certificate/MyCertificate';
 import TeacherEditTeam from './Teachers/Teams/EditTeam';
 import TeacherTeamMember from './Teachers/Teams/CreateTeamMember';
 import TeacherViewTeamMember from './Teachers/Teams/ViewTeamMember';
@@ -123,19 +127,37 @@ import MyCertificate from './Teachers/Certificate/MyCertificate';
 import PageNotFound from '../src/PageNotFound';
 import ChangePSWModal from './Teachers/ChangePSWModal';
 import Translation from './Admin/Translation/Translation';
-import EditTranslation from './Admin/Translation/EditTranslation'; 
-import CreateTranslation from './Admin/Translation/CreateTranslation'; 
+import EditTranslation from './Admin/Translation/EditTranslation';
+import CreateTranslation from './Admin/Translation/CreateTranslation';
 //import IdeasubmissionunderCOn from './Student/Ideasubsaticundercon';
-import DummyStuMyCer from './Student/DummyStudentMyCertificate';
+// import DummyStuMyCer from './Student/DummyStudentMyCertificate';
+
+import EditSchool from './Admin/Schools/EditSchool';
+
+//evaluator routes
+import LoginEvaluator from './Evaluator/LoginEvaluator';
+import EvaluatorDashboard from './Evaluator/Dashboard/index';
+import EvaluatorChangePassword from './Evaluator/ChangePSWModal';
+import EvaluatorForgotPassword from './Evaluator/ForgotPassword';
+import EvaluatorIdeaList from './Evaluator/IdeaList/IdeaList';
+import ViewMore from './Admin/Dashboard/ViewMore';
+import EvaluatorInstructions from './Evaluator/Instructions/Instructions';
+import EvaluatedIdea from './Evaluator/EvaluatedIdea/EvaluatedIdea';
+
+import EvalutorAdminLogins from './Evaluator/Admin/EvaluatorAdminLogin';
+import Eadmindashboard from './Evaluator/Admin/Dashboard/EAdminDashboard';
+import EadminChangePassword from './Evaluator/Admin/Pages/ChangePSWModal';
+import ListOfIdeas from './Evaluator/Admin/ViewTable/ViewSelectedIdea';
+import TicketResView from './Admin/Tickets/TicketResView';
 
 const Routers = () => {
     // const history = useHistory();
     // const currentUser = getCurrentUser('current_user');
-    // if (currentUser && currentUser.data[0].role === 'ADMIN') {
+    // if (currentUser && currentUser?.data[0]?.role === 'ADMIN') {
     //     history.push('/admin/dashboard');
-    // } else if (currentUser && currentUser.data[0].role === 'STUDENT') {
+    // } else if (currentUser && currentUser?.data[0]?.role === 'STUDENT') {
     //     history.push('/dashboard');
-    // } else if (currentUser && currentUser.data[0].role === 'TEACHER') {
+    // } else if (currentUser && currentUser?.data[0]?.role === 'TEACHER') {
     //     history.push('/teacher/dashboard');
     // }
     // if (currentUser) {
@@ -201,6 +223,11 @@ const Routers = () => {
                         path="/challenges"
                         component={IdeasPageNew}
                         //component={IdeasubmissionunderCOn}
+                    />
+                    <ProtectedRoute
+                        exact
+                        path="/challenge-initiation"
+                        component={SDG}
                     />
                     <ProtectedRoute path="/ideasPage" component={Ideas} />
                     <ProtectedRoute
@@ -467,6 +494,11 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        path="/admin/View-More-details"
+                        component={ViewMore}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         path="/admin/register-new-schools"
                         component={AddNewSchool}
                     />
@@ -508,8 +540,20 @@ const Routers = () => {
 
                     <ProtectedRoute
                         exact={true}
-                        path="/admin/challenges "
-                        component={AdminBadgesComp}
+                        path="/admin/challenges"
+                        component={AdminChallenges}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluation"
+                        component={AdminEvaluation}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluation/viewlist"
+                        component={Selectedlist}
                     />
 
                     <ProtectedRoute
@@ -629,6 +673,11 @@ const Routers = () => {
                         path="/teacher/support-journey/ans-ticket"
                         component={TeacherSupportAnswer}
                     />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/support-journey/ans-ticket"
+                        component={TicketResView}
+                    />
 
                     <ProtectedRoute
                         exact={true}
@@ -656,11 +705,87 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         path="/student/my-certificate"
-                        component={DummyStuMyCer}
+                        component={StudentCertificate}
                     />
-                    <ProtectedRoute exact={true} path="/admin/translation" component={Translation} />
-                    <ProtectedRoute exact={true} path="/admin/edit-translation" component={EditTranslation} />
-                    <ProtectedRoute exact={true} path="/admin/create-translation" component={CreateTranslation} />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/register-edit-schools"
+                        component={EditSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/translation"
+                        component={Translation}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/edit-translation"
+                        component={EditTranslation}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/create-translation"
+                        component={CreateTranslation}
+                    />
+
+                    {/* evaluator routes */}
+                    <Route
+                        exact={true}
+                        path="/evaluator"
+                        render={() => <LoginEvaluator />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/dashboard"
+                        component={EvaluatorDashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/change-password"
+                        component={EvaluatorChangePassword}
+                    />
+                    <Route
+                        exact={true}
+                        path="/evaluator/forgotpassword"
+                        component={EvaluatorForgotPassword}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/submitted-ideas"
+                        component={EvaluatorIdeaList}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/instructions"
+                        component={EvaluatorInstructions}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/evaluated-ideas"
+                        component={EvaluatedIdea}
+                    />
+                    <Route
+                        exact={true}
+                        path="/eadmin"
+                        render={() => <EvalutorAdminLogins />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/dashboard"
+                        component={Eadmindashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/change-password"
+                        component={EadminChangePassword}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/listofideas"
+                        component={ListOfIdeas}
+                    />
                     <Route component={PageNotFound} path="*" />
                 </Switch>
             </Router>

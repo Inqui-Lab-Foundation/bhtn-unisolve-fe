@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import Layout from './Layout';
 import { useHistory } from 'react-router-dom';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 // eslint-disable-next-line no-unused-vars
 const ChangePSWModal = (props) => {
@@ -61,7 +62,7 @@ const ChangePSWModal = (props) => {
                 }).toString();
 
                 const body = JSON.stringify({
-                    user_id: JSON.stringify(currentUser.data[0].user_id),
+                    user_id: JSON.stringify(currentUser?.data[0]?.user_id),
                     old_password: old1,
                     new_password: new1
                 });
@@ -72,7 +73,7 @@ const ChangePSWModal = (props) => {
                         '/mentors/changePassword',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser.data[0].token}`
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body
                 };
@@ -86,8 +87,7 @@ const ChangePSWModal = (props) => {
                         }, 1000);
                     })
                     .catch(function (error) {
-                        // setErrorText("User's current password doesn't match");
-                        console.log(error);
+                        SetError(error.response.data.message);
                     });
             }
         }
@@ -96,26 +96,42 @@ const ChangePSWModal = (props) => {
         SetError('');
         setErrorText('');
     }, [formik.values]);
-
+//----password fields initial state and hide show password
+const [oldPassType, setOldPassType]= useState('password');
+const [newPassType, setNewPassType]= useState('password');
+const [confirmPassType, setConfirmPassType]= useState('password');
     const oldPassword = {
-        type: 'password',
+        type: oldPassType,
         placeholder: t('changepswd.Enter_current_password_here'),
         className: 'defaultInput'
     };
 
     const newPassword = {
-        type: 'password',
+        type: newPassType,
         placeholder: t('changepswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
-        type: 'password',
+        type: confirmPassType,
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'
     };
     const handleOnCancel = () => {
         history.push('/teacher/dashboard');
+    };
+    const handleShowPassword=(name)=>{
+        switch(name){
+            case oldPassword:
+                name?.type==='password'?setOldPassType('text'):setOldPassType('password');
+                break;
+            case newPassword:
+                name?.type==='password'?setNewPassType('text'):setNewPassType('password');
+                break;
+            case confirmPassword:
+                name?.type==='password'?setConfirmPassType('text'):setConfirmPassType('password');
+                break; 
+        }
     };
     return (
         <Layout>
@@ -133,7 +149,7 @@ const ChangePSWModal = (props) => {
                     <Col md={12}>
                         <Form onSubmit={formik.handleSubmit}>
                             <div className="form-row row mb-5 mt-3">
-                                <Col className="form-group" md={12}>
+                                <Col className="form-group position-relative" md={12}>
                                     <Label className="mb-2" htmlFor="Password">
                                         <h3>
                                             {t('changepswd.Current_password')}
@@ -147,6 +163,9 @@ const ChangePSWModal = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.oldPassword}
                                     />
+                                     <div className='pointer position-absolute top-50 end-0 me-4 mt-1' onClick={()=>{handleShowPassword(oldPassword);}}>
+                                        {oldPassword?.type==='password'?<FaEyeSlash size={18}/>:<FaEye size={18}/>}
+                                    </div>
                                     {formik.touched.oldPassword &&
                                     formik.errors.oldPassword ? (
                                         <small className="error-cls">
@@ -158,7 +177,7 @@ const ChangePSWModal = (props) => {
                             <div className="w-100 clearfix " />
 
                             <div className="form-row row  mb-5">
-                                <Col className="form-group" md={12}>
+                                <Col className="form-group position-relative" md={12}>
                                     <Label
                                         className="mb-2"
                                         htmlFor="newPassword"
@@ -173,6 +192,9 @@ const ChangePSWModal = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.newPassword}
                                     />
+                                     <div className='pointer position-absolute end-0 me-4' style={{bottom:'4rem'}} onClick={()=>{handleShowPassword(newPassword);}}>
+                                        {newPassword?.type==='password'?<FaEyeSlash size={18}/>:<FaEye size={18}/>}
+                                    </div>
                                     <small className="mt-2">
                                         {t(
                                             'changepswd.8-charac_minimum_case_sensitive'
@@ -186,7 +208,7 @@ const ChangePSWModal = (props) => {
                                     ) : null}
                                 </Col>
                                 <div className="w-100 clearfix" />
-                                <Col className="form-group mt-5" md={12}>
+                                <Col className="form-group mt-5 position-relative" md={12}>
                                     <Label
                                         className="mb-2"
                                         htmlFor="confirmPassword"
@@ -205,7 +227,9 @@ const ChangePSWModal = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.confirmPassword}
                                     />
-
+                                    <div className='pointer position-absolute top-50 end-0 me-4 mt-1' onClick={()=>{handleShowPassword(confirmPassword);}}>
+                                        {confirmPassword?.type==='password'?<FaEyeSlash size={18}/>:<FaEye size={18}/>}
+                                    </div>
                                     {formik.touched.confirmPassword &&
                                     formik.errors.confirmPassword ? (
                                         <small className="error-cls">
@@ -214,8 +238,10 @@ const ChangePSWModal = (props) => {
                                     ) : null}
                                 </Col>
                             </div>
+                            <b style={{color: 'red'}}>
+                            {error}
+                            </b>
                             <b style={{color: '#3BB143'}}>
-                                {error}
                                 {responce}
                             </b>
                             <div

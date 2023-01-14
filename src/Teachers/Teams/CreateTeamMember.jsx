@@ -22,8 +22,10 @@ const studentBody = {
     Grade: '',
     Gender: ''
 };
-const grades = [6, 7, 8, 9, 10, 11, 12];
-const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+const grades = [6, 7, 8, 9, 10, 11, 12, 'Others'];
+const allowedAge = [
+    9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+];
 
 const CreateMultipleMembers = ({ id }) => {
     const tempStudentData = {
@@ -102,7 +104,7 @@ const CreateMultipleMembers = ({ id }) => {
                 }
             }
             if (!item.Age) err['Age'] = 'Age is Required';
-            if (!item.Grade) err['Grade'] = 'Class is Required';
+            if (!item.Grade) err['Grade'] = 'Grade is Required';
             if (!item.Gender) err['Gender'] = 'Gender is Required';
             if (Object.values(err).length === 0) {
                 return { ...studentBody, i };
@@ -149,6 +151,7 @@ const CreateMultipleMembers = ({ id }) => {
         );
         if (checkDuplicateName) {
             openNotificationWithIcon('error', 'Student already exists');
+            setIsClicked(false);
             return;
         }
         dispatch(
@@ -232,7 +235,7 @@ const CreateMultipleMembers = ({ id }) => {
                                     className="name-req-create-member"
                                     htmlFor="grade"
                                 >
-                                    Class
+                                    Grade
                                 </Label>
                                 <div className="dropdown CalendarDropdownComp ">
                                     <select
@@ -241,10 +244,13 @@ const CreateMultipleMembers = ({ id }) => {
                                         value={item.Grade}
                                         onChange={(e) => handleChange(e, i)}
                                     >
-                                        <option value="">Select Class</option>
+                                        <option value="">Select Grade</option>
                                         {grades.map((item) => (
                                             <option key={item} value={item}>
-                                                Class {item}
+                                                {item !== 'Others'
+                                                    ? 'Grade'
+                                                    : ''}{' '}
+                                                {item}
                                             </option>
                                         ))}
                                     </select>
@@ -375,7 +381,7 @@ const CreateTeamMember = (props) => {
                 '?status=ACTIVE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
@@ -406,11 +412,11 @@ const CreateTeamMember = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim(),
-            age: Yup.number()
-                .integer()
-                .min(10, 'Min age is 10')
-                .max(18, 'Max age is 18')
-                .required('required'),
+            age: Yup.string()
+                // .integer()
+                // .min(9, 'Min age is 9')
+                // .max(24, 'Max age is 24')
+                .required('Age is required'),
             gender: Yup.string().required('Please select valid gender'),
             grade: Yup.string()
                 .matches('', 'Please enter valid class')
@@ -446,7 +452,7 @@ const CreateTeamMember = (props) => {
                         '/students/addStudent',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser.data[0].token}`
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body
                 };
@@ -584,7 +590,7 @@ const CreateTeamMember = (props) => {
                                                     className="name-req-create-member"
                                                     htmlFor="grade"
                                                 >
-                                                    Class
+                                                    Grade
                                                 </Label>
                                                 <div className="dropdown CalendarDropdownComp ">
                                                     <select
@@ -598,28 +604,31 @@ const CreateTeamMember = (props) => {
                                                         }
                                                     >
                                                         <option value="">
-                                                            Select Class..
+                                                            Select Grade
                                                         </option>
                                                         <option value="6">
-                                                            Class 6
+                                                            Grade 6
                                                         </option>
                                                         <option value="7">
-                                                            Class 7
+                                                            Grade 7
                                                         </option>
                                                         <option value="8">
-                                                            Class 8
+                                                            Grade 8
                                                         </option>
                                                         <option value="9">
-                                                            Class 9
+                                                            Grade 9
                                                         </option>
                                                         <option value="10">
-                                                            Class 10
+                                                            Grade 10
                                                         </option>
                                                         <option value="11">
-                                                            Class 11
+                                                            Grade 11
                                                         </option>
                                                         <option value="12">
-                                                            Class 12
+                                                            Grade 12
+                                                        </option>
+                                                        <option value="Others">
+                                                            Others
                                                         </option>
                                                     </select>
                                                 </div>

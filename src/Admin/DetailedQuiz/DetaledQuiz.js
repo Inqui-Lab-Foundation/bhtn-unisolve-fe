@@ -10,9 +10,9 @@ import ResultStar from '../../assets/media/quiz-result-star.png';
 import { connect, useSelector } from 'react-redux';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import { useTranslation } from 'react-i18next';
-import hardIcon from '../../assets/media/img/quiz_icon_hard.png';
-import mediumIcon from '../../assets/media/img/quiz_icon_medium.png';
-import easyIcon from '../../assets/media/img/quiz_icon_easy.png';
+// import hardIcon from '../../assets/media/img/quiz_icon_hard.png';
+// import mediumIcon from '../../assets/media/img/quiz_icon_medium.png';
+// import easyIcon from '../../assets/media/img/quiz_icon_easy.png';
 
 import {
     getAdminQuizQuestions,
@@ -20,7 +20,8 @@ import {
     getAdminCourseDetails
 } from '../../redux/actions';
 import QuizResponse from './QuizResponse';
-import { getCurrentUser } from '../../helpers/Utils';
+import succesImg from "../../assets/media/success1.jpeg";
+//import { getCurrentUser } from '../../helpers/Utils';
 const DetaledQuiz = (props) => {
     const { t } = useTranslation();
     const quizId = props.quizId;
@@ -32,8 +33,8 @@ const DetaledQuiz = (props) => {
     const [video, SetVideo] = useState(true);
     const [qst, SetQst] = useState({});
     const language = useSelector((state) => state?.studentRegistration?.studentLanguage);
-    const currentUser = getCurrentUser('current_user');
-    const role = currentUser.data[0].role;
+    // const currentUser = getCurrentUser('current_user');
+    // const role = currentUser?.data[0]?.role;
     useEffect(() => {
         props.getAdminQuizQuestionsActions(quizId, language);
     }, [props.quizId, language]);
@@ -122,11 +123,14 @@ const DetaledQuiz = (props) => {
                     <div className="container new-result">
                         <div className="row justify-content-md-center ">
                             <div className="col col-lg-9">
-                                <div className="results-heading">
+                                {/* <div className="results-heading">
                                     <span></span>
-                                </div>
-                                <div className="mt-4 d-flex justify-content-center align-items-center">
-                                    <span>Quiz Successfully Completed</span>
+                                </div> */}
+                                <div className="mt-4 text-center">
+                                     <div className="success_img text-center w-100">
+                                        <img src={succesImg} alt=".." /><br />
+                                    </div>
+                                    <p>{t('student.quiz_completed')}</p>
                                 </div>
                                 <div className="results-heading mt-4">
                                     <img src={ResultStar} alt="star" />
@@ -135,7 +139,7 @@ const DetaledQuiz = (props) => {
                                     <div className="text-right">
                                         {props.instructions === 'yes' ? (
                                             <Button
-                                                label={'Continue'}
+                                                label={t('student.continue')}
                                                 btnClass="primary w-auto"
                                                 size="small"
                                                 type="submit"
@@ -149,7 +153,7 @@ const DetaledQuiz = (props) => {
                                             />
                                         ) : (
                                             <Button
-                                                label={'Continue'}
+                                                label={t('student.continue')}
                                                 btnClass="primary w-auto"
                                                 size="small"
                                                 type="submit"
@@ -178,7 +182,7 @@ const DetaledQuiz = (props) => {
                                                 .question_no} */}
                                     </p>
                                 </Col>
-                                <Col xs={2}>
+                                {/* <Col xs={2}>
                                     {role && role === 'STUDENT' && (
                                         <div className="quiz_ques_img d-flex justify-content-end">
                                             <img
@@ -203,7 +207,7 @@ const DetaledQuiz = (props) => {
                                             />
                                         </div>
                                     )}
-                                </Col>
+                                </Col> */}
                             </Row>
 
                             <Question
@@ -260,7 +264,7 @@ const DetaledQuiz = (props) => {
                                                     <Button
                                                         btnClass="primary px-5"
                                                         size="small"
-                                                        label="Continue"
+                                                        label={t('student.continue')}
                                                         onClick={(e) =>
                                                             handleNxtQst(e)
                                                         }
@@ -286,7 +290,7 @@ const DetaledQuiz = (props) => {
                                                                 btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                                                 size="small"
                                                                 // Icon={BsPlusLg}
-                                                                label="Refer Video"
+                                                                label={t('teacher.refer_video')}
                                                                 onClick={() =>
                                                                     handlevideo(
                                                                         props.adminQstResponce &&

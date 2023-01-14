@@ -17,31 +17,45 @@ import { useFormik } from 'formik';
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
+    getCurrentUser,
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
 import axios from 'axios';
 import Congo from '../../assets/media/survey-success.jpg';
 import { getLanguage } from '../../constants/languageOptions';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UncontrolledAlert } from 'reactstrap';
 import CommonPage from '../../components/CommonPage';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { getStudentChallengeSubmittedResponse, getStudentDashboardStatus, studentPostSurveyCertificate, updateStudentBadges } from '../../redux/studentRegistration/actions';
 
 const PostSurvey = () => {
     const { t } = useTranslation();
+    const ideaSubmissionStatus = useSelector(
+        (state) => state?.studentRegistration.ideaSubmissionStatus
+    );
+    const topicTotalCount = useSelector(
+        (state) => state?.studentRegistration.dashboardStatus?.all_topics_count
+    );
+    const topicCompletedCount = useSelector(
+        (state) => state?.studentRegistration.dashboardStatus?.topics_completed_count
+    );
+    // const  postSurveyStatusGl  = useSelector((state) => state?.studentRegistration?.postSurveyStatusGl);
+    const history = useHistory();
+    const currentUser = getCurrentUser('current_user');
+    const dispatch = useDispatch();
     const [postSurveyList, setPostSurveyList] = useState([]);
     const [quizSurveyId, setQuizSurveyId] = useState(0);
     const [count, setCount] = useState(0);
     const [postSurveyStatus, setPostSurveyStatus] = useState('COMPLETED');
-    const [showPage, setshowPage] = useState(false);
-    console.log(setshowPage);
-
-
     const language = useSelector(state => state?.studentRegistration?.studentLanguage);
-
-
-
+    const showPage = ideaSubmissionStatus && ideaSubmissionStatus !== "DRAFT" && (topicTotalCount === topicCompletedCount);
+    const handleClick =()=>{
+        history.push("/student/my-certificate");
+    };
+    console.log(showPage);
     const formik = useFormik({
         initialValues: {},
         onSubmit: async (values) => {
@@ -60,7 +74,7 @@ const PostSurvey = () => {
             if (postSurveyList.length != submitData.responses.length) {
                 openNotificationWithIcon(
                     'warning',
-                    'Please Attempt All Questions..!!',
+                    t('student.attempt_all_questions'),
                     ''
                 );
             } else {
@@ -72,14 +86,25 @@ const PostSurvey = () => {
                     )
                     .then((preSurveyRes) => {
                         if (preSurveyRes?.status == 200) {
-                            openNotificationWithIcon(
-                                'success',
-                                'PostSurvey is been submitted successfully..!!',
-                                ''
-                            );
-                            setCount(count + 1);
-
-                            formik.resetForm();
+                            setTimeout(() => {
+                                const badge="survey_master";
+                                dispatch(
+                                    updateStudentBadges(
+                                        { badge_slugs: [badge] },
+                                        currentUser?.data[0]?.user_id,
+                                        language,t
+                                    )
+                                );
+                                dispatch(getStudentDashboardStatus(currentUser?.data[0]?.user_id, language));
+                                dispatch(studentPostSurveyCertificate(language));
+                                openNotificationWithIcon(
+                                    'success',
+                                    t('student.postsurver_scc_sub'),
+                                    ''
+                                );
+                                setCount(count + 1);
+                                formik.resetForm();
+                            }, 300);
                         }
                     })
                     .catch((err) => {
@@ -88,14 +113,23 @@ const PostSurvey = () => {
             }
         }
     });
-
+    useEffect(() => {
+        if(!ideaSubmissionStatus)
+            dispatch(
+                getStudentChallengeSubmittedResponse(
+                    currentUser?.data[0]?.team_id,
+                    language
+                )
+            );
+    }, [language, dispatch, currentUser?.data[0]?.team_id]);
+    
     useEffect(() => {
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const lang = getLanguage(language);
         const final = lang.split('=');
         axiosConfig['params'] = {
             role: "STUDENT",
-            local: final[1]
+            locale: final[1]
         };
         axios
             .get(`${URL.getStudentPostSurveyList}`, axiosConfig)
@@ -127,15 +161,15 @@ const PostSurvey = () => {
                             <div className="aside  p-4 bg-transparent">
                                 {postSurveyStatus != 'COMPLETED' &&
                                     <UncontrolledAlert color="danger" className='mb-5'>
-                                        Please complete the following post survey to get course completion certificate.
+                                        {t('student.please_com_postsurvey_for_certificate')}
                                     </UncontrolledAlert>}
-                                <h2>Post Survey</h2>
+                                <h2>{t('student.post_survey')}</h2>
                                 <CardBody>
                                     {postSurveyStatus != 'COMPLETED' && (
                                         <Form
                                             className="form-row"
                                             onSubmit={formik.handleSubmit}
-                                            isSubmitting
+                                            //isSubmitting
                                         >
                                             {postSurveyList.map(
                                                 (eachQuestion, i) => (
@@ -262,7 +296,7 @@ const PostSurvey = () => {
                                                         )
                                                     }
                                                     size="small"
-                                                    label="Submit"
+                                                    label={t('student_presurvey.submit')}
 
                                                 />
                                             </div>
@@ -270,17 +304,27 @@ const PostSurvey = () => {
                                     )}
 
                                     {postSurveyStatus == 'COMPLETED' && (
-                                        <div style={{ textAlign: 'center' }}>
-                                            <div>
-                                                <img className="img-fluid w-25" src={Congo}></img>
+                                        <Card>
+                                            <div style={{ textAlign: 'center' }}>
+                                                <div>
+                                                    <img className="img-fluid w-25" src={Congo}></img>
+                                                </div>
+                                                <div>
+                                                    <h2>
+                                                        {t('student.post_survey_desc')}
+                                                    </h2>
+                                                    <p>
+                                                        {t('student.click_button_post_survey')}
+                                                    </p>
+                                                    <Button
+                                                        label={t('student_course.go_certificate')}
+                                                        btnClass="primary mt-4 mx-4 mb-5"
+                                                        size="small"
+                                                        onClick={() => handleClick()}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h2>
-                                                    Post Survey has been
-                                                    submitted
-                                                </h2>
-                                            </div>
-                                        </div>
+                                        </Card>
                                     )}
                                 </CardBody>
                             </div>

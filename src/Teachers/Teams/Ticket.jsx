@@ -7,7 +7,7 @@ import Layout from '../Layout';
 import { Link } from 'react-router-dom';
 import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // import dummyCSV from '../../media/basic-csv.csv';
 import {
@@ -30,6 +30,7 @@ import DoubleBounce from '../../components/Loaders/DoubleBounce';
 const TicketsPage = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
+    const dashboardStates  = useSelector((state) => state.teacherDashBoard.dashboardStates);
 
     localStorage.setItem('teamId', JSON.stringify(''));
     const [count, setCount] = useState(0);
@@ -57,7 +58,7 @@ const TicketsPage = (props) => {
     useEffect(() => {
         setLoading(true);
         props
-            .getAdminTeamsListAction(currentUser.data[0].mentor_id)
+            .getAdminTeamsListAction(currentUser?.data[0]?.mentor_id)
             .then(() => setLoading(false));
     }, [count]);
 
@@ -72,9 +73,9 @@ const TicketsPage = (props) => {
         setLoading(false);
     }, [props.teamsList]);
 
-    useEffect(() => {
-        props.getAdminTeamMembersListAction(teamId);
-    }, [teamId]);
+    // useEffect(() => {
+    //     props.getAdminTeamMembersListAction(teamId);
+    // }, [teamId]);
 
     useEffect(() => {
         var teamsMembersArrays = [];
@@ -212,7 +213,7 @@ const TicketsPage = (props) => {
                         headers: {
                             'Content-Type': 'application/json',
                             // Accept: "application/json",
-                            Authorization: `Bearer ${currentUser.data[0].token}`
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
                     axios(config)
@@ -246,8 +247,8 @@ const TicketsPage = (props) => {
 
     return (
         <Layout>
-            <Container className="ticket-page mb-50 userlist">
-                <Row className="mt-5 pt-5">
+            <Container className="ticket-page mt-5 mb-50 userlist">
+                <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
                             <h2>{t('teacher_teams.team_heading')}</h2>

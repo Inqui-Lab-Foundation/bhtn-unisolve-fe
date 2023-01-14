@@ -36,7 +36,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { schedules } = useSelector((state) => state.schedules);
-    const language = useSelector(state=>state?.mentors.mentorLanguage);
+    const presurveyStatus = useSelector(state=>state?.mentors.teacherPresurveyStatus);
+
     // for future use
     // useLayoutEffect(() => {
     //     dispatch(getSchedulesForTeacherAndStudents());
@@ -59,26 +60,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             setMenuCollapse(true);
         }
     });
-
-    const [presurveyStatus, setpresurveyStatus] = useState('');
-    const checkPresurvey = () => {
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        axios
-            .get(`${URL.getPreSurveyList}?role=TEACHER?${getLanguage(language)}`, axiosConfig)
-            .then((preSurveyRes) => {
-                if (preSurveyRes?.status == 200) {
-                    setpresurveyStatus(
-                        preSurveyRes.data.data[0].dataValues[0].progress
-                    );
-                }
-            })
-            .catch((err) => {
-                return err.response;
-            });
-    };
-    useLayoutEffect(() => {
-        checkPresurvey();
-    }, []);
     const handleClick = (e, type) => {
         const typeFilter = type && schedules[0].teacher[type];
         if (presurveyStatus !== 'COMPLETED') e.preventDefault();
@@ -88,7 +69,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         }
     };
     const handleLogout = (e) => {
-        logout(history, t,"teacher");
+        logout(history, t,"teacher",dispatch);
         e.preventDefault();
     };
     return (

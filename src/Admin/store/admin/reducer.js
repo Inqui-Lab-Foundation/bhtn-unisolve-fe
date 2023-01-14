@@ -11,6 +11,7 @@ import {
 
 const INIT_STATE = {
     currentUser: {},
+    adminData:[],
     loading: false,
     adminLanguage:languageOptions[0], 
     error: '',
@@ -27,7 +28,8 @@ export default (state = INIT_STATE, action) => {
         return {
             ...state,
             loading: false,
-            currentUser: action.payload, 
+            currentUser: action.payload,
+            adminData: action.payload,
             error: '',
         };
     case ADMIN_LOGIN_USER_ERROR:
@@ -35,6 +37,7 @@ export default (state = INIT_STATE, action) => {
             ...state,
             loading: false,
             currentUser: null,
+            adminData:[],
             error: action.payload.message,
         };
     case ADMIN_LANGUAGE:

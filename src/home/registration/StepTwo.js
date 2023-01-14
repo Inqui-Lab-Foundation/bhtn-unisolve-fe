@@ -8,9 +8,6 @@ import { URL, KEY } from '../../constants/defaultValues';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { registerStepData } from '../../redux/actions';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -24,16 +21,14 @@ function StepTwo({
     setHideFive
 }) {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const stepTwoData = useSelector((state) => state.authUser.stepTwoData);
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-    const inputPhone = {
-        type: 'text',
-        placeholder: `${t('teacehr_red.faculty_ph')}`,
-        className: 'defaultInput'
-    };
+    // const inputPhone = {
+    //     type: 'text',
+    //     placeholder: `${t('teacehr_red.faculty_ph')}`,
+    //     className: 'defaultInput'
+    // };
 
     const inputEmail = {
         type: 'email',
@@ -54,12 +49,12 @@ function StepTwo({
     const formik = useFormik({
         initialValues: {
             full_name: '',
-            mobile: '',
+            // mobile: '',
             username: '',
             organization_code: orgData?.organization_code,
             role: 'MENTOR',
             qualification: '-',
-            reg_status: stepTwoData?.username ? true : false,
+            reg_status: false,
             password: ''
         },
 
@@ -67,14 +62,14 @@ function StepTwo({
             full_name: Yup.string()
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Not allowed')
+                .matches(/^[aA-zZ\s]+$/, 'Special Characters are Not allowed')
                 .required('Required'),
-            mobile: Yup.string()
-                .required('required')
-                .trim()
-                .matches(phoneRegExp, 'Phone number is not valid')
-                .min(10, 'Please enter valid number')
-                .max(10, 'Please enter valid number'),
+            // mobile: Yup.string()
+            //     .required('required')
+            //     .trim()
+            //     .matches(phoneRegExp, 'Phone number is not valid')
+            //     .min(8, 'Please enter valid number')
+            //     .max(8, 'Please enter valid number'),
             username: Yup.string()
                 .trim()
                 .email('Invalid username format')
@@ -88,68 +83,38 @@ function StepTwo({
 
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-            if (stepTwoData?.mobile) {
-                const { user_id } = stepTwoData;
-                const { mobile } = values;
-                localStorage.setItem('mobile', JSON.stringify(mobile));
-                const data = {
-                    mobile,
-                    user_id
-                };
-                await axios
-                    .put(
-                        `${URL.updateMobile}`,
-                        JSON.stringify(data, null, 2),
-                        axiosConfig
-                    )
-                    .then((mentorRegRes) => {
-                        // dispatch(registerStepData(mentorRegRes?.data?.data[0]));
-                        if (mentorRegRes?.data?.status == 202) {
-                            setUserData(mentorRegRes?.data?.data[0]);
-                            setHideTwo(false);
-                            setHideFive(true);
-                        }
-                    })
-                    .catch((err) => {
-                        formik.setErrors({
-                            check: err.response && err?.response?.data?.message
-                        });
-                        return err.response;
+
+            values.password = values.password.trim();
+            const key = CryptoJS.enc.Hex.parse(
+                '253D3FB468A0E24677C28A624BE0F939'
+            );
+            const iv = CryptoJS.enc.Hex.parse(
+                '00000000000000000000000000000000'
+            );
+            const encrypted = CryptoJS.AES.encrypt(values.password, key, {
+                iv: iv,
+                padding: CryptoJS.pad.NoPadding
+            }).toString();
+            values.password = encrypted;
+            await axios
+                .post(
+                    `${URL.mentorRegister}`,
+                    JSON.stringify(values, null, 2),
+                    axiosConfig
+                )
+                .then((mentorRegRes) => {
+                    if (mentorRegRes?.data?.status == 201) {
+                        setUserData(mentorRegRes?.data?.data[0]);
+                        setHideTwo(false);
+                        setHideFive(true);
+                    }
+                })
+                .catch((err) => {
+                    formik.setErrors({
+                        check: err.response && err?.response?.data?.message
                     });
-            } else {
-                values.password = values.password.trim();
-                const key = CryptoJS.enc.Hex.parse(
-                    '253D3FB468A0E24677C28A624BE0F939'
-                );
-                const iv = CryptoJS.enc.Hex.parse(
-                    '00000000000000000000000000000000'
-                );
-                const encrypted = CryptoJS.AES.encrypt(values.password, key, {
-                    iv: iv,
-                    padding: CryptoJS.pad.NoPadding
-                }).toString();
-                values.password = encrypted;
-                await axios
-                    .post(
-                        `${URL.mentorRegister}`,
-                        JSON.stringify(values, null, 2),
-                        axiosConfig
-                    )
-                    .then((mentorRegRes) => {
-                        dispatch(registerStepData(mentorRegRes?.data?.data[0]));
-                        if (mentorRegRes?.data?.status == 201) {
-                            setUserData(mentorRegRes?.data?.data[0]);
-                            setHideTwo(false);
-                            setHideFive(true);
-                        }
-                    })
-                    .catch((err) => {
-                        formik.setErrors({
-                            check: err.response && err?.response?.data?.message
-                        });
-                        return err.response;
-                    });
-            }
+                    return err.response;
+                });
         }
     });
 
@@ -163,8 +128,8 @@ function StepTwo({
                         <UncontrolledAlert color="primary ">
                             {t('teacehr_red.school')}:{' '}
                             {orgData?.organization_name} <br />
-                            {t('teacehr_red.city')}:{' '}
-                            {orgData?.city ? orgData?.city : ' N/A'} <br />
+                            {t('teacehr_red.org_type')}:{' '}
+                            {orgData?.organization_type ? orgData?.organization_type : ' N/A'} <br />
                             {t('teacehr_red.district')}:{' '}
                             {orgData?.district ? orgData?.district : ' N/A'}
                         </UncontrolledAlert>
@@ -180,7 +145,7 @@ function StepTwo({
                     onSubmit={formik.handleSubmit}
                     isSubmitting
                 >
-                    <FormGroup className="form-group mb-5" md={12}>
+                    <FormGroup className="form-group mt-5" md={12}>
                         <Label className="mb-2" htmlFor="name">
                             {t('teacehr_red.faculty_name')}
                         </Label>
@@ -201,11 +166,11 @@ function StepTwo({
                             </small>
                         ) : null}
                     </FormGroup>
-                    <FormGroup className="form-group" md={12}>
+                    {/* <FormGroup className="form-group" md={12}>
                         <Label className="mb-2" htmlFor="mobile">
                             {t('teacehr_red.faculty_ph')}
                         </Label>
-                        {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
+                        
                         <InputBox
                             {...inputPhone}
                             id="mobile"
@@ -220,7 +185,7 @@ function StepTwo({
                                 {formik.errors.mobile}
                             </small>
                         ) : null}
-                    </FormGroup>
+                    </FormGroup> */}
 
                     <FormGroup className="form-group mt-5" md={12}>
                         <Label className="mb-2" htmlFor="username">
@@ -300,16 +265,14 @@ function StepTwo({
                             label={t('teacehr_red.continue')}
                             // btnClass='primary w-100'
                             btnClass={
-                                !(formik.dirty && formik.isValid) &&
-                                !stepTwoData?.mobile
+                                !(formik.dirty && formik.isValid) 
                                     ? 'default'
                                     : 'primary'
                             }
                             size="large "
                             type="submit"
                             disabled={
-                                !(formik.dirty && formik.isValid) &&
-                                !stepTwoData?.mobile
+                                !(formik.dirty && formik.isValid)
                             }
                         />
                     </div>

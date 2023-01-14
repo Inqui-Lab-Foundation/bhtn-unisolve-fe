@@ -279,7 +279,7 @@ const Home = () => {
         {
             id: 4,
             title: 'How to register your institution for this program?',
-            desc: "Open the website and click register. Register your school/Institution thereby entering the UDISE code/Unique ID and then filling in all required details. Once the registration process is completed, you can log in to your account either by entering a password or with OTP."
+            desc: "Open the website and click register. Register your school/Institution thereby entering the Teacher Unique Code/Unique ID and then filling in all required details. Once the registration process is completed, you can log in to your account either by entering a password or with OTP."
         },
         {
             id: 5,

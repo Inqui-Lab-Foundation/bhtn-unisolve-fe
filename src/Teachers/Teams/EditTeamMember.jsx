@@ -51,11 +51,8 @@ const EditTeamMember = (props) => {
                 .required('Please Enter valid Full Name')
                 .max(40)
                 .matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters').trim(),
-            age: Yup.number()
-                .integer()
-                .min(10, 'Min age is 10')
-                .max(18, 'Max age is 18')
-                .required('required'),
+            age: Yup.string()()
+                .required('Age is required'),
             gender: Yup.string().required('Please select valid gender'),
             grade: Yup.string()
                 .matches('', 'Please enter valid class')
@@ -80,7 +77,7 @@ const EditTeamMember = (props) => {
                     teamMemberData.student_id,
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };
@@ -114,6 +111,7 @@ const EditTeamMember = (props) => {
             item: item
         });
     };
+    console.log(formik);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -200,7 +198,7 @@ const EditTeamMember = (props) => {
                                                 className="name-req"
                                                 htmlFor="grade"
                                             >
-                                                Class
+                                                Grade
                                             </Label>
                                             <div className="dropdown CalendarDropdownComp ">
                                                 <select
@@ -215,25 +213,28 @@ const EditTeamMember = (props) => {
                                                         Select Class..
                                                     </option>
                                                     <option value="6">
-                                                        Class 6
+                                                        Grade 6
                                                     </option>
                                                     <option value="7">
-                                                        Class 7
+                                                        Grade 7
                                                     </option>
                                                     <option value="8">
-                                                        Class 8
+                                                        Grade 8
                                                     </option>
                                                     <option value="9">
-                                                        Class 9
+                                                        Grade 9
                                                     </option>
                                                     <option value="10">
-                                                        Class 10
+                                                        Grade 10
                                                     </option>
                                                     <option value="11">
-                                                        Class 11
+                                                        Grade 11
                                                     </option>
                                                     <option value="12">
-                                                        Class 12
+                                                        Grade 12
+                                                    </option>
+                                                    <option value="Others">
+                                                        Others
                                                     </option>
                                                 </select>
                                             </div>
@@ -309,6 +310,9 @@ const EditTeamMember = (props) => {
                                                     ? 'default'
                                                     : 'primary'
                                             }
+                                            disabled={ (
+                                                !formik.dirty
+                                            )}
                                             size="small"
                                         />
                                     </Col>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../PostSurvey/style.scss';
 import {
     Container,
@@ -24,18 +24,18 @@ import axios from 'axios';
 import Congo from '../../assets/media/survey-success.jpg';
 import { useHistory } from 'react-router-dom';
 import getStart from '../../assets/media/getStart.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLanguage } from '../../constants/languageOptions';
 import { useTranslation } from 'react-i18next';
-import DoubleBounce from '../../components/Loaders/DoubleBounce';
+import { getTeacherPresurveyStatus } from '../store/mentors/actions';
 
 const PreSurvey = () => {
     const { t } = useTranslation();
-    const [preSurveyList, setPreSurveyList] = useState([]);
-    const [quizSurveyId, setQuizSurveyId] = useState(0);
-    const [preSurveyStatus, setPreSurveyStatus] = useState('');
+    const preSurveyStatus = useSelector(state=>state?.mentors.teacherPresurveyStatus);
+    const quizSurveyId = useSelector(state=>state?.mentors.quizSurveyId);
+    const preSurveyList = useSelector(state=>state?.mentors.preSurveyList);
     const [show, setShow] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
     const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
@@ -72,11 +72,11 @@ const PreSurvey = () => {
                     )
                     .then((preSurveyRes) => {
                         if (preSurveyRes?.status == 200) {
+                            dispatch(getTeacherPresurveyStatus());
                             openNotificationWithIcon(
                                 'success',
                                 'Presurvey has been submitted successfully'
                             );
-                            setPreSurveyStatus('COMPLETED');
                             setTimeout(() => {
                                 history.push('/teacher/dashboard');
                             }, 500);
@@ -91,38 +91,6 @@ const PreSurvey = () => {
         }
     });
 
-    useEffect(() => {
-        setLoading(true);
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        axios
-            .get(
-                `${URL.getPreSurveyList}?role=MENTOR&${getLanguage(language)}`,
-                axiosConfig
-            )
-
-            .then((preSurveyRes) => {
-                if (preSurveyRes?.status == 200) {
-                    console.log(
-                        '🚀 ~ file: PreSurvey.js ~ line 76 ~ .then ~ preSurveyRes',
-                        preSurveyRes
-                    );
-                    setQuizSurveyId(
-                        preSurveyRes.data.data[0].dataValues[0].quiz_survey_id
-                    );
-                    setPreSurveyStatus(
-                        preSurveyRes.data.data[0].dataValues[0].progress
-                    );
-                    let allQuestions = preSurveyRes.data.data[0].dataValues[0];
-                    setPreSurveyList(allQuestions.quiz_survey_questions);
-                    setLoading(false);
-                }
-            })
-            .catch((err) => {
-                setLoading(false);
-                return err.response;
-            });
-    }, [language]);
-
     const handleStart = () => {
         setShow(true);
     };
@@ -133,7 +101,7 @@ const PreSurvey = () => {
                 <Col>
                     <Row className=" justify-content-center">
                         <div className="aside  p-4 bg-white">
-                            {loading ? <DoubleBounce /> :
+                            {
                                 preSurveyStatus && preSurveyStatus !== 'COMPLETED' && !show ? <CardBody>
                                     <Row>
                                         <Col md={4}>

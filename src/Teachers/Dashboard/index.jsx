@@ -1,19 +1,16 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import './dashboard.scss';
-import { KEY, URL } from '../../constants/defaultValues';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 //import VerticalLinearStepper from './StepperComponent';
 // import Charts from './Chart';
 // import BarChart from './BarChart';
-import { getCurrentUser, getNormalHeaders } from '../../helpers/Utils';
+import { getCurrentUser } from '../../helpers/Utils';
 import institutions from '../../assets/media/img/university.png';
 import districtImg from '../../assets/media/img/building.png';
 import idea from '../../assets/media/img/idea.png';
 import people from '../../assets/media/img/people.png';
-import { getLanguage } from '../../constants/languageOptions';
 import Layout from '../Layout';
 import { useDispatch } from 'react-redux';
 import { getDashboardStates } from '../store/dashboard/actions';
@@ -22,38 +19,19 @@ import DoughnutChart from './DoughnutChart';
 
 
 const Dashboard = () => {
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { dashboardStates } = useSelector((state) => state.teacherDashBoard);
-
+    const presurveyStatus = useSelector(state=>state?.mentors.teacherPresurveyStatus);
     const history = useHistory();
-    const checkPresurvey = () => {
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        axios
-            .get(
-                `${URL.getPreSurveyList}?role=TEACHER?${getLanguage(language)}`,
-                axiosConfig
-            )
-            .then((preSurveyRes) => {
-                if (preSurveyRes?.status == 200) {
-                    if (
-                        preSurveyRes.data.data[0].dataValues[0].progress !==
-                        'COMPLETED'
-                    )
-                        history.push('/teacher/pre-survey');
-                }
-            })
-            .catch((err) => {
-                return err.response;
-            });
-    };
     useLayoutEffect(() => {
-        checkPresurvey();
+        if(presurveyStatus !== 'COMPLETED')
+            history.push('/teacher/pre-survey');
     }, []);
+    
     useEffect(() => {
-        dispatch(getDashboardStates(currentUser.data[0].user_id));
-    }, [dispatch, currentUser.data[0].user_id]);
+        dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+    }, [dispatch, currentUser?.data[0]?.user_id]);
 
     return (
         <Layout>
@@ -149,21 +127,21 @@ const Dashboard = () => {
                 </Row>
                 <Row className="teacher-statistics bg-white p-5">
                     <Row className="">
-                        <Col style={{ flex: 3 }}>
+                        <Col >
                             <div className="d-flex flex-wrap">
                                 <DoughnutChart user={currentUser?.data} />
                                 {/* <BarChart /> */}
                             </div>
                         </Col>
-                        <Col>
-                            {/* <div className="teacher-progress">
+                        {/* <Col> */}
+                        {/* <div className="teacher-progress">
                                 teacher progress{' '}
                             </div> */}
-                            {/* <div className="stepper">
+                        {/* <div className="stepper">
                                 <h2 className='mb-5'>Teacher Roadmap</h2>
                                 <VerticalLinearStepper />
                             </div> */}
-                        </Col>
+                        {/* </Col> */}
                     </Row>
                 </Row>
             </Container>

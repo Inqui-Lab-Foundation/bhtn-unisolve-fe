@@ -21,7 +21,7 @@ const AddNewTicket = (props) => {
     const history = useHistory();
 
     const headingDetails = {
-        title: 'Add New Query',
+        title: 'Query Details',
 
         options: [
             {

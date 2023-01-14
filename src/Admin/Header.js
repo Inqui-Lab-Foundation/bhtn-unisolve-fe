@@ -21,7 +21,7 @@ const Header = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
     const currentUser = getCurrentUser("current_user");
-    const MINUTE_MS = 30000;
+    // const MINUTE_MS = 30000;
     const profileOpt = {
         options: [
             // { name: "Home", path: "/admin/dashboard" },
@@ -29,7 +29,7 @@ const Header = (props) => {
             // { name: "My Settings", path: "/admin/settings" },
             { name: "Logout", path: "", onClick: () => logout(history, t) },
         ],
-        name: currentUser.data[0].full_name,
+        name: currentUser?.data[0]?.full_name,
         img: AvatarImg,
     };
     const notifyOpt = {
@@ -55,19 +55,15 @@ const Header = (props) => {
         localStorage.setItem("headerOption", JSON.stringify("Home"));
     };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            // console.log("Logs every minute");
-            props.getAdminNotificationsListActions(history);
-        }, MINUTE_MS);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         // console.log("Logs every minute");
+    //         props.getAdminNotificationsListActions(history);
+    //     }, MINUTE_MS);
 
-        return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-    }, []);
-    // console.log(
-    //   props.notificationsList,
-    //   "=============",
-    //   props.NotificationCount
-    // );
+    //     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+    // }, []);
+
     return (
         <header>
             <div className="header-comp sticky-top py-3">
@@ -98,7 +94,7 @@ const Header = (props) => {
                                         <div className="d-flex align-items-center profile">
                                             <img src={AvatarImg} className="img-fluid"  />
                                             <span className='header-name-size'>
-                                                {currentUser.data[0].full_name}
+                                                {currentUser?.data[0]?.full_name}
                                             </span> 
                                         </div>
 

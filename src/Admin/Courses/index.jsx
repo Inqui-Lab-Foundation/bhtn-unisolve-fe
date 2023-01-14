@@ -118,8 +118,8 @@ const Courses = (props) => {
 
     return (
         <Layout>
-            <Container>
-                <Row className=" w-100 mt-5 pt-5   mb-50">
+            <Container  className="mt-5 mb-50">
+                <Row className="w-100">
                     <Col md={12} lg={6}>
                         <h2 className="my-auto">Courses</h2>
                     </Col>

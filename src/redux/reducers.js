@@ -19,6 +19,7 @@ import teacherCourses from '../Teachers/store/courses/reducer';
 import studentRegistration from './studentRegistration/reducers';
 import studentTeam from './teams/reducers';
 import teacherDashBoard from '../Teachers/store/dashboard/reducer';
+import evaluator from '../Evaluator/store/evaluator/reducer';
 
 const reducers = combineReducers({
     authUser,
@@ -40,7 +41,14 @@ const reducers = combineReducers({
     studentTeam,
     schedules,
     teacherDashBoard,
-    reports
+    reports,
+    evaluator
 });
-
-export default reducers;
+const rootReducer = (state, action) => {
+    if (action.type === 'USER_LOGOUT') {
+        return reducers({}, action);
+    }
+  
+    return reducers(state, action);
+};
+export default rootReducer;

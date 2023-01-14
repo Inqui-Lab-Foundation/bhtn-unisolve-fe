@@ -1,6 +1,7 @@
+/* eslint-disable indent */
 import './SignUp.scss';
 import React, { useLayoutEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input, List } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../../stories/InputBox/InputBox.jsx';
 import { Button } from '../../stories/Button.jsx';
@@ -28,7 +29,15 @@ const LoginNew = (props) => {
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem("module");
         if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
-            moduleName === "MENTOR" ? history.push("/teacher/dashboard") : moduleName === "ADMIN" ? history.push("/admin/dashboard") : history.push("/dashboard");
+            moduleName === 'MENTOR'
+                ? history.push('/teacher/dashboard')
+                : moduleName === 'ADMIN'
+                ? history.push('/admin/dashboard')
+                : moduleName === 'EVALUATOR'
+                ? history.push('/evaluator/submitted-ideas')
+                : moduleName === 'EADMIN'
+                ? history.push('/eadmin/dashboard')
+                : history.push('/dashboard');
         }
     }, []);
     const formik = useFormik({
@@ -375,7 +384,7 @@ const LoginNew = (props) => {
 
                                 
                             </Col>
-                            <Col>
+                            {/* <Col>
                                 <List type="unstyled">
                                     <li>
                                         <a href="http://tiny.cc/StudentVideoOne" target="_blank" rel='noopener noreferrer'>Click here to watch video 1</a>
@@ -387,7 +396,7 @@ const LoginNew = (props) => {
                                         <a href="http://tiny.cc/StudentVideoThree" target="_blank" rel='noopener noreferrer'>Click here to watch video 3</a>
                                     </li>
                                 </List>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </Col>
                 </Row>

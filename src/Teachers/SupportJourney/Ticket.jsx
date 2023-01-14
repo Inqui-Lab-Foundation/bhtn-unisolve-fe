@@ -25,25 +25,27 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { FaComments } from 'react-icons/fa';
+import { getCurrentUser } from '../../helpers/Utils';
 
 const TicketsPage = (props) => {
     const [rows, setRows] = React.useState([]);
+    // console.log(rows);
     const dispatch = useDispatch();
+    const currentUser = getCurrentUser('current_user');
     const { supportTickets } = useSelector((state) => state.mentors);
+    // console.log(supportTickets);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
     useEffect(() => {
-        dispatch(getSupportTickets(language));
+        dispatch(getSupportTickets(language, currentUser?.data[0]));
     }, [language]);
-
-    console.log('line 40----------', supportTickets);
 
     const SchoolsData = {
         data: supportTickets,
         columns: [
             {
-                name: 'S.No.',
+                name: 'No.',
                 selector: 'id',
                 width: '8%'
                 // center: true,
@@ -52,9 +54,27 @@ const TicketsPage = (props) => {
                 name: 'Category',
                 selector: 'query_category',
                 sortable: true,
-                width: '13%',
+                width: '13%'
                 // center: true,
 
+                // cell: (params) => [
+                //     <Link
+                //         key={params.support_ticket_id}
+                //         to={`/teacher/support-journey/ans-ticket?id=${params.support_ticket_id}`}
+                //     >
+                //         {params?.query_category} <FaComments />{' '}
+                //         {params.replies_count}{' '}
+                //     </Link>
+                // ]
+
+                // cell:(params)=>[<Link key={params.support_ticket_id} onClick ={()=>handleSelect(params.support_ticket_id)}>{params?.query_category}</Link>]
+            },
+            {
+                name: 'Query',
+                selector: 'query_details',
+                sortable: true,
+                width: '64%',
+                // center: true,
                 cell: (params) => [
                     <Link
                         key={params.support_ticket_id}
@@ -64,15 +84,6 @@ const TicketsPage = (props) => {
                         {params.replies_count}{' '}
                     </Link>
                 ]
-
-                // cell:(params)=>[<Link key={params.support_ticket_id} onClick ={()=>handleSelect(params.support_ticket_id)}>{params?.query_category}</Link>]
-            },
-            {
-                name: 'Query',
-                selector: 'query_details',
-                sortable: true,
-                width: '64%'
-                // center: true,
             },
             // {
             //     name: "Created By",
@@ -98,12 +109,16 @@ const TicketsPage = (props) => {
                 cell: (params) => [
                     params.status === 'OPEN' ? (
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
-                        Open
+                            Open
                         </span>
                     ) : params.status === 'INPROGRESS' ? (
-                        <span className="py-2 px-4 rounded-pill bg-info bg-opacity-25 text-info fw-bold">Inprogress</span>
+                        <span className="py-2 px-4 rounded-pill bg-info bg-opacity-25 text-info fw-bold">
+                            Inprogress
+                        </span>
                     ) : params.status === 'RESOLVED' ? (
-                        <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">Resolved</span>
+                        <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
+                            Resolved
+                        </span>
                     ) : (
                         ''
                     )
@@ -112,7 +127,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
-
+    // console.log(SchoolsData);
     // const handleSelect = (id) => {
     //     history.push({
     //         pathname: `/teacher/support-journey/ans-ticket`,
@@ -122,8 +137,8 @@ const TicketsPage = (props) => {
 
     return (
         <Layout>
-            <Container className="ticket-page mb-50">
-                <Row className="mt-2 pt-3">
+            <Container className="ticket-page mt-5 mb-50">
+                <Row className="pt-3">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
                             <h2>Support</h2>

@@ -7,7 +7,7 @@ import {
     Card,
     CardTitle,
     CardBody,
-    CardText,
+    CardText
     // CardImg
 } from 'reactstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -19,7 +19,7 @@ import ChangePSWModal from './ChangePSWModal';
 import { Link } from 'react-router-dom';
 // import { static_badges } from '../data/StaticBadges';
 // import { ProgressComp } from '../stories/Progress/Progress';
-import { PhotoUpload } from '../stories/PhotoUpload/PhotoUpload';
+// import { PhotoUpload } from '../stories/PhotoUpload/PhotoUpload';
 import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 import Layout from './Layout';
@@ -34,6 +34,8 @@ const btnSubmit = () => {
 };
 
 const MyProfile = () => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user'));
+
     const [profileAction, setProfileAction] = useState(true);
     const showFormModal = (values) => {
         return new Promise((resolve, reject) => {
@@ -119,6 +121,7 @@ const MyProfile = () => {
     //         body: '403802, Hydrabad, India'
     //     }
     // ];
+    console.log(currentUser);
 
     return (
         <Layout>
@@ -148,32 +151,64 @@ const MyProfile = () => {
                                                 className="border-right my-auto "
                                             >
                                                 <Row>
-                                                    <Col md={5}>
+                                                    {/* <Col md={5}>
                                                         <figure>
                                                             <PhotoUpload />
                                                         </figure>
-                                                    </Col>
+                                                    </Col> */}
                                                     <Col
                                                         md={7}
                                                         className="my-auto profile-detail"
                                                     >
-                                                        <h2 className="mb-4">
-                                                            Ritu Sharma
-                                                        </h2>
+                                                        {' '}
                                                         <CardText>
-                                                            <span>Email:</span>{' '}
+                                                            <span>Name:</span>{' '}
                                                             <b>
-                                                                ritusharma@gmail.com
+                                                                {
+                                                                    currentUser
+                                                                        .data[0]
+                                                                        .full_name
+                                                                }
+                                                            </b>
+                                                            <b>
+                                                                {/* <h2 className="mb-4"> */}
+                                                                {/* Ritu Sharma */}
+                                                                {/* </h2> */}
                                                             </b>
                                                         </CardText>
                                                         <CardText>
-                                                            <span>Class:</span>{' '}
-                                                            <b>Class 8</b>
+                                                            <span>Email:</span>{' '}
+                                                            <b>
+                                                                {
+                                                                    currentUser
+                                                                        .data[0]
+                                                                        .name
+                                                                }
+                                                            </b>
+                                                            {/* <p>
+                                                                {
+                                                                    currentUser.name
+                                                                }
+                                                            </p> */}
+                                                            {/* <b>
+                                                                ritusharma@gmail.com
+                                                            </b> */}
+                                                        </CardText>
+                                                        <CardText>
+                                                            <span>state :</span>{' '}
+                                                            {/* {data.state} */}
+                                                            <b>Bhutan</b>
+                                                            {/* <p>
+                                                                {
+                                                                    currentUser.State
+                                                                }
+                                                            </p> */}
+                                                            {/* <b>Class 8</b> */}
                                                         </CardText>
                                                     </Col>
                                                 </Row>
                                             </Col>
-
+                                            {/* 
                                             <Col
                                                 md={4}
                                                 className="my-auto profile-detail"
@@ -196,23 +231,25 @@ const MyProfile = () => {
                                                     <span>Joined on:</span>{' '}
                                                     <b>1st Nov 2021</b>
                                                 </CardText>
-                                            </Col>
+                                            </Col> */}
 
                                             <Col md={12}></Col>
                                         </Row>
-                                        <br/>
+                                        <br />
                                         <Row>
                                             <Col md={6}>
-                                                <CardTitle className="pb-2">
-                                                    Password 
-                                                </CardTitle>
+                                                <CardText>
+                                                    <CardTitle className="pb-2">
+                                                        Password
+                                                    </CardTitle>
+                                                </CardText>
                                                 <CardText>
                                                     <Link
                                                         exact="true"
                                                         onClick={showModal}
                                                         className="my-auto pt-0 text-link "
                                                     >
-                                                       Change Password
+                                                        Change Password
                                                     </Link>
                                                 </CardText>
                                             </Col>

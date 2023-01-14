@@ -19,21 +19,18 @@ function ForgotPassword(props) {
         props.setShow(false);
     };
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const formik = useFormik({
         initialValues: {
-            mobile: ''
+            email: ''
         },
 
         validationSchema: Yup.object({
-            mobile: Yup.string()
-                .matches(phoneRegExp, 'Phone Number is not valid')
-                .required('Phone Number is Required')
+            email: Yup.string().email('Invalid email address format').required('Email is required')
         }),
 
         onSubmit: async (values) => {
-            console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
@@ -85,20 +82,20 @@ function ForgotPassword(props) {
                 >
                     <FormGroup className="form-group" md={12}>
                         <Label className="mb-2" htmlFor="mobile">
-                            Enter Mobile Number
+                            Enter your email
                         </Label>
                         <InputBox
                             {...inputMob}
-                            id="mobile"
-                            name="mobile"
-                            placeholder="Please enter mobile number"
+                            id="email"
+                            name="email"
+                            placeholder="Please enter your email"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.mobile}
+                            value={formik.values.email}
                         />
-                        {formik.touched.mobile && formik.errors.mobile ? (
+                        {formik.touched.email && formik.errors.email ? (
                             <small className="error-cls">
-                                {formik.errors.mobile}
+                                {formik.errors.email}
                             </small>
                         ) : null}
                     </FormGroup>

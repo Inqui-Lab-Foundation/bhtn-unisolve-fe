@@ -169,7 +169,6 @@ export const getAdminQuizQuestions = (quizId,lang) => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result;
-            console.log('==========daya==', data);
             dispatch(getAdminQuizQuestionsSuccess(data));
             dispatch(getAdminQuizResponceSuccess({}));
         } else {
