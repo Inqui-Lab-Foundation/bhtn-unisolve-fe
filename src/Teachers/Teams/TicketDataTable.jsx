@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap";
-import {  BsPlusLg } from "react-icons/bs";
-import { Button } from "../../stories/Button";
-import { withRouter } from "react-router-dom";
-import { TableComponent } from "../../stories/TableComponent/TableComponent";
+import React, { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
+import { BsPlusLg } from 'react-icons/bs';
+import { Button } from '../../stories/Button';
+import { withRouter } from 'react-router-dom';
+import { TableComponent } from '../../stories/TableComponent/TableComponent';
 
 const TicketDataTable = (props) => {
-    // console.log(props, ":::::::::::123");
     const [tableShow] = useState(true);
     // const [actionDropdown, setActionDropdown] = useState(false);
     // const [ setActionIndex] = useState("");
@@ -68,22 +67,24 @@ const TicketDataTable = (props) => {
     // };
     return (
         <div>
-            <div className='tableActionTemplate'>
+            <div className="tableActionTemplate">
                 <Row>
                     <Col md={12}>
-                        <div className='ticket-table'>
+                        <div className="ticket-table">
                             {tableShow ? (
                                 <TableComponent {...props} />
                             ) : (
-                                <div className='add-ticket'>
+                                <div className="add-ticket">
                                     <Button
-                                        btnClass='primary'
-                                        size='small'
-                                        shape='btn-circle'
+                                        btnClass="primary"
+                                        size="small"
+                                        shape="btn-circle"
                                         Icon={BsPlusLg}
-                                        onClick={() => props.history.push("/NewTicket")}
+                                        onClick={() =>
+                                            props.history.push('/NewTicket')
+                                        }
                                     />
-                                    <p className='text'>Add a Ticket</p>
+                                    <p className="text">Add a Ticket</p>
                                 </div>
                             )}
                         </div>

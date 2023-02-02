@@ -121,7 +121,6 @@ const MyProfile = () => {
     //         body: '403802, Hydrabad, India'
     //     }
     // ];
-    console.log(currentUser);
 
     return (
         <Layout>

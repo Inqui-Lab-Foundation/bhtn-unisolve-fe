@@ -250,7 +250,7 @@ const TicketResponse = (props) => {
                                             </Label>
 
                                             <Col className="form-group" md={12}>
-                                                {console.log(formik.values)}
+                                                {/* {console.log(formik.values)} */}
                                                 <DropDownWithSearch
                                                     {...selectProgress}
                                                     onBlur={formik.handleBlur}

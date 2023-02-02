@@ -22,7 +22,6 @@ import {
     CardImg,
     CardBody,
     CardTitle
-    
 } from 'reactstrap';
 import './style.scss';
 // import badgesBg from '../../../assets/media/img/badge_header.svg';
@@ -43,7 +42,6 @@ const BadgesComp = () => {
     const [badgesRes, setBadgesRes] = useState({});
 
     const currentUser = getCurrentUser('current_user');
-    console.log(currentUser);
     // const dispatch = useDispatch();
     useEffect(() => {
         var config = {
@@ -58,7 +56,6 @@ const BadgesComp = () => {
         };
         axios(config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     setBadgesRes(response.data.data[0].dataValues);
                 }

@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import  React, { useLayoutEffect, useState }  from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -18,10 +18,13 @@ import { openNotificationWithIcon } from '../helpers/Utils';
 
 const LoginNew = (props) => {
     const history = useHistory();
-    const [password, handlePassword] = useState("password");
+    const [password, handlePassword] = useState('password');
     useLayoutEffect(() => {
-        const moduleName = localStorage.getItem("module");
-        if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
+        const moduleName = localStorage.getItem('module');
+        if (
+            localStorage.getItem('current_user') &&
+            localStorage.getItem('module')
+        ) {
             moduleName === 'MENTOR'
                 ? history.push('/teacher/dashboard')
                 : moduleName === 'ADMIN'
@@ -45,8 +48,16 @@ const LoginNew = (props) => {
         }),
         // ADMIN ROLE
         onSubmit: (values) => {
-            if(localStorage.getItem("current_user") && localStorage.getItem("module")){
-                openNotificationWithIcon("error",`Another User(${localStorage.getItem("module")}) has already logged in`);
+            if (
+                localStorage.getItem('current_user') &&
+                localStorage.getItem('module')
+            ) {
+                openNotificationWithIcon(
+                    'error',
+                    `Another User(${localStorage.getItem(
+                        'module'
+                    )}) has already logged in`
+                );
                 return;
             }
             const key = CryptoJS.enc.Hex.parse(
@@ -59,15 +70,13 @@ const LoginNew = (props) => {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
-            console.log(encrypted);
             const body = {
                 username: values.email,
                 password: encrypted,
-                role: "ADMIN"
+                role: 'ADMIN'
             };
             // history.push("/admin/dashboard");
-            props.adminLoginUserAction(body, history,"ADMIN");
-            console.log('======', body);
+            props.adminLoginUserAction(body, history, 'ADMIN');
         }
     });
 
@@ -102,12 +111,11 @@ const LoginNew = (props) => {
     //     openNotificationWithIcon("error", "Please check login details");
     //   }
     // }, [props.currentUser, props.error]);
-    // console.log("===========error", props.error);
-    const handleShow =(e, type)=>{     
-        if(type === "password"){
-            handlePassword("text");
-        }else{
-            handlePassword("password");
+    const handleShow = (e, type) => {
+        if (type === 'password') {
+            handlePassword('text');
+        } else {
+            handlePassword('password');
         }
     };
 
@@ -118,8 +126,11 @@ const LoginNew = (props) => {
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
                         <div className="row">
-                            <Link to={"/"} exact>
-                                <Col md={12} className=" mr-auto mobile_tab-hide">
+                            <Link to={'/'} exact>
+                                <Col
+                                    md={12}
+                                    className=" mr-auto mobile_tab-hide"
+                                >
                                     {' '}
                                     <h2 className="text-white">
                                         <img
@@ -151,7 +162,7 @@ const LoginNew = (props) => {
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className=" article-header mb-4">
-                            <h4 className='mb-4'>
+                            <h4 className="mb-4">
                                 <span className="color-green">Admin</span> Login
                             </h4>
                         </Row>
@@ -184,10 +195,10 @@ const LoginNew = (props) => {
 
                                             {formik.touched.email &&
                                             formik.errors.email ? (
-                                                    <small className="error-cls">
+                                                <small className="error-cls">
                                                     Required
-                                                    </small>
-                                                ) : null}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                     </div>
                                     <div className="w-100 clearfix" />
@@ -210,7 +221,7 @@ const LoginNew = (props) => {
                                                 {...inputPassword}
                                                 id="password"
                                                 name="password"
-                                                type= {password}
+                                                type={password}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.password}
@@ -218,10 +229,10 @@ const LoginNew = (props) => {
 
                                             {formik.touched.password &&
                                             formik.errors.password ? (
-                                                    <small className="error-cls">
+                                                <small className="error-cls">
                                                     Required
-                                                    </small>
-                                                ) : null}
+                                                </small>
+                                            ) : null}
                                         </Col>
 
                                         <Col
@@ -238,7 +249,12 @@ const LoginNew = (props) => {
                                                             type="checkbox"
                                                             name="acceptedTerms"
                                                             className="my-auto"
-                                                            onClick={(e)=>handleShow(e,password)}
+                                                            onClick={(e) =>
+                                                                handleShow(
+                                                                    e,
+                                                                    password
+                                                                )
+                                                            }
                                                         />
                                                         <small className="text-bold ">
                                                             {' '}
@@ -277,7 +293,12 @@ const LoginNew = (props) => {
                                                         ? 'default'
                                                         : 'primary'
                                                 }
-                                                disabled={!(formik.dirty && formik.isValid)}
+                                                disabled={
+                                                    !(
+                                                        formik.dirty &&
+                                                        formik.isValid
+                                                    )
+                                                }
                                             />
                                         </Col>
                                     </div>

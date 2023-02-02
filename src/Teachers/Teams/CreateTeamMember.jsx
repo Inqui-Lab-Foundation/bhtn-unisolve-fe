@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
@@ -22,10 +23,8 @@ const studentBody = {
     Grade: '',
     Gender: ''
 };
-const grades = [6, 7, 8, 9, 10, 11, 12, 'Others'];
-const allowedAge = [
-    9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
-];
+const grades = [4, 5, 6, 7, 8, 9, 10, 11, 12, 'Others'];
+const allowedAge = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 const CreateMultipleMembers = ({ id }) => {
     const tempStudentData = {
@@ -327,16 +326,15 @@ const CreateMultipleMembers = ({ id }) => {
                             disabled={true}
                         />
                     )}
-                    {studentData.length < 5 && (
-                        <div className="mx-5">
-                            <Button
-                                label={'Add More'}
-                                onClick={addItem}
-                                btnClass={'primary me-3 float-end'}
-                                size="small"
-                            />
-                        </div>
-                    )}
+
+                    <div className="mx-5">
+                        <Button
+                            label={'Add More'}
+                            onClick={addItem}
+                            btnClass={'primary me-3 float-end'}
+                            size="small"
+                        />
+                    </div>
                 </Col>
             </Row>
         </div>
@@ -371,7 +369,8 @@ const CreateTeamMember = (props) => {
         handleCreateMemberAPI(id);
     }, [id]);
 
-    async function handleCreateMemberAPI(teamId) {
+    async function 
+    handleCreateMemberAPI(teamId) {
         var config = {
             method: 'get',
             url:
@@ -425,71 +424,59 @@ const CreateTeamMember = (props) => {
         }),
 
         onSubmit: (values) => {
-            if (
-                process.env.REACT_APP_TEAM_LENGTH ==
-                teamMemberData.student_count
-            ) {
-                openNotificationWithIcon(
-                    'warning',
-                    'Team Members Maximum Count All Ready Exist'
-                );
-            } else {
-                setIsClicked(true);
-                const body = {
-                    team_id: id,
-                    role: 'STUDENT',
-                    full_name: values.fullName,
-                    qualification: '',
-                    Age: values.age,
-                    Grade: values.grade,
-                    Gender: values.gender,
-                    country: values.country
-                };
-                var config = {
-                    method: 'post',
-                    url:
-                        process.env.REACT_APP_API_BASE_URL +
-                        '/students/addStudent',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                    },
-                    data: body
-                };
-                axios(config)
-                    .then(function (response) {
-                        if (response.status === 201) {
-                            openNotificationWithIcon(
-                                'success',
-                                'Team Member Created Successfully'
-                            );
-                            props.history.push('/teacher/teamlist');
-                        } else {
-                            openNotificationWithIcon(
-                                'error',
-                                'Opps! Something Wrong'
-                            );
-                            setIsClicked(false);
-                        }
-                    })
-                    .catch(function (error) {
-                        if (error.response.status === 406) {
-                            openNotificationWithIcon(
-                                'error',
-                                error?.response?.data?.message
-                            );
-                        } else {
-                            openNotificationWithIcon(
-                                'error',
-                                'Opps! Something Wrong'
-                            );
-                        }
+            setIsClicked(true);
+            const body = {
+                team_id: id,
+                role: 'STUDENT',
+                full_name: values.fullName,
+                qualification: '',
+                Age: values.age,
+                Grade: values.grade,
+                Gender: values.gender,
+                country: values.country
+            };
+            var config = {
+                method: 'post',
+                url:
+                    process.env.REACT_APP_API_BASE_URL + '/students/addStudent',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                },
+                data: body
+            };
+            axios(config)
+                .then(function (response) {
+                    if (response.status === 201) {
+                        openNotificationWithIcon(
+                            'success',
+                            'Team Member Created Successfully'
+                        );
+                        props.history.push('/teacher/teamlist');
+                    } else {
+                        openNotificationWithIcon(
+                            'error',
+                            'Opps! Something Wrong'
+                        );
                         setIsClicked(false);
-                    });
-            }
+                    }
+                })
+                .catch(function (error) {
+                    if (error.response.status === 406) {
+                        openNotificationWithIcon(
+                            'error',
+                            error?.response?.data?.message
+                        );
+                    } else {
+                        openNotificationWithIcon(
+                            'error',
+                            'Opps! Something Wrong'
+                        );
+                    }
+                    setIsClicked(false);
+                });
         }
     });
-    console.log(isClicked);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -605,6 +592,12 @@ const CreateTeamMember = (props) => {
                                                     >
                                                         <option value="">
                                                             Select Grade
+                                                        </option>
+                                                        <option value="4">
+                                                            Grade 4
+                                                        </option>
+                                                        <option value="5">
+                                                            Grade 5
                                                         </option>
                                                         <option value="6">
                                                             Grade 6

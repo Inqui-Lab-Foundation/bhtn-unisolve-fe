@@ -70,7 +70,7 @@ export const adminLoginUserError = (message) => async (dispatch) => {
     });
 };
 
-export const adminLoginUser = (data, history,module) => async (dispatch) => {
+export const adminLoginUser = (data, history, module) => async (dispatch) => {
     try {
         const loginData = {
             ...data,
@@ -87,7 +87,7 @@ export const adminLoginUser = (data, history,module) => async (dispatch) => {
         if (result && result.status === 200) {
             const item = result.data;
             setCurrentUser(item);
-            localStorage.setItem("module",module);
+            localStorage.setItem('module', module);
             dispatch(adminLoginUserSuccess(result));
 
             history.push('/admin/dashboard');
@@ -108,7 +108,6 @@ export const adminLoginUser = (data, history,module) => async (dispatch) => {
 export const adminLoginUserLogOut = (history) => async () => {
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        console.log(URL.adminLogOut);
         const result = await axios
 
             .get(`${URL.adminLogOut}`, axiosConfig)
@@ -137,10 +136,7 @@ export const deleteTempMentorById = async (id) => {
                 return err.response;
             });
         if (result && result.status === 202) {
-            openNotificationWithIcon(
-                'success',
-                'Deleted Successfully'
-            );
+            openNotificationWithIcon('success', 'Deleted Successfully');
         } else {
             openNotificationWithIcon(
                 'error',
@@ -170,15 +166,9 @@ export const teacherResetPassword = (body) => async () => {
                 'Password Successfully Updated'
             );
         } else {
-            openNotificationWithIcon(
-                'error',
-                'Something went wrong'
-            );
+            openNotificationWithIcon('error', 'Something went wrong');
         }
     } catch (error) {
-        openNotificationWithIcon(
-            'error',
-            'Something went wrong'
-        );
+        openNotificationWithIcon('error', 'Something went wrong');
     }
 };

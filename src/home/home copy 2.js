@@ -309,7 +309,6 @@ const Home = () => {
         },
         
     ];
-    // console.log("----379",sidebar);
     
     return (
         <div className="home-main">

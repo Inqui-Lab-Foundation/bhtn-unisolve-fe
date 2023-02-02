@@ -55,8 +55,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             setMenuCollapse(true);
         }
     });
-    // console.log("-----57", location);
-    // console.log("-----50", location.pathname === '/admin/registered-schools' || location.pathname === '/admin/register-new-schools');
     const handleLogout = (e) => {
         logout(history, t, 'ADMIN');
         e.preventDefault();

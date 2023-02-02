@@ -243,7 +243,6 @@ const TicketsPage = (props) => {
         setNewList(false);
         props.getSchoolRegistationBulkUploadActions('i');
     };
-    // console.log(props.schoolsRegistrationList, '-----test');
     const [array, setarray] = useState([]);
     useEffect(() => {
         if (

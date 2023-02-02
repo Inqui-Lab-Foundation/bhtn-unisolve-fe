@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./InputBox.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './InputBox.scss';
 export const InputBox = ({
     // label,
     placeholder,
@@ -13,17 +13,16 @@ export const InputBox = ({
     id,
     className,
     isDisabled,
-    maxLength,
+    maxLength
     // ...props
 }) => {
     // const [values, setValue] = useState("");
-    // console.log("==========", values);
-    const design = type === "Email" ? "form-control1" : "form-control";
+    const design = type === 'Email' ? 'form-control1' : 'form-control';
     return (
         <div className={`InputBox  ${className}`}>
             <input
                 type={type}
-                className={["inputBox", `inputBox--${size}`, design].join(" ")}
+                className={['inputBox', `inputBox--${size}`, design].join(' ')}
                 value={value}
                 placeholder={placeholder}
                 // onChange={(e) => setValue(e.target.value)}
@@ -32,8 +31,8 @@ export const InputBox = ({
                 id={id}
                 name={name}
                 // onChange={onChange}
-                aria-describedby='basic-addon1'
-                disabled ={isDisabled}
+                aria-describedby="basic-addon1"
+                disabled={isDisabled}
                 maxLength={maxLength}
             />
         </div>
@@ -41,28 +40,28 @@ export const InputBox = ({
 };
 InputBox.propTypes = {
     /**
-   * Is this the principal call to action on the page?
-   */
+     * Is this the principal call to action on the page?
+     */
     primary: PropTypes.bool,
     /**
-   * What background color to use
-   */
+     * What background color to use
+     */
     backgroundColor: PropTypes.string,
     /**
-   * How large should the button be?
-   */
-    size: PropTypes.oneOf(["small", "medium", "large"]),
+     * How large should the button be?
+     */
+    size: PropTypes.oneOf(['small', 'medium', 'large']),
     /**
-   * Button contents
-   */
+     * Button contents
+     */
     /**
-   * Optional click handler
-   */
-    onClick: PropTypes.func,
+     * Optional click handler
+     */
+    onClick: PropTypes.func
 };
 InputBox.defaultProps = {
     //   backgroundColor: null,
     primary: false,
-    size: "medium",
-    onClick: undefined,
+    size: 'medium',
+    onClick: undefined
 };

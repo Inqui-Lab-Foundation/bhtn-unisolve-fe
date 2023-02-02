@@ -11,13 +11,15 @@ import AvatarImg from '../assets/media/img/teacher.png';
 
 // import { InputWithSearch } from "../stories/InputWithSearch/InputWithSearch.stories";
 // import { Badge } from "antd";
-import { getAdminNotificationsList, getTeacherPresurveyStatus } from "../redux/actions";
+import {
+    getAdminNotificationsList,
+    getTeacherPresurveyStatus
+} from '../redux/actions';
 // import { useHistory } from "react-router-dom";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { getCurrentUser } from "../helpers/Utils";
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from '../helpers/Utils';
 // import LanguageSelectorComp from "../components/LanguageSelectorComp";
 // import { useTranslation } from 'react-i18next';
-
 
 const Header = (props) => {
     // const { t } = useTranslation();
@@ -25,7 +27,9 @@ const Header = (props) => {
     const currentUser = getCurrentUser('current_user');
     // const MINUTE_MS = 30000;
     const dispatch = useDispatch();
-    const presurveyStatus = useSelector(state=>state?.mentors.teacherPresurveyStatus);
+    const presurveyStatus = useSelector(
+        (state) => state?.mentors.teacherPresurveyStatus
+    );
 
     // const profileOpt = {
     //     options: [
@@ -63,25 +67,23 @@ const Header = (props) => {
 
     // useEffect(() => {
     //     const interval = setInterval(() => {
-    //         // console.log("Logs every minute");
     //         props.getAdminNotificationsListActions(history);
     //     }, MINUTE_MS);
 
     //     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
     // }, []);
     useLayoutEffect(() => {
-        if(!presurveyStatus){
+        if (!presurveyStatus) {
             dispatch(getTeacherPresurveyStatus());
         }
     }, [dispatch]);
-    // console.log(
-    //   props.notificationsList,
-    //   "=============",
-    //   props.NotificationCount
-    // );
+
     return (
         <header>
-            <div className="header-comp sticky-top py-3" style={{height:"7.3rem"}}>
+            <div
+                className="header-comp sticky-top py-3"
+                style={{ height: '7.3rem' }}
+            >
                 <div className="header-container">
                     <div className="tollbar">
                         <div
@@ -104,12 +106,11 @@ const Header = (props) => {
                                         <CommonDropDownComp {...notifyOpt} />
                                     </Badge> */}
 
-                                    
                                     <div className="d-flex align-items-center profile">
                                         <img src={AvatarImg} />
-                                        <span className='header-name-size'>
+                                        <span className="header-name-size">
                                             {currentUser?.data[0].full_name}
-                                        </span> 
+                                        </span>
                                         {/* <CommonDropDownComp {...profileOpt} /> */}
                                         <span className="common-language-selc">
                                             {/* <LanguageSelectorComp module="mentor" /> */}

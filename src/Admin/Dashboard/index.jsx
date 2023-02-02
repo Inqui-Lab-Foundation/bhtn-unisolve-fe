@@ -38,7 +38,6 @@ const Dashboard = () => {
     const currentUser = getCurrentUser('current_user');
     const [diesCode, setDiesCode] = useState('');
     const [orgData, setOrgData] = useState({});
-    // console.log(orgData);
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -72,15 +71,13 @@ const Dashboard = () => {
 
         await axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
-                    
+
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        console.log(response);
                         getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
@@ -110,14 +107,12 @@ const Dashboard = () => {
 
         axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        console.log(response);
                         getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
@@ -144,7 +139,6 @@ const Dashboard = () => {
             .get(`${URL.getTeamMembersList}`, axiosConfig)
             .then((res) => {
                 if (res?.status == 200) {
-                    console.log(res);
                     var mentorTeamArray = [];
                     res &&
                         res.data &&
@@ -155,7 +149,6 @@ const Dashboard = () => {
                             var key = index + 1;
                             return mentorTeamArray.push({ ...teams, key });
                         });
-                    console.log('mentorTeamArray', mentorTeamArray);
                     setMentorTeam(mentorTeamArray);
                 }
             })
@@ -201,7 +194,8 @@ const Dashboard = () => {
                 if (result.isConfirmed) {
                     dispatch(
                         teacherResetPassword({
-                            organization_code: data.toString(),
+                            organization_code: data.organization_code,
+                            mentor_id: data.mentor_id,
                             otp: false
                         })
                     );
@@ -464,8 +458,11 @@ const Dashboard = () => {
                                         </button>
                                         <button
                                             onClick={() =>
-                                                handleresetpassword(
-                                                    orgData.organization_code
+                                                handleresetpassword( {
+                                                    mentor_id:orgData.mentor.mentor_id,
+                                                    organization_code:orgData.organization_code
+                                                }
+                                                    
                                                 )
                                             }
                                             className="btn btn-info rounded-pill px-4 btn-lg text-white"
@@ -555,8 +552,10 @@ const Dashboard = () => {
                             )}
                             {!diesCode && (
                                 // <Card className="mt-3 p-4">
-                                    <div className='d-flex  mt-3 p-4 justify-content-center align-items-center'>
-                                    <span className='text-primary fs-highlight'>Enter Teacher Unique Code</span>
+                                <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+                                    <span className="text-primary fs-highlight">
+                                        Enter Teacher Unique Code
+                                    </span>
                                 </div>
                                 // </Card>
                             )}

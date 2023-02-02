@@ -37,7 +37,6 @@ const ManageFaq = (props) => {
     // const [faqListDataTable, setFaqListDataTable] = useState([]);
     const [faqListDataTableCat, setFaqListDataTableCat] = useState([]);
 
-
     // const toggleFaqCatModal = () => {
     //     setShowFaqCatModal((showFaqCatModal) => !showFaqCatModal);
     // };
@@ -72,7 +71,7 @@ const ManageFaq = (props) => {
                                 key: data.faq_category_id,
                                 category_name: data.category_name,
                                 faqCatID: data.faq_category_id,
-                                faq_count:data?.faq_count
+                                faq_count: data?.faq_count
                             };
                             faqRowDataTableCat.push(eachRowFaqCat);
 
@@ -113,7 +112,6 @@ const ManageFaq = (props) => {
                     // setFaqStateList(faqRowData);
 
                     // setDataTableListData(faqRowDataTable);
-                    // console.log('line---120', faqRowDataTable);
 
                     setfaqCategoryListItems(faqRowDataTableCat);
                 }
@@ -170,7 +168,6 @@ const ManageFaq = (props) => {
     //                 name: 'Actions',
     //                 cell: row => {
     //                     let getfaqFilterDrop = faqFilterDrop(row.faqID);
-    //                     console.log("line 138",row);
     //                     return (
     //                         // <div {...getfaqFilterDrop}>...</div>
     //                         <CommonDropDownComp
@@ -208,14 +205,21 @@ const ManageFaq = (props) => {
                 {
                     name: 'Category Name',
                     selector: 'category_name',
-                    width: "45%",
+                    width: '45%',
                     sortable: true,
-                    cell:(params)=>[<Link key={params.faqCatID} to={`/admin/faq-by-category?id=${params.faqCatID}`}>{params?.category_name}</Link>]
+                    cell: (params) => [
+                        <Link
+                            key={params.faqCatID}
+                            to={`/admin/faq-by-category?id=${params.faqCatID}`}
+                        >
+                            {params?.category_name}
+                        </Link>
+                    ]
                 },
                 {
                     name: 'Total Questions Count',
                     selector: 'faq_count',
-                    width: "22%",
+                    width: '22%',
                     center: true
                 },
                 {
@@ -225,7 +229,7 @@ const ManageFaq = (props) => {
                             <i
                                 key={params.faqCatID}
                                 className="fa fa-edit"
-                                style={{marginRight:"10px"}}
+                                style={{ marginRight: '10px' }}
                                 onClick={() => handleCateEdit(params)}
                             />,
                             <i
@@ -293,10 +297,10 @@ const ManageFaq = (props) => {
     // };
 
     const deleteFaqCat = async (faqCatID) => {
-        console.log(
-            '🚀 ~ file: ManageFaq.jsx ~ line 134 ~ deleteFaq ~ faqID',
-            faqCatID
-        );
+        // console.log(
+        //     '🚀 ~ file: ManageFaq.jsx ~ line 134 ~ deleteFaq ~ faqID',
+        //     faqCatID
+        // );
 
         Swal.fire({
             title: 'Are you sure?',
@@ -321,10 +325,10 @@ const ManageFaq = (props) => {
                                 '',
                                 'success'
                             );
-                            console.log(
-                                '🚀 ~ file: ManageFaq.jsx ~ line 211 ~ .then ~ faqCategoryList',
-                                faqCategoryList
-                            );
+                            // console.log(
+                            //     '🚀 ~ file: ManageFaq.jsx ~ line 211 ~ .then ~ faqCategoryList',
+                            //     faqCategoryList
+                            // );
                             setfaqCategoryList(
                                 faqCategoryList.filter(
                                     (eachfaqCat) =>
@@ -362,17 +366,13 @@ const ManageFaq = (props) => {
     // };
 
     // const changeTab = (e) => {
-    //     // console.log(typeof e);
     //     if (e === '1') {
-    //         // console.log("3");
     //         activeFaqCategory(!getFaqCategory);
     //         activeFaq(false);
     //     } else if (e === '2') {
-    //         // console.log("2");
     //         activeFaq(!getFaq);
     //         activeFaqCategory(false);
     //     } else {
-    //         // console.log("1");
     //         activeFaqCategory(false);
     //         activeFaq(false);
     //         // activeStudent()

@@ -8,7 +8,6 @@ import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownC
 
 import { TableComponent } from '../../stories/TableComponent/TableComponent';
 const TicketDataTable = (props) => {
-    console.log(props, ':::::::::::');
     const [tableShow] = useState(true);
     // const [actionDropdown, setActionDropdown] = useState(false);
     // const [actionIndex, setActionIndex] = useState('');
@@ -21,7 +20,6 @@ const TicketDataTable = (props) => {
     //         setActionDropdown(false);
     //     }
     // };
-    // console.log(actionDropdown, 'actionDropdown', actionIndex);
 
     // const typeProps = {
     //     name: 'type: All',
@@ -50,7 +48,6 @@ const TicketDataTable = (props) => {
             { name: 'Course - 2', path: '/playCourse' }
         ]
     };
-    // console.log(props.typeProps1, 'line12')
     return (
         <div>
             <div className="tableActionTemplate">

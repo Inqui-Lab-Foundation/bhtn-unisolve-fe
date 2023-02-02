@@ -65,7 +65,6 @@ const Certificate = ({
               moment(certDate?.post_survey_completed_date).format('DD-MM-YYYY');
         return check ? ' on ' + check : '';
     };
-    console.log(type);
     return (
         <Card
             className="course-sec-basic p-5 m-4 w-100"
@@ -155,7 +154,10 @@ const MyCertificate = () => {
     useLayoutEffect(() => {
         if (!dashboardStatus)
             dispatch(
-                getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
+                getStudentDashboardStatus(
+                    currentUser?.data[0]?.user_id,
+                    language
+                )
             );
         if (!postSurveyStatusGl)
             dispatch(studentPostSurveyCertificate(language));
@@ -201,8 +203,9 @@ const MyCertificate = () => {
                                 <h6
                                     dangerouslySetInnerHTML={{
                                         __html:
-                                            t('dummytext.name') + currentUser?.data[0].full_name
-                                            // t('dummytext.school') + teamMember.team?.mentor?.organization?.organization_name
+                                            t('dummytext.name') +
+                                            currentUser?.data[0].full_name
+                                        // t('dummytext.school') + teamMember.team?.mentor?.organization?.organization_name
                                     }}
                                 ></h6>
                                 <p

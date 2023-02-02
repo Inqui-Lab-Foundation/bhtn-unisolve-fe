@@ -13,9 +13,9 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
-import {RiLogoutBoxRFill, RiLockPasswordFill} from 'react-icons/ri';
+import { RiLogoutBoxRFill, RiLockPasswordFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
-import {  logout } from "../../../helpers/Utils";
+import { logout } from '../../../helpers/Utils';
 // import DashboardIcon from '../assets/media/DashboardIcon.svg';
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
@@ -41,10 +41,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     //         setMenuCollapse(true);
     //     }
     // });
-    // console.log("-----57", location);
-    // console.log("-----50", location.pathname === '/admin/registered-schools' || location.pathname === '/admin/register-new-schools');
     const handleLogout = (e) => {
-        logout(history, t,"EADMIN");
+        logout(history, t, 'EADMIN');
         e.preventDefault();
     };
 
@@ -93,7 +91,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    
                     {/* <MenuItem
                         icon={<img src={DashboardIcon} style={{width:"20px"}}/>}
                         className={
@@ -106,9 +103,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem> */}
                     <MenuItem
-                        icon={ <FaLightbulb />}
+                        icon={<FaLightbulb />}
                         className={
-                            (location.pathname === '/eadmin/dashboard' || location.pathname ==='/eadmin/listofideas') &&
+                            (location.pathname === '/eadmin/dashboard' ||
+                                location.pathname === '/eadmin/listofideas') &&
                             'sidebar-active'
                         }
                     >
@@ -132,20 +130,15 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<RiLogoutBoxRFill  />}
+                        icon={<RiLogoutBoxRFill />}
                         className={location.pathname === '' && 'sidebar-active'}
                     >
                         <NavLink exact={true} onClick={handleLogout} to={''}>
                             Logout
                         </NavLink>
                     </MenuItem>
-
-                    
                 </Menu>
-
             </SidebarContent>
-
-       
         </ProSidebar>
     );
 };
