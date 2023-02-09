@@ -476,7 +476,6 @@
         "certificate_msg":"Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
         "name":"Name : ",
         "school":"</br>School : "      
-
     },
     "badges": {
         "congratulations": "Congratulations",
@@ -509,7 +508,6 @@
         "idea_submission_date_com_desc":"Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
         "go_to_course_button":"Go to course",
         "go_to_post_survey_button":"Go to Post Survey"
-
     },
     "translation": {
         "tamil": "bhtn Content :-",

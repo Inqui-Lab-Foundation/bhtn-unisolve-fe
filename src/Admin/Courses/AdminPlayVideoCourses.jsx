@@ -418,7 +418,6 @@ const AdminPlayVideoCourses = (props) => {
     // const OnLoaded = (e) => {
     // };
     // const video_stream_id = '666422934';
-    //
     // const video_id = Number(id);
 
     // const id =

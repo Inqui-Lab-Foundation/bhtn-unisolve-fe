@@ -949,31 +949,33 @@ with My School? */}
                                 <p>
                                     {/* Over 10,000+ Schools and Universities are partnered with
 Unisolve */}
-                        {t('home.unisolve_partner_paragraph')}
-                    </p>
-                    <Row>
-                        <Col md={9} className="my-auto">
-                            <Input
-                                {...inputField}
-                                id="organization_code"
-                                onChange={(e) => handleOnChange(e)}
-                                value={diesCode}
-                                name="organization_code"
-                                placeholder="Search your school here..."
-                                className="w-100 mb-3 mb-md-0"
-                                style={{ "borderRadius": "60px", "padding": "9px 11px" }} />
-                        </Col>
-                        <Col md={3} style={{ zIndex: "999" }}>
-                            <Button
-                                label="Search"
-                                btnClass="primary mx-3 w-100"
-                                size="small"
-                                onClick={(e) => handleSearch(e)} />
-
-                        </Col>
-                    </Row>
-
-
+                                    {t('home.unisolve_partner_paragraph')}
+                                </p>
+                                <Row>
+                                    <Col md={9} className="my-auto">
+                                        <Input
+                                            {...inputField}
+                                            id="organization_code"
+                                            onChange={(e) => handleOnChange(e)}
+                                            value={diesCode}
+                                            name="organization_code"
+                                            placeholder="Search your school here..."
+                                            className="w-100 mb-3 mb-md-0"
+                                            style={{
+                                                borderRadius: '60px',
+                                                padding: '9px 11px'
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col md={3} style={{ zIndex: '999' }}>
+                                        <Button
+                                            label="Search"
+                                            btnClass="primary mx-3 w-100"
+                                            size="small"
+                                            onClick={(e) => handleSearch(e)}
+                                        />
+                                    </Col>
+                                </Row>
                                 {orgData && show ? (
                                     <Card className="mt-3 text-left p-4">
                                         <CardBody>
