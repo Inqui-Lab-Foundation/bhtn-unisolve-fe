@@ -205,6 +205,13 @@ const TicketsPage = (props) => {
         }
         localStorage.setItem('mentor', JSON.stringify(item));
     };
+    const handleTeacherview = (item) => {
+        props.history.push({
+            pathname: `/admin/mentorDetails`,
+            data: item,
+        });
+    };
+
     const handleEdit = (item) => {
         props.history.push({
             pathname: `/admin/edit-user-profile`,
@@ -407,7 +414,7 @@ const TicketsPage = (props) => {
                     <Link
                         exact="true"
                         key={record.id}
-                        onClick={() => handleSelect(record, '2')}
+                        onClick={() => handleTeacherview(record)}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary btn-lg">VIEW</div>

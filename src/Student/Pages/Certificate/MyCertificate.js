@@ -207,7 +207,7 @@ const MyCertificate = () => {
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">
                 <Fragment>
-                    {!showDummypage ? (
+                    {showDummypage ? (
                         // all_topics_count === topics_completed_count || enablePostSurvey
                         <Row>
                             <Col className="d-lg-flex justify-content-center">
