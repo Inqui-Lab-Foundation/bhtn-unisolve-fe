@@ -358,7 +358,7 @@ const Dashboard = () => {
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
                 <h2 className="mb-5">Dashboard </h2>
-                <div className="dashboard p-5 mb-5">
+                {/* <div className="dashboard p-5 mb-5">
                     <div className="row">
                         <div style={{ flex: 1 }} className="col-lg-12">
                             Data
@@ -406,20 +406,7 @@ const Dashboard = () => {
                             orgData?.organization_name &&
                             orgData?.mentor !== null ? (
                                 <>
-                                    {/* <div>
-                                        <Descriptions
-                                            bordered
-                                            className='mt-3 text-left p-4'
-                                            column={{ xxl: 1, xl: 1, lg: 1, md: 3, sm: 2, xs: 1 }}
-                                        >
-                                            <Descriptions.Item label="School">{orgData.organization_name}</Descriptions.Item>
-                                            <Descriptions.Item label="City">{orgData.city}</Descriptions.Item>
-                                            <Descriptions.Item label="District">{orgData.district}</Descriptions.Item>
-                                            <Descriptions.Item label="Faculty Name">{orgData.mentor?.full_name}</Descriptions.Item>
-                                            <Descriptions.Item label="Faculty Mobile">{orgData.mentor?.mobile}</Descriptions.Item>
-                                            <Descriptions.Item label="Faculty email">{orgData.mentor?.user?.username}</Descriptions.Item>
-                                        </Descriptions>
-                                    </div> */}
+                                    
                                     <div className="mb-5 p-3" ref={pdfRef}>
                                         <div className="container-fluid card shadow border">
                                             <div className="row">
@@ -602,7 +589,7 @@ const Dashboard = () => {
                             )}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </Layout>
     );

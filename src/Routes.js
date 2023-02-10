@@ -67,6 +67,8 @@ import AdminNotification from './Admin/Notification';
 import AdminUserList from './Admin/UserList/Ticket';
 import AdminAddMentor from './Admin/UserList/AddNewMentor';
 import CommonUserProfile from './Admin/UserList/CommonUserProfile';
+import MentorDetails from './Admin/UserList/MentorView/ViewTeacherDetails';
+import ViewMentorMore from './Admin/UserList/MentorView/ViewMore';
 import CommonUserProfileEdit from './Admin/UserList/EditProfile';
 import AdminEvaluator from './Admin/UserList/AddNewEvaluator';
 import EditEvaluator from './Admin/UserList/EditNewEvaluator';
@@ -400,6 +402,16 @@ const Routers = () => {
                         exact={true}
                         path="/admin/userprofile"
                         component={CommonUserProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/mentorDetails"
+                        component={MentorDetails}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/View-More"
+                        component={ViewMentorMore}
                     />
                     {/* CommonUserProfileEdit */}
                     <ProtectedRoute
