@@ -15,9 +15,13 @@ import { getDistrictData } from '../../redux/studentRegistration/actions';
 import { ReasonsOptions } from '../Admin/Pages/ReasonForRejectionData';
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
+import { getCurrentUser } from '../../helpers/Utils';
+import Spinner from 'react-bootstrap/Spinner';
 
 const EvaluatedIdea = () => {
     const dispatch = useDispatch();
+    const [showspin,setshowspin]=React.useState(false);
+    const currentUser = getCurrentUser('current_user');
     const [reason, setReason] = React.useState('');
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
@@ -29,41 +33,48 @@ const EvaluatedIdea = () => {
     const SDGDate = cardData.map((i) => {
         return i.goal_title;
     });
-    SDGDate.push('ALL');
+    SDGDate.unshift('ALL SDGs');
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
     const statusdata = ['Accepted', 'Rejected', 'Both'];
 
-    // React.useEffect(() => {
-    //     dispatch(getL1EvaluatedIdea(filterParams));
-    // }, [reason, district, sdg, status]);
+    React.useEffect(() => {
+        if(status &&(status === 'Accepted')){
+            setReason('');
+        }
+    }, [status]);
+    const [levelName, setLevelName]=React.useState('');
+    const [evalSchema, setEvalSchema]=React.useState('');
+    
+    React.useEffect(()=>{
+        if(currentUser){
+            setLevelName(currentUser?.data[0]?.level_name);
+            setEvalSchema(currentUser?.data[0]?.eval_schema);
+        }
+    },[currentUser]);
 
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
 
     const handleclickcall = () => {
-        dispatch(getL1EvaluatedIdea(filterParams));
+        setshowspin(true);
+        dispatch(getL1EvaluatedIdea(filterParams,setshowspin));
     };
+    const levelparam = levelName === 'L1' ? '?level=L1' : '?evaluation_status=SELECTEDROUND1&level=L2';
     const statusparam =
         status && status !== 'Both'
-            ? '?evaluation_status=' +
+            ? '&evaluation_status=' +
               (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1')
             : '';
     const districtparam =
         district && district !== 'All Districts'
-            ? statusparam !== ''
-                ? '&district=' + district
-                : '?district=' + district
-            : '';
+            ? '&district=' + district : '';
     const sdgparam =
-        sdg && sdg !== 'ALL'
-            ? districtparam !== ''
-                ? '&sdg=' + sdg
-                : '?sdg=' + sdg
-            : '';
+        sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg: '';
     const filterParams =
+        levelparam +
         statusparam +
         districtparam +
         sdgparam +
@@ -72,7 +83,9 @@ const EvaluatedIdea = () => {
             : '?rejected_reason=' + reason));
 
     const [isDetail, setIsDetail] = React.useState(false);
-    const [ideaDetails, setIdeaDetails] = React.useState({});
+    const [ideaDetails, setIdeaDetails] = React.useState([]);
+    const [currentRow, setCurrentRow]=React.useState(1);
+    const [tablePage, setTablePage]=React.useState(1);
     // const evaluatedIdeaList = [
     //     {
     //         team_name: 'Test Team 1',
@@ -114,16 +127,16 @@ const EvaluatedIdea = () => {
             {
                 name: 'Evaluated At',
                 selector: (row) =>
-                    row.evaluated_at
+                evalSchema && evalSchema?.toLowerCase()=='accept_reject' ? row.evaluated_at
                         ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at,
+                        : row.evaluated_at : row?.evaluator_ratings[0]?.created_at ? moment(row?.evaluator_ratings[0]?.created_at).format('DD-MM-YY h:mm:ss a') : row?.evaluator_ratings[0]?.created_at,
                 width: '17%'
             },
             {
-                name: 'Status',
+                name: evalSchema && evalSchema?.toLowerCase()=='accept_reject'? 'Status':'Overall',
                 // selector: (row) => row.evaluation_status && row.evaluation_status=='SELECTEDROUND1'?'Accepted':row.evaluation_status=='REJECTEDROUND1'?'Rejected':'',
                 cell: (row) => {
-                    return [
+                    return evalSchema && evalSchema?.toLowerCase()=='accept_reject'?[
                         <div className="d-flex" key={row}>
                             {row.evaluation_status &&
                                 row.evaluation_status == 'SELECTEDROUND1' && (
@@ -134,6 +147,11 @@ const EvaluatedIdea = () => {
                             {row.evaluation_status == 'REJECTEDROUND1' && (
                                 <span className="text-danger">Rejected</span>
                             )}
+                        </div>
+                    ]:
+                    [
+                        <div className="d-flex" key={row}>
+                            <span>{row?.evaluator_ratings[0]?.overall}</span>
                         </div>
                     ];
                 },
@@ -149,6 +167,14 @@ const EvaluatedIdea = () => {
                                 onClick={() => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
+                                    let index=0;
+                                    evaluatedIdeaList?.forEach((item, i)=>{
+                                        if(item?.challenge_response_id==params?.challenge_response_id){
+                                            index=i;
+                                        }
+                                    });
+                                    setCurrentRow(index+1);
+                                  
                                 }}
                             >
                                 View Idea Details
@@ -161,6 +187,22 @@ const EvaluatedIdea = () => {
             }
         ]
     };
+    
+    const handleNext=()=>{
+        if(evaluatedIdeaList && currentRow < evaluatedIdeaList?.length){
+            setIdeaDetails(evaluatedIdeaList[currentRow]);
+            setIsDetail(true);
+            setCurrentRow(currentRow+1);
+        }
+    };
+    const handlePrev=()=>{
+        if(evaluatedIdeaList && currentRow >= 1){
+            setIdeaDetails(evaluatedIdeaList[currentRow-2]);
+            setIsDetail(true);
+            setCurrentRow(currentRow-1);
+            
+        }
+    };
 
     return (
         <Layout>
@@ -172,18 +214,20 @@ const EvaluatedIdea = () => {
                                 <h2 className="ps-2 pb-3">Evaluated Idea</h2>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
+                                        { evalSchema && evalSchema?.toLowerCase()=='accept_reject' && (
                                         <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={statusdata}
-                                                    setValue={setstatus}
-                                                    placeHolder={
-                                                        'Select Status'
-                                                    }
-                                                    value={status}
-                                                />
-                                            </div>
-                                        </Col>
+                                        <div className="my-3 d-md-block d-flex justify-content-center">
+                                            <Select
+                                                list={statusdata}
+                                                setValue={setstatus}
+                                                placeHolder={
+                                                    'Select Status'
+                                                }
+                                                value={status}
+                                            />
+                                        </div>
+                                    </Col>)}
+                                        
                                         <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
@@ -223,10 +267,10 @@ const EvaluatedIdea = () => {
                                             <Col md={1}>
                                                 <div className="text-center">
                                                     <Button
-                                                        btnClass={status && district && sdg ? 'primary': 'default'}
+                                                        btnClass={  evalSchema && evalSchema?.toLowerCase()=='accept_reject' ? status && district && sdg ? 'primary': 'default' : district && sdg ? 'primary': 'default'}
                                                         size="small"
                                                         label="Search"
-                                                        disabled={!(status && district && sdg)}
+                                                        disabled={!( evalSchema && evalSchema?.toLowerCase()=='accept_reject' ? status && district && sdg : district && sdg)}
                                                         onClick={() =>
                                                             handleclickcall()
                                                         }
@@ -237,8 +281,13 @@ const EvaluatedIdea = () => {
                                 </Container>
                             </div>
                         )}
-
-                        {!isDetail ? (
+                        {
+                        showspin && <div className='text-center mt-5'>
+                        <Spinner animation="border" variant="secondary"/>
+                        </div>
+                        }
+                        {!showspin && (
+                        !isDetail ? (
                             <div className="bg-white border card pt-3 mt-5">
                                 <DataTableExtensions
                                     print={false}
@@ -254,9 +303,11 @@ const EvaluatedIdea = () => {
                                         fixedHeader
                                         subHeaderAlign={Alignment.Center}
                                         paginationRowsPerPageOptions={[
-                                            10, 20, 30
+                                            10, 25, 50, 100
                                         ]}
                                         paginationPerPage={10}
+                                        onChangePage={(page)=>setTablePage(page)}
+                                        paginationDefaultPage={tablePage}
                                     />
                                 </DataTableExtensions>
                             </div>
@@ -264,8 +315,12 @@ const EvaluatedIdea = () => {
                             <EvaluatedIdeaDetail
                                 ideaDetails={ideaDetails}
                                 setIsDetail={setIsDetail}
+                                handleNext={handleNext}
+                                handlePrev={handlePrev}
+                                currentRow={currentRow}
+                                dataLength={evaluatedIdeaList && evaluatedIdeaList?.length}
                             />
-                        )}
+                        ))}
                     </div>
                 </div>
             </div>

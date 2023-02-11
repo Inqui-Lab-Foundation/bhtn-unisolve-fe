@@ -34,6 +34,7 @@ const TicketsPage = () => {
     }, []);
 
     async function listApi() {
+        // listApi = we can get all tickets//
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + '/supportTickets',
@@ -44,7 +45,6 @@ const TicketsPage = () => {
         };
         await axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status === 200) {
                     setAllTicketResponse(
                         response.data.data[0] &&
@@ -57,6 +57,7 @@ const TicketsPage = () => {
             });
     }
     async function openListApi() {
+        // openListApi= All open tickets //
         var config = {
             method: 'get',
             url:
@@ -69,7 +70,6 @@ const TicketsPage = () => {
         };
         await axios(config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     setAllTicketResponse(
                         response.data.data[0] &&
@@ -82,6 +82,7 @@ const TicketsPage = () => {
             });
     }
     async function inProgressApi() {
+        // inProgressApi = All inprogress tickets//
         var config = {
             method: 'get',
             url:
@@ -94,7 +95,6 @@ const TicketsPage = () => {
         };
         await axios(config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     setAllTicketResponse(
                         response.data.data[0] &&
@@ -107,6 +107,7 @@ const TicketsPage = () => {
             });
     }
     async function resolvedApi() {
+        // resolvedApi= All resolved tickets //
         var config = {
             method: 'get',
             url:
@@ -119,7 +120,6 @@ const TicketsPage = () => {
         };
         await axios(config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     setAllTicketResponse(
                         response.data.data[0] &&
@@ -131,7 +131,31 @@ const TicketsPage = () => {
                 console.log(error);
             });
     }
-
+    async function invalidApi() {
+        // invalidApi = All invalid tickets //
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/supportTickets?status=INVALID',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setAllTicketResponse(
+                        response.data.data[0] &&
+                            response.data.data[0].dataValues
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     const allData = {
         data: allTicketResponse,
         columns: [
@@ -197,6 +221,10 @@ const TicketsPage = () => {
                         <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
                             Resolved
                         </span>
+                    ) : params.status === 'INVALID' ? (
+                        <span className="bg-warning bg-opacity-25 px-4 py-2 rounded-pill text-warning fw-bold">
+                            Invalid
+                        </span>
                     ) : (
                         ''
                     )
@@ -220,8 +248,10 @@ const TicketsPage = () => {
             openListApi();
         } else if (e === '3') {
             inProgressApi();
-        } else {
+        } else if (e === '4') {
             resolvedApi();
+        } else {
+            invalidApi();
         }
     };
 
@@ -300,6 +330,27 @@ const TicketsPage = () => {
                                 </div>
                             </TabPane>
                             <TabPane tab="Resolved" key="4">
+                                <div className="my-2">
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...allData}
+                                        exportHeaders
+                                    >
+                                        <DataTable
+                                            data={rows}
+                                            // noHeader
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
+                            </TabPane>
+                            <TabPane tab="Invalid" key="5">
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}

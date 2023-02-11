@@ -32,13 +32,14 @@ const EditProfile = (props) => {
                 path: '/admin/userlist'
             },
             {
-                title: 'User Edit Profile'
+                title: 'User Edit Profile',
+                path: '/admin/userlist'
             }
         ]
     };
 
     // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
     const getValidationSchema = (data) => {
         const adminValidation = Yup.object({
@@ -134,6 +135,17 @@ const EditProfile = (props) => {
         }
     });
 
+    const handleDiscard = () => {
+        props.history.push(
+            mentorData.where === 'Dashbord'
+                ? '/admin/dashboard'
+                : '/admin/userlist'
+        );
+        localStorage.setItem(
+            'organization_code',
+            JSON.stringify(mentorData.organization_code)
+        );
+    };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -282,14 +294,15 @@ const EditProfile = (props) => {
                                             label="Discard"
                                             btnClass="secondary"
                                             size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    mentorData.where ===
-                                                        'Dashbord'
-                                                        ? '/admin/dashboard'
-                                                        : '/admin/userlist'
-                                                )
-                                            }
+                                            onClick={handleDiscard}
+                                            // onClick={() =>
+                                            //     props.history.push(
+                                            //         mentorData.where ===
+                                            //             'Dashbord'
+                                            //             ? '/admin/dashboard'
+                                            //             : '/admin/userlist'
+                                            //     )
+                                            // }
                                         />
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">

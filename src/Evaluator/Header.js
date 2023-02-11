@@ -47,16 +47,14 @@ const Header = (props) => {
                                 >
                                     {location.pathname?.split('/')?.pop()=='submitted-ideas' &&
                                         <div className="row w-100">
-                                        {/* <div className="col-sm-4 col-6">
+                                        <div className="col-sm-4 col-6">
                                             <p className="m-0 fs-3">
-                                                Total Idea:&nbsp;
+                                                Level:&nbsp;
                                                 <span className="fs-4 text-primary">
-                                                    {(allIdeaList &&
-                                                        allIdeaList?.length) ||
-                                                        0}
+                                                    {currentUser?.data[0]?.level_name}
                                                 </span>
                                             </p>
-                                        </div> */}
+                                        </div>
                                         <div className="col-sm-4 col-6">
                                             <p className="m-0 fs-3">
                                                 Processed:&nbsp;

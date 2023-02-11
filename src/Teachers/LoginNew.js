@@ -33,8 +33,11 @@ const LoginNew = (props) => {
     const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
-        const moduleName = localStorage.getItem("module");
-        if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
+        const moduleName = localStorage.getItem('module');
+        if (
+            localStorage.getItem('current_user') &&
+            localStorage.getItem('module')
+        ) {
             moduleName === 'MENTOR'
                 ? history.push('/teacher/dashboard')
                 : moduleName === 'ADMIN'
@@ -46,7 +49,7 @@ const LoginNew = (props) => {
                 : history.push('/dashboard');
         }
     }, []);
-    
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -59,8 +62,16 @@ const LoginNew = (props) => {
         }),
         // TEACHER ROLE
         onSubmit: (values) => {
-            if(localStorage.getItem("current_user") && localStorage.getItem("module")){
-                openNotificationWithIcon("error",`Another User(${localStorage.getItem("module")}) has already logged in`);
+            if (
+                localStorage.getItem('current_user') &&
+                localStorage.getItem('module')
+            ) {
+                openNotificationWithIcon(
+                    'error',
+                    `Another User(${localStorage.getItem(
+                        'module'
+                    )}) has already logged in`
+                );
                 return;
             }
             const key = CryptoJS.enc.Hex.parse(
@@ -79,7 +90,7 @@ const LoginNew = (props) => {
                 role: 'MENTOR'
             };
             // history.push("/admin/dashboard");
-            props.teacherLoginUserAction(body, history,"MENTOR");
+            props.teacherLoginUserAction(body, history, 'MENTOR');
         }
     });
 
@@ -114,7 +125,6 @@ const LoginNew = (props) => {
     //     openNotificationWithIcon("error", "Please check login details");
     //   }
     // }, [props.currentUser, props.error]);
-    // console.log("===========error", props.error);
     const handleShow = (e, type) => {
         if (type === 'password') {
             handlePassword('text');
@@ -122,9 +132,9 @@ const LoginNew = (props) => {
             handlePassword('password');
         }
     };
-    // const handleOnClick = () => {
-    //     setShowPopUp(true);
-    // };
+    const handleOnClick = () => {
+        setShowPopUp(true);
+    };
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
@@ -309,17 +319,17 @@ const LoginNew = (props) => {
                                                         </small>
                                                     </FormGroup>
                                                 </Col>
-                                                {/* <Col className="col-sm-2 text-right">
+                                                <Col className="col-sm-2 text-right">
                                                     <Link
                                                         exact="true"
                                                         onClick={handleOnClick}
                                                         className="text-link pt-1"
                                                     >
                                                         {t(
-                                                                'loginPage.Forgot_password'
-                                                            )}
+                                                            'loginPage.Forgot_password'
+                                                        )}
                                                     </Link>
-                                                </Col> */}
+                                                </Col>
                                             </Row>
                                         </Col>
                                     </div>
@@ -358,30 +368,74 @@ const LoginNew = (props) => {
                             <Label>Reference Videos</Label>
                                 <List>
                                     <li>
-                                        <a href="https://youtu.be/kO-k0ibR0Ug" target="_blank" rel='noopener noreferrer'>How to register in Web portal</a>
+                                        <a
+                                            href="https://youtu.be/kO-k0ibR0Ug"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How to register in Web portal
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://youtu.be/0_yokNMN-QM" target="_blank" rel='noopener noreferrer'>(Teacher Login + Forgot Password)</a>
+                                        <a
+                                            href="https://youtu.be/0_yokNMN-QM"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            (Teacher Login + Forgot Password)
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://youtu.be/94anzpnC4d8" target="_blank" rel='noopener noreferrer'>How to complete SIDP Teacher Modules</a>
+                                        <a
+                                            href="https://youtu.be/94anzpnC4d8"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How to complete SIDP Teacher Modules
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://youtu.be/VCN232xCmCQ" target="_blank" rel='noopener noreferrer'>How to create teams and add students</a>
+                                        <a
+                                            href="https://youtu.be/VCN232xCmCQ"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How to create teams and add students
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://youtu.be/RaeW9pIAAqg" target="_blank" rel='noopener noreferrer'>How to edit SIDP Student details/team</a>
+                                        <a
+                                            href="https://youtu.be/RaeW9pIAAqg"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How to edit SIDP Student
+                                            details/team
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://youtu.be/RaeW9pIAAqg" target="_blank" rel='noopener noreferrer'>How to give SIDP Login details to the students</a>
+                                        <a
+                                            href="https://youtu.be/RaeW9pIAAqg"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How to give SIDP Login details to
+                                            the students
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://youtu.be/qdmR-PA1KWc" target="_blank" rel='noopener noreferrer'>How the students can use the Website</a>
+                                        <a
+                                            href="https://youtu.be/qdmR-PA1KWc"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How the students can use the Website
+                                        </a>
                                     </li>
                                 </List>
                             </Col> */}
                         </Row>
-                    </Col> 
+                    </Col>
                 </Row>
             </div>
             {showPopUp && (

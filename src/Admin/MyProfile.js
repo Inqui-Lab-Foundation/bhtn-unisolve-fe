@@ -28,7 +28,6 @@ const MySwal = withReactContent(Swal);
 const onCancel = () => {
     Swal.close();
 };
-
 const btnSubmit = () => {
     Swal.close();
 };
@@ -121,7 +120,6 @@ const MyProfile = () => {
     //         body: '403802, Hydrabad, India'
     //     }
     // ];
-    console.log(currentUser);
 
     return (
         <Layout>
@@ -185,14 +183,6 @@ const MyProfile = () => {
                                                                         .name
                                                                 }
                                                             </b>
-                                                            {/* <p>
-                                                                {
-                                                                    currentUser.name
-                                                                }
-                                                            </p> */}
-                                                            {/* <b>
-                                                                ritusharma@gmail.com
-                                                            </b> */}
                                                         </CardText>
                                                         <CardText>
                                                             <span>state :</span>{' '}

@@ -175,7 +175,6 @@ const TeacherPlayVideo = (props) => {
             }
         };
         // let response = await axios(config);
-        // console.log("res", response);
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
@@ -220,7 +219,6 @@ const TeacherPlayVideo = (props) => {
     };
 
     async function modulesListUpdateApi(courseTopicId) {
-        // console.log(courseTopicId);
         const body1 = JSON.stringify({
             user_id: JSON.stringify(currentUser?.data[0]?.user_id),
             mentor_course_topic_id: JSON.stringify(courseTopicId),
@@ -293,12 +291,9 @@ const TeacherPlayVideo = (props) => {
         });
     };
 
-    const handleSeeked = (event) => {
-        // console.log("428 event fired: ", event);
-    };
+    const handleSeeked = (event) => {};
 
     // const handleTimeUpdate = (event) => {
-    //   // console.log("432event fired: ", event);
     //   if (event.seconds > "11.62") {
     //     // setModalShow(true);
     //   }

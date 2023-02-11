@@ -17,11 +17,24 @@ const CommonUserProfile = (props) => {
                 path: '/admin/userlist'
             },
             {
-                title: 'User List Profile'
+                title: 'User List Profile',
+                path: '/admin/userlist'
             }
         ]
     };
+    // localStorage.setItem('mentor', JSON.stringify(item));
 
+    const handleViewBack = () => {
+        history.push({
+            pathname: '/admin/userlist'
+        });
+        localStorage.setItem('dist', JSON.stringify(props.location.dist));
+        localStorage.setItem('num', JSON.stringify(props.location.num));
+        // localStorage.setItem(
+        //     'mentor',
+        //     JSON.stringify(mentor.organization_code)
+        // );
+    };
     return (
         <Layout>
             <Container className="mt-5 pt-5 dynamic-form">
@@ -33,8 +46,9 @@ const CommonUserProfile = (props) => {
                         <Button
                             btnClass={'primary'}
                             size="small"
-                            onClick={() => history.push('/admin/userlist')}
+                            // onClick={() => history.push('/admin/userlist')}
                             label="Back"
+                            onClick={handleViewBack}
                         />
                     </div>
                 </Row>
@@ -59,8 +73,10 @@ const CommonUserProfile = (props) => {
                                 <span className='mx-3'><b>Mobile:</b></span>
                                 <b>
                                     {props.location.data &&
-                                                props.location.data.mobile ? props.location.data &&
-                                                props.location.data.mobile : "-"}
+                                    props.location.data.mobile
+                                        ? props.location.data &&
+                                          props.location.data.mobile
+                                        : '-'}
                                 </b>
                             </CardText> */}
                             <CardText>

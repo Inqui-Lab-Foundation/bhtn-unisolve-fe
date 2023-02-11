@@ -441,7 +441,6 @@ const Home = () => {
             desc: `${t('home_tl.idea_desc_11')}`
         }
     ];
-    console.log('----379', sidebar);
 
     return (
         <div className="home-main overflow-hidden">
@@ -700,12 +699,17 @@ const Home = () => {
                         </Col>
                     </Row>
                     <Row className="sidp_row p-3 px-md-5">
-                        <Col md={6} className="pe-md-4">
-                            <div
+                        <Col md={12} className="pe-md-4">
+                            {/* <div
                                 dangerouslySetInnerHTML={{
                                     __html: t('home_tl.about_us_desc')
                                 }}
-                            ></div>
+                            ></div> */}
+                            <p>Ministry of Education is piloting Adolescents Skills and Employability project/Upshift programme across 64 schools and 10 youth centers in 2022. In partnership with UNICEF Bhutan, Youth Development Fund and Loden Foundation, Ministry aims to equip young people with a new set of 21st century skills, transferable skills, and other high-level thinking skills such as communication skills, problem-solving, decision-making, negotiation skills, teambuilding, and co-creating solutions to address social issues in communities.</p>
+                            <p>With support from partners, Ministry oriented 74 focal and 4639 upshifters (2496F) including out of school youth between February and June. Adolescents and young people across 64 schools and 10 youth centers are engaged in identifying social issues in communities, co-creating solutions using skills and knowledge they have learnt from the project, and implementing projects in partnership with community leaders, school management and other stakeholders.</p>
+                        </Col>
+                        <Col md={6} className="my-auto pb-0">
+                        <p>To encourage adolescent and young people to apply their skills and knowledge learnt through the process and to scale up upshift project, UNICEF and partners will shortlist 12 potential projects out of 74 projects and organize national innovation challenge in February 2023. Through the competition, at least top five ideas will be provided attractive SEED budget to scale up project and connect with online mentorship programme. Meanwhile, schools and youth centers are implementing projects and relying on UNISOLVE, an online digital upshift programme to enhance skills and knowledge of adolescents and young people.</p>
                         </Col>
                         {/* <Col md={6} className="my-auto ">
                             <div className="position-relative sidp_video_box">
@@ -727,6 +731,9 @@ const Home = () => {
                             >
                                 <Vimeo video={788903751} />
                             </div>
+                        </Col>
+                        <Col md={12}>
+                        <p>UNICEF and partners will continue to introduce upshift programme to other schools in the future to reach to most unreached adolescent and young people and prepare them to transit from learning institutes to labor market. Adolescents Skills and Employability project/Upshift programme was launched in May 2022 with support from UNICEF Regional Office and Office of Innovation.</p>
                         </Col>
                     </Row>
                 </Container>

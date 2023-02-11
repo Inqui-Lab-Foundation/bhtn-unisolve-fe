@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 const EditTeamMember = (props) => {
     const { t } = useTranslation();
-    const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+    const allowedAge = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
@@ -37,7 +37,7 @@ const EditTeamMember = (props) => {
             }
         ]
     };
-
+    // console.log(teamMemberData);
     const formik = useFormik({
         initialValues: {
             fullName: teamMemberData && teamMemberData.full_name,
@@ -50,9 +50,16 @@ const EditTeamMember = (props) => {
             fullName: Yup.string()
                 .required('Please Enter valid Full Name')
                 .max(40)
-                .matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters').trim(),
-            age: Yup.string()()
-                .required('Age is required'),
+                .matches(
+                    /^[A-Za-z0-9 ]*$/,
+                    'Please enter only alphanumeric characters'
+                )
+                .trim(),
+            age: Yup.number()
+                .integer()
+                .min(10, 'Min age is 10')
+                .max(18, 'Max age is 18')
+                .required('required'),
             gender: Yup.string().required('Please select valid gender'),
             grade: Yup.string()
                 .matches('', 'Please enter valid class')
@@ -111,7 +118,6 @@ const EditTeamMember = (props) => {
             item: item
         });
     };
-    console.log(formik);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -212,6 +218,12 @@ const EditTeamMember = (props) => {
                                                     <option value="">
                                                         Select Class..
                                                     </option>
+                                                    <option value="4">
+                                                        Grade 4
+                                                    </option>
+                                                    <option value="5">
+                                                        Grade 5
+                                                    </option>
                                                     <option value="6">
                                                         Grade 6
                                                     </option>
@@ -233,8 +245,11 @@ const EditTeamMember = (props) => {
                                                     <option value="12">
                                                         Grade 12
                                                     </option>
-                                                    <option value="Others">
-                                                        Others
+                                                    <option value="Youth center">
+                                                        Youth center
+                                                    </option>
+                                                    <option value="In College">
+                                                        In College
                                                     </option>
                                                 </select>
                                             </div>
@@ -310,9 +325,7 @@ const EditTeamMember = (props) => {
                                                     ? 'default'
                                                     : 'primary'
                                             }
-                                            disabled={ (
-                                                !formik.dirty
-                                            )}
+                                            disabled={!formik.dirty}
                                             size="small"
                                         />
                                     </Col>

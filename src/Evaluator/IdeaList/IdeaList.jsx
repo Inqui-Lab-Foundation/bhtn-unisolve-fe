@@ -48,16 +48,27 @@ const IdeaList = () => {
                                     setIsNextDiv={setIsNextDiv}
                                 />
                             ) : (
-                                <h2 className="my-auto text-center mt-5">
-                                    No Data available to process.
-                                </h2>
+                                <div className="row">
+                                    <div className="col-sm-6 m-auto">
+                                        <div className="card p-4 text-center">
+                                            <div className="success_img text-center w-100">
+                                                <img src={succesImg} alt=".." />
+                                                <br />
+                                            </div>
+                                            <h2 className="my-auto text-center my-4">
+                                                All idea has been processed, no more idea to display.
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     ) : (
                         <div className="col-sm-6 m-auto">
                             <div className="card p-4 text-center">
                                 <div className="success_img text-center w-100">
-                                 <img src={succesImg} alt=".." /><br />
+                                    <img src={succesImg} alt=".." />
+                                    <br />
                                 </div>
                                 <h2>Idea successfully processed!</h2>
                                 <p>Do you want to process another Idea?</p>

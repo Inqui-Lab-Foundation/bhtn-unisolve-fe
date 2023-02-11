@@ -95,7 +95,8 @@ const TicketResView = (props) => {
         options: [
             { label: 'OPEN', value: 'OPEN' },
             { label: 'INPROGRESS', value: 'INPROGRESS' },
-            { label: 'RESOLVED', value: 'RESOLVED' }
+            { label: 'RESOLVED', value: 'RESOLVED' },
+            { label: 'INVALID', value: 'INVALID' }
         ],
         className: 'defaultDropdown'
     };
@@ -203,111 +204,140 @@ const TicketResView = (props) => {
                                     }): null} */}
 
                                 {/* <div className="create-ticket register-block"> */}
-                                <Row>
-                                    <Card className="aside p-4 py-4">
-                                        <Col md={12}>
-                                            <Label
-                                                className="name-req mt-5"
-                                                htmlFor="ticketDetails"
-                                            >
-                                                Details
-                                            </Label>
-                                            <TextArea
-                                                className={'defaultInput'}
-                                                placeholder="Enter reply comments"
-                                                id="ansDetails"
-                                                name="ansDetails"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.ansDetails}
-                                            />
-
-                                            {formik.touched.ansDetails &&
-                                            formik.errors.ansDetails ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.ansDetails}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-
-                                        <Col
-                                            className="form-group my-5  mb-md-0"
-                                            md={12}
-                                        >
-                                            <Label className="mb-2">
-                                                Select Status
-                                            </Label>
-
-                                            <Col className="form-group" md={12}>
-                                                {console.log(formik.values)}
-                                                <DropDownWithSearch
-                                                    {...selectProgress}
+                                {supportTicket.status != 'INVALID' ? (
+                                    <Row>
+                                        <Card className="aside p-4 py-4">
+                                            <Col md={12}>
+                                                <Label
+                                                    className="name-req mt-5"
+                                                    htmlFor="ticketDetails"
+                                                >
+                                                    Details
+                                                </Label>
+                                                <TextArea
+                                                    className={'defaultInput'}
+                                                    placeholder="Enter reply comments"
+                                                    id="ansDetails"
+                                                    name="ansDetails"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
                                                     onBlur={formik.handleBlur}
-                                                    onChange={(option) => {
-                                                        formik.setFieldValue(
-                                                            'selectStatus',
-                                                            option[0].value
-                                                        );
-                                                    }}
-                                                    name="selectStatus"
-                                                    id="selectStatus"
+                                                    value={
+                                                        formik.values.ansDetails
+                                                    }
                                                 />
 
-                                                {formik.errors.selectStatus ? (
+                                                {formik.touched.ansDetails &&
+                                                formik.errors.ansDetails ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
-                                                                .selectStatus
+                                                                .ansDetails
                                                         }
                                                     </small>
                                                 ) : null}
                                             </Col>
 
                                             <Col
-                                                className="form-group mt-5  mb-md-0"
+                                                className="form-group my-5  mb-md-0"
                                                 md={12}
-                                            ></Col>
-                                        </Col>
-                                    </Card>
-                                </Row>
-                                {/* </div> */}
-                                {/* </Card> */}
+                                            >
+                                                <Label className="mb-2">
+                                                    Select Status
+                                                </Label>
+
+                                                <Col
+                                                    className="form-group"
+                                                    md={12}
+                                                >
+                                                    <DropDownWithSearch
+                                                        {...selectProgress}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={(option) => {
+                                                            formik.setFieldValue(
+                                                                'selectStatus',
+                                                                option[0].value
+                                                            );
+                                                        }}
+                                                        name="selectStatus"
+                                                        id="selectStatus"
+                                                    />
+
+                                                    {formik.errors
+                                                        .selectStatus ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .selectStatus
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+
+                                                <Col
+                                                    className="form-group mt-5  mb-md-0"
+                                                    md={12}
+                                                ></Col>
+                                            </Col>
+                                        </Card>
+                                    </Row>
+                                ) : null}
 
                                 <hr className="mt-4 mb-4"></hr>
                                 <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Discard"
-                                            btnClass="secondary"
-                                            size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    '/admin/tickets'
-                                                )
-                                            }
-                                        />
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
-                                            type="submit"
-                                            btnClass={
-                                                !(
-                                                    formik.dirty &&
-                                                    formik.isValid
-                                                )
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            size="small"
-                                            disabled={
-                                                !(
-                                                    formik.dirty &&
-                                                    formik.isValid
-                                                )
-                                            }
-                                        />
-                                    </Col>
+                                    {supportTicket.status != 'INVALID' ? (
+                                        <Col className="col-xs-12 col-sm-6">
+                                            <Button
+                                                label="Discard"
+                                                btnClass="secondary"
+                                                size="small"
+                                                onClick={() =>
+                                                    props.history.push(
+                                                        '/admin/tickets'
+                                                    )
+                                                }
+                                            />
+                                        </Col>
+                                    ) : (
+                                        <Col className="col-xs-12 col-sm-6">
+                                            <Button
+                                                label="Back"
+                                                btnClass="secondary"
+                                                size="small"
+                                                onClick={() =>
+                                                    props.history.push(
+                                                        '/admin/tickets'
+                                                    )
+                                                }
+                                            />
+                                        </Col>
+                                    )}
+                                    {supportTicket.status != 'INVALID' ? (
+                                        <Col className="submit-btn col-xs-12 col-sm-6">
+                                            <Button
+                                                label="Submit details"
+                                                type="submit"
+                                                btnClass={
+                                                    !(
+                                                        formik.dirty &&
+                                                        formik.isValid
+                                                    )
+                                                        ? 'default'
+                                                        : 'primary'
+                                                }
+                                                size="small"
+                                                disabled={
+                                                    !(
+                                                        formik.dirty &&
+                                                        formik.isValid
+                                                    )
+                                                }
+                                            />
+                                        </Col>
+                                    ) : null}
                                 </Row>
                             </Form>
                         </div>

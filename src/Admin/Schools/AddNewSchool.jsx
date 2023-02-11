@@ -115,6 +115,10 @@ const AddNewSchool = (props) => {
                     }
                 })
                 .catch((err) => {
+                    openNotificationWithIcon(
+                        'error',
+                        err.response.data.message
+                    );
                     return err.response;
                 });
         }

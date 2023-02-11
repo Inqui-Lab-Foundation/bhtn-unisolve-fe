@@ -27,7 +27,7 @@ export const getAdminEvalutorsList = () => async (dispatch) => {
         dispatch({ type: ADMIN_EVALUTORS_LIST });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getAdminEvaluator}`, axiosConfig)
+            .get(`${URL.getAdminEvaluator + '?status=ALL'}`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;

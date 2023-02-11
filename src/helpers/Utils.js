@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { notification } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -11,7 +12,6 @@ export const getCurrentUser = () => {
             localStorage.getItem('current_user') != null
                 ? JSON.parse(localStorage.getItem('current_user'))
                 : null;
-        // console.log(user, 'getCurrentUser---------------------------------------');
     } catch (error) {
         console.log(
             '>>>>: src/helpers/Utils.js  : getCurrentUser -> error',
@@ -23,7 +23,6 @@ export const getCurrentUser = () => {
 };
 
 export const setCurrentUser = (user) => {
-    console.log('===========user', user);
     try {
         if (user) {
             localStorage.setItem('current_user', JSON.stringify(user));
@@ -41,7 +40,6 @@ export const setCurrentUser = (user) => {
 export const getNormalHeaders = (apiKey) => {
     // it receive api_key argument if not it will assign null to it.
     const loginUser = getCurrentUser();
-    // console.log("=========", loginUser.data[0].token);
     let axiosConfig = {};
     if (loginUser) {
         // eslint-disable-next-line no-return-await
@@ -81,7 +79,7 @@ export const compareDates = (filterDate) => {
     );
 };
 
-export const logout = (history, t,module,dispatch) => {
+export const logout = (history, t, module, dispatch) => {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -89,7 +87,6 @@ export const logout = (history, t,module,dispatch) => {
         },
         buttonsStyling: false,
         allowOutsideClick: false
-
     });
 
     swalWithBootstrapButtons
@@ -107,11 +104,21 @@ export const logout = (history, t,module,dispatch) => {
             if (result.isConfirmed) {
                 if (result.isConfirmed) {
                     localStorage.clear();
-                    if(module)
-                        localStorage.removeItem('module');
-                    if(dispatch)
-                        dispatch(userLogout());
-                    history.push('/');
+                    if (module) localStorage.removeItem('module');
+                    if (dispatch) dispatch(userLogout());
+                    switch (module) {
+                        case 'EVALUATOR':
+                            history.push('/evaluator');
+                            break;
+                        case 'ADMIN':
+                            history.push('/admin');
+                            break;
+                        case 'EADMIN':
+                            history.push('/eadmin');
+                            break;
+                        default:
+                            history.push('/');
+                    }
                 }
             } else if (
                 /* Read more about handling dismissals below */

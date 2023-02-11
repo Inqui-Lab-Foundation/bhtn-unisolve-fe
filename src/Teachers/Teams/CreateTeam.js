@@ -40,7 +40,13 @@ const CreateTeam = (props) => {
             //     .matches(/^[A-Za-z ]*$/, 'Please enter Team name')
             //     .max(40)
             //     .required('Please enter Team name')
-            teamName: Yup.string().required('Please enter Team name').matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters').trim()
+            teamName: Yup.string()
+                .required('Please enter Team name')
+                .matches(
+                    /^[A-Za-z0-9 ]*$/,
+                    'Please enter only alphanumeric characters'
+                )
+                .trim()
         }),
 
         onSubmit: (values) => {
@@ -60,7 +66,6 @@ const CreateTeam = (props) => {
             };
             axios(config)
                 .then(function (response) {
-                    console.log(response);
                     if (response.status === 201) {
                         openNotificationWithIcon(
                             'success',
@@ -75,7 +80,7 @@ const CreateTeam = (props) => {
                     }
                 })
                 .catch(function (error) {
-                    console.log(error.response.data.status);
+                    // console.log(error.response.data.status);
                     if (error.response.data.status === 400) {
                         openNotificationWithIcon(
                             'warning',
@@ -152,7 +157,12 @@ const CreateTeam = (props) => {
                                                     : 'primary'
                                             }
                                             size="small"
-                                            disabled={!(formik.dirty && formik.isValid)}
+                                            disabled={
+                                                !(
+                                                    formik.dirty &&
+                                                    formik.isValid
+                                                )
+                                            }
                                         />
                                     </Col>
                                 </Row>
