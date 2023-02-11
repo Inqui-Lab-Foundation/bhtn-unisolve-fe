@@ -10,7 +10,7 @@ import { Dropdown } from 'react-bootstrap';
 import moment from 'moment';
 
 const ListContent = (notifyArrays) => {
-    // const notificationData1 = [...notify];
+    //
     // const notificationData = [
     //   {
     //     id: 1,

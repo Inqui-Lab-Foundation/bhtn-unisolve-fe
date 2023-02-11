@@ -81,7 +81,6 @@ function ExportPopup(props) {
 
     const changeHandler = (event) => {
         // setError("");
-        // const setFileName = event.target.files[0].name;
 
         const file = event.target.files[0].name.split('.', 2);
         if (file[1] === 'csv' || file[1] === '.xlsx' || file[1] === '.xls') {

@@ -206,7 +206,9 @@ const AddNewFaq = (props) => {
         toggleFaqCatModal();
     };
 
-    useEffect(() => {}, [formik.values, formik.errors]);
+    useEffect(() => {
+        // console.log('formik.values ', formik.values, formik.errors);
+    }, [formik.values, formik.errors]);
 
     useEffect(() => {
         // console.log(

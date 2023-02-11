@@ -80,7 +80,7 @@ const CreateTeam = (props) => {
                     }
                 })
                 .catch(function (error) {
-                    console.log(error.response.data.status);
+                    // console.log(error.response.data.status);
                     if (error.response.data.status === 400) {
                         openNotificationWithIcon(
                             'warning',

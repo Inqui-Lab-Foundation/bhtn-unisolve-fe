@@ -23,8 +23,8 @@ const studentBody = {
     Grade: '',
     Gender: ''
 };
-const grades = [4, 5, 6, 7, 8, 9, 10, 11, 12, 'Others'];
-const allowedAge = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+const grades = [4, 5, 6, 7, 8, 9, 10, 11, 12, 'Youth center', 'In College'];
+const allowedAge = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 
 const CreateMultipleMembers = ({ id }) => {
     const tempStudentData = {
@@ -246,9 +246,9 @@ const CreateMultipleMembers = ({ id }) => {
                                         <option value="">Select Grade</option>
                                         {grades.map((item) => (
                                             <option key={item} value={item}>
-                                                {item !== 'Others'
-                                                    ? 'Grade'
-                                                    : ''}{' '}
+                                                {item === 'Youth center' || item === 'In College'
+                                                    ? ''
+                                                    : 'Grade'}{' '}
                                                 {item}
                                             </option>
                                         ))}
@@ -620,8 +620,11 @@ const CreateTeamMember = (props) => {
                                                         <option value="12">
                                                             Grade 12
                                                         </option>
-                                                        <option value="Others">
-                                                            Others
+                                                        <option value="Youth center">
+                                                        Youth center
+                                                        </option>
+                                                        <option value="In College">
+                                                        In College
                                                         </option>
                                                     </select>
                                                 </div>

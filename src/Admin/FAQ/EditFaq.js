@@ -68,7 +68,6 @@ const EditFaq = (props) => {
     const history = useHistory();
 
     let { faqid } = useParams();
-    // console.log('🚀 ~ file: EditFaq.js ~ line 78 ~ EditFaq ~ faqid', faqid);
 
     // A custom hook that builds on useLocation to parse
     // the query string for you.

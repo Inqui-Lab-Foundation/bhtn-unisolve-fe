@@ -47,7 +47,6 @@ const Login = () => {
     const currentLanguage = languageOptions.find(
         (l) => l.code === currentLanguageCode
     );
-    // console.log('=========', currentLanguage);
     const cardProps = {
         primary: true,
         label: 'ImageCardComp',

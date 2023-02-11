@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 
 const SingleMapdataCard = ({ title, value1, value2 }) => {
-    // console.log({ title, value1, value2 });
     return (
         <Card
             className="card text-dark bg-light mb-3"

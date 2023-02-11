@@ -222,7 +222,10 @@ const MapdataCard = ({ values, all, districtName }) => {
                             <div className="mb-5 d-flex align-items-center ">
                                 <img src={team} alt="teams" className="mx-4" />
                                 <div>
-                                    <h4>{all && '0'}</h4>
+                                    <h4>
+                                        {Number(values.boys) +
+                                            Number(values.girls)}
+                                    </h4>
                                     <small className="blue">UPSHIFTers</small>
                                 </div>
                             </div>

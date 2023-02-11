@@ -117,6 +117,10 @@ const TicketsPage = (props) => {
                         <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
                             Resolved
                         </span>
+                    ) : params.status === 'INVALID' ? (
+                        <span className="bg-warning bg-opacity-25 px-4 py-2 rounded-pill text-warning fw-bold">
+                            Invalid
+                        </span>
                     ) : (
                         ''
                     )

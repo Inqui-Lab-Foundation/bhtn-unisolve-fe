@@ -15,7 +15,7 @@ import {
     ProSidebar,
     Menu,
     MenuItem,
-    SubMenu,
+    // SubMenu,
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
@@ -153,14 +153,25 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<FaPen />}
                         className={
-                            (location.pathname === '/admin/evaluation' ||
+                            (location.pathname === '/admin/evaluationStatus' ||
                                 location.pathname ===
-                                    '/admin/evaluation/viewlist') &&
+                                    '/admin/evaluationStatus/viewlist') &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/evaluation'}>
-                            Evaluation
+                        <NavLink exact={true} to={'/admin/evaluationStatus'}>
+                            Evaluation Status
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaPen />}
+                        className={
+                            location.pathname === '/admin/evaluationProcess' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/admin/evaluationProcess'}>
+                            Evaluation Config
                         </NavLink>
                     </MenuItem>
                     <MenuItem
@@ -275,7 +286,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             Tranlsation
                         </NavLink>
                     </MenuItem>
-                    <SubMenu
+                    {/* <SubMenu
                         title="Settings"
                         icon={<img src={TicketIcon} />}
                         data-element={location.pathname}
@@ -296,8 +307,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             <NavLink exact={true} to={'/admin/road-map'}>
                                 Schedule Roadmap
                             </NavLink>
-                        </MenuItem>
-                        {/* <MenuItem
+                        </MenuItem> */}
+                    {/* <MenuItem
                             icon={
                                 <img
                                     src={FaqIcon}
@@ -314,7 +325,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Tranlsation
                             </NavLink>
                         </MenuItem> */}
-                    </SubMenu>
+                    {/* </SubMenu> */}
 
                     <MenuItem
                         icon={

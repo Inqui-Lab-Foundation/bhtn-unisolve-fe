@@ -121,7 +121,7 @@ const FaqByCategory = () => {
         data: data,
         columns: [
             {
-                name: 'S.No.',
+                name: 'No.',
                 selector: 'index',
                 sortable: true,
                 width: '10%'

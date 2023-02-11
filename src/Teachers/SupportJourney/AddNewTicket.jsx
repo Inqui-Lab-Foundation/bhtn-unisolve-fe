@@ -70,8 +70,6 @@ const AddNewTicket = (props) => {
         }
     });
 
-    // console.log(formik.errors);
-
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">

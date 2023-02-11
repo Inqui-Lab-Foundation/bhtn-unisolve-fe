@@ -5,13 +5,16 @@ import {
     ADMIN_LOGIN_USER_SUCCESS,
     ADMIN_LOGIN_USER_ERROR,
     ADMIN_LANGUAGE,
-    GET_ADMINS
+    GET_ADMINS,
+    ADMIN_LIST_SUCCESS,
+    ADMIN_LIST_ERROR
 } from '../../../redux/actions.js';
 
 
 const INIT_STATE = {
     currentUser: {},
     adminData:[],
+    adminList:[],
     loading: false,
     adminLanguage:languageOptions[0], 
     error: '',
@@ -45,6 +48,16 @@ export default (state = INIT_STATE, action) => {
             ...state,
             adminLanguage:action.payload
         };
+    case ADMIN_LIST_SUCCESS:
+        return {
+            ...state,
+            adminList:action.payload
+        }; 
+    case ADMIN_LIST_ERROR:
+        return {
+            ...state,
+            adminList:action.payload
+        };  
     default:
         return newState;
     }

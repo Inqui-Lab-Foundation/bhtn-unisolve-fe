@@ -2,11 +2,10 @@
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
-import {
-    // EyeOutlined,
-    // EyeInvisibleOutlined,
-    // CalendarOutlined
-} from '@ant-design/icons';
+import // EyeOutlined,
+// EyeInvisibleOutlined,
+// CalendarOutlined
+'@ant-design/icons';
 import { Label } from 'reactstrap';
 import { Button } from '../stories/Button';
 import { useFormik } from 'formik';
@@ -29,19 +28,19 @@ const Register = (props) => {
 
     const inputPhone = {
         type: 'text',
-        placeholder: 'Evaluator Phone Number',
+        placeholder: 'Enter Phone Number',
         className: 'defaultInput'
     };
 
     const inputEmail = {
         type: 'email',
-        placeholder: 'Evaluator Email Address',
+        placeholder: 'Enter Email Address',
         className: 'defaultInput'
     };
 
     const inputName = {
         type: 'text',
-        placeholder: 'Evaluator Full Name',
+        placeholder: 'Enter Full Name',
         className: 'defaultInput'
     };
     // const password = {
@@ -65,7 +64,7 @@ const Register = (props) => {
         className: 'defaultInput'
     };
 
-    const validationForEvaluator=Yup.object({
+    const validationForEvaluator = Yup.object({
         full_name: Yup.string()
             .trim()
             .min(2, 'Enter Name')
@@ -90,7 +89,7 @@ const Register = (props) => {
         // qualification: Yup.string().trim().required('Required'),
         district: Yup.string().trim().required('Required')
     });
-    const validationForAdmin=Yup.object({
+    const validationForAdmin = Yup.object({
         full_name: Yup.string()
             .trim()
             .min(2, 'Enter Name')
@@ -108,18 +107,24 @@ const Register = (props) => {
             mobile: '',
             full_name: '',
             password: '',
-            role: props.roleToBeAdded ==="EVALUATOR" ? 'EVALUATOR':'ADMIN',
+            role: props.roleToBeAdded === 'EVALUATOR' ? 'EVALUATOR' : 'ADMIN',
             // date_of_birth: '',
             // qualification: '',
             district: ''
         },
 
-        validationSchema: props.roleToBeAdded ==="EVALUATOR"?validationForEvaluator : validationForAdmin,
+        validationSchema:
+            props.roleToBeAdded === 'EVALUATOR'
+                ? validationForEvaluator
+                : validationForAdmin,
 
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-            values.password = props.roleToBeAdded ==="EVALUATOR" ? values.mobile.trim():values.username.trim();
+            values.password =
+                props.roleToBeAdded === 'EVALUATOR'
+                    ? values.mobile.trim()
+                    : values.username.trim();
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
             );
@@ -131,17 +136,18 @@ const Register = (props) => {
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             values.password = encrypted;
-            const actualUrl = props.roleToBeAdded ==="EVALUATOR" ? URL.evaluatorRegister: URL.adminRegister;
+            const actualUrl =
+                props.roleToBeAdded === 'EVALUATOR'
+                    ? URL.evaluatorRegister
+                    : URL.adminRegister;
             await axios
-                .post(
-                    actualUrl,
-                    JSON.stringify(values, null, 2),
-                    axiosConfig
-                )
+                .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
                         // setUserData(evaluatorRegRes?.data?.data[0]);
-                        props.roleToBeAdded ==="EVALUATOR"  ? dispatch(getAdminEvalutorsList())  :dispatch(getAdmin());
+                        props.roleToBeAdded === 'EVALUATOR'
+                            ? dispatch(getAdminEvalutorsList())
+                            : dispatch(getAdmin());
                         openNotificationWithIcon(
                             'success',
                             evaluatorRegRes?.data?.message
@@ -177,7 +183,7 @@ const Register = (props) => {
     //             break;
     //     }
     // };
-    const dists = ["ADMIN","EADMIN"];
+    const dists = ['ADMIN', 'EADMIN'];
     return (
         <Modal
             {...props}
@@ -206,10 +212,23 @@ const Register = (props) => {
                         onSubmit={formik.handleSubmit}
                         isSubmitting
                     >
-                        <div className={`row justify-content-center pe-md-0 ${props.roleToBeAdded !=='EVALUATOR' && 'add-admin'}`}>
-                            <div className={`col-md-6 p-0 ${props.roleToBeAdded !=='EVALUATOR' && 'w-100'}`}>
+                        <div
+                            className={`row justify-content-center pe-md-0 ${
+                                props.roleToBeAdded !== 'EVALUATOR' &&
+                                'add-admin'
+                            }`}
+                        >
+                            <div
+                                className={`col-md-6 p-0 ${
+                                    props.roleToBeAdded !== 'EVALUATOR' &&
+                                    'w-100'
+                                }`}
+                            >
                                 <FormGroup
-                                    className={`form-group mt-md-0 mt-5 ${props.roleToBeAdded ==='EVALUATOR' && 'me-md-3'}`}
+                                    className={`form-group mt-md-0 mt-5 ${
+                                        props.roleToBeAdded === 'EVALUATOR' &&
+                                        'me-md-3'
+                                    }`}
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="name">
@@ -364,11 +383,14 @@ const Register = (props) => {
                                 </div>
 
                                 <div className="col-md-6 p-0">
-                                <FormGroup
+                                    <FormGroup
                                         className="form-group mt-5"
                                         md={12}
                                     >
-                                        <Label className="mb-2" htmlFor="district">
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="district"
+                                        >
                                             District Name
                                         </Label>
                                         <InputBox

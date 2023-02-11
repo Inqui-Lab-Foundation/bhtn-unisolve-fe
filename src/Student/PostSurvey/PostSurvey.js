@@ -141,6 +141,13 @@ const PostSurvey = () => {
                     language
                 )
             );
+        if (!topicCompletedCount)
+            dispatch(
+                getStudentDashboardStatus(
+                    currentUser?.data[0]?.user_id,
+                    language
+                )
+            );
     }, [language, dispatch, currentUser?.data[0]?.team_id]);
 
     useEffect(() => {

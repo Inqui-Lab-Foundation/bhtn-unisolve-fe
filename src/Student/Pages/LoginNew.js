@@ -413,13 +413,31 @@ const LoginNew = (props) => {
                             {/* <Col>
                                 <List type="unstyled">
                                     <li>
-                                        <a href="http://tiny.cc/StudentVideoOne" target="_blank" rel='noopener noreferrer'>Click here to watch video 1</a>
+                                        <a
+                                            href="http://tiny.cc/StudentVideoOne"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Click here to watch video 1
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="http://tiny.cc/StudentVideoTwo" target="_blank" rel='noopener noreferrer'>Click here to watch video 2</a>
+                                        <a
+                                            href="http://tiny.cc/StudentVideoTwo"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Click here to watch video 2
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="http://tiny.cc/StudentVideoThree" target="_blank" rel='noopener noreferrer'>Click here to watch video 3</a>
+                                        <a
+                                            href="http://tiny.cc/StudentVideoThree"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Click here to watch video 3
+                                        </a>
                                     </li>
                                 </List>
                             </Col> */}

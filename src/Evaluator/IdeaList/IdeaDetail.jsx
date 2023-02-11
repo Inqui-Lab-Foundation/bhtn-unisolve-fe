@@ -9,18 +9,13 @@ import { getSubmittedIdeaList } from '../store/evaluator/action';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Modal } from 'react-bootstrap';
 import Select from '../Helper/Select';
-import NumberScale from './NumberScale';
+import RateIdea from './RateIdea';
 
 const IdeaDetail = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
-    const ratingParams=['novelity', 'usefulness', 'feasability', 'scalability', 'affordability'];
     const [teamResponse, setTeamResponse] = React.useState([]);
-    const [novelityScore, setNovelityScore] = React.useState(0);
-    const [usefulnessScore, setUsefulnessScore] = React.useState(0);
-    const [feasabilityScore, setFeasabilityScore] = React.useState(0);
-    const [scalabilityScore, setScalabilityScore] = React.useState(0);
-    const [affordabilityScore, setAffordabilityScore] = React.useState(0);
+   
     const [isReject, setIsreject]=React.useState(false);
     const [reason, setReason]=React.useState('');
     const selectData = [
@@ -31,7 +26,7 @@ const IdeaDetail = (props) => {
         'Inaccurate Data (Form is not filled properly)'
     ];
 
-     // eslint-disable-next-line no-unused-vars
+
      const [levelName, setLevelName]=React.useState('');
      const [evalSchema, setEvalSchema]=React.useState('');
      React.useEffect(()=>{
@@ -136,7 +131,7 @@ const IdeaDetail = (props) => {
                             <div className="row">
                                 <div className="col-sm-8">
                                     <h2 className="mb-md-4 mb-3">
-                                        SGD:{' '}
+                                        SDG:{' '}
                                         <span className="text-capitalize fs-3">
                                             {props?.ideaDetails?.sdg?.toLowerCase() ||
                                                 ''}
@@ -218,6 +213,7 @@ const IdeaDetail = (props) => {
                                     </div>
                                 );
                             })}
+                            {/* -----level 1 accept/reject process---- */}
                             {evalSchema?.toLowerCase()=='accept_reject' && 
                                 <div className="d-md-flex">
                                 
@@ -251,69 +247,12 @@ const IdeaDetail = (props) => {
 
                     {/* //-----------Rating section---- */}
                     {evalSchema?.toLowerCase()=='rating_scale'? (
-                        <div className="rating_card mt-md-5 mt-4 card p-md-4 p-5">
-                            <h2 className="mb-3">Evaluation Rating Scale:</h2>
-                            <div className="row mt-1 ps-4">
-                               
-                                {ratingParams?.map((item, index) => {
-                                    return (
-                                        <div className="col-12 mb-lg-4 mb-5 p-0" key={index}>
-                                            <div className="">
-                                                <label
-                                                    htmlFor="novelity"
-                                                    className="form-label text-capitalize"
-                                                >
-                                                    {item} score -{' '}
-                                                    <span
-                                                        className={
-                                                            (item==='novelity'?novelityScore:item==='usefulness'?usefulnessScore:item==='feasability'?feasabilityScore:item==='scalability'?scalabilityScore:affordabilityScore )== 0
-                                                                ? 'text-muted fs-2'
-                                                                : 'fs-2 text-primary'
-                                                        }
-                                                    >
-                                                        {item==='novelity'?novelityScore:item==='usefulness'?usefulnessScore:item==='feasability'?feasabilityScore:item==='scalability'?scalabilityScore:affordabilityScore}
-                                                    </span>
-                                                </label>
-                                                <NumberScale
-                                                    name={item}
-                                                    setScore={item==='novelity'?setNovelityScore:item==='usefulness'?setUsefulnessScore:item==='feasability'?setFeasabilityScore:item==='scalability'?setScalabilityScore:setAffordabilityScore}
-                                                    text1={'Not at all Likely'}
-                                                    text2={'Maybe'}
-                                                    text3={'Extremely Likely'}
-                                                />
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                                <div className="row">
-                                    <div className="col-md-7 mb-md-5 mb-4 p-0">
-                                        <p className='fs-4 mb-1'>
-                                            Could You please tell us what we can do to make you give us a rating of 10?
-                                        </p>
-                                        <div className="form-floating">
-                                            <textarea
-                                                className="form-control fs-4 lh-sm"
-                                                maxLength={500}
-                                                placeholder="Leave a comment here"
-                                                id="ComentTextarea"
-                                                style={{ height: '10rem' }}
-                                            ></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    <Button
-                                        btnClass="primary"
-                                        size="small"
-                                        label="Submit"
-                                        // onClick={() => {
-                                        //     props?.setIsIdeaDetail(false);
-                                        // }}
-                                    />
-                                </div>
-                            </div>
-                           
-                        </div>
+                       <RateIdea
+                        challenge_response_id={props?.ideaDetails?.challenge_response_id}
+                        evaluator_id={currentUser?.data[0]?.user_id}
+                        level={levelName}
+                        setIsNextDiv={props?.setIsNextDiv}
+                       />
                     ):
                     <>
                     </>

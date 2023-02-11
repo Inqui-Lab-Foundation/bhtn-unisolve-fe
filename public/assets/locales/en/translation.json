@@ -344,6 +344,7 @@
         "please_com_all": "Please complete all the fields before submitting",
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",
+        "idea_submitted_description": "<h2>Idea submissions are closed</h2>.</br><p>Continue to complete your post survey and get your certificate.</p>",
         "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
         "post_survey_desc": "Congratulations! your SIC journey for 2022-23 is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
@@ -435,10 +436,11 @@
         "are_you_sure": "Are you sure?",
         "btn_logout": "Logout",
         "btn_cancel": "Cancel",
-        "btn_ok": "ok",
-        "cancelled": "Cancelled",
-        "logged_in": "You are Logged in",
-        "submit_idea": "You are attempting to submit your idea Which is not revertable"
+        "btn_ok":"ok",
+        "cancelled":"Cancelled",
+        "logged_in":"You are Logged in",
+        "submit_idea":"You are attempting to submit your idea Which is not revertable",
+        "idea_sub_cancelled":"Idea Submission Cancelled"
     },
     "teacehr_red": {
         "heading": "REGISTER",
@@ -467,43 +469,48 @@
         "please_download": "Please Download Handbook...",
         "org_type": "Type"
     },
-    "dummytext": {
-        "student_idea_sub": "Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
-        "student_my_cer": "<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p><p>All the best for your exams! :)</p>",
-        "student_post_survey": "Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",
-        "student_course": "Dear Student, your SIC learning journey will begin soon. Please discuss with your School SIC Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂",
-        "certificate_msg": "Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
-        "name": "Name : ",
-        "school": "</br>School : "
+    "dummytext":{
+        "student_idea_sub":"Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
+        "student_my_cer":"<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p><p>All the best for your exams! :)</p>",
+        "student_post_survey":"Dear Students, Post-Survey will be active once you complete the course. Hope you and your team are learning a lot of new things. :)",        
+        "student_course":"Dear Student, your SIC learning journey will begin soon. Please discuss with your School SIC Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂" ,
+        "certificate_msg":"Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
+        "name":"Name : ",
+        "school":"</br>School : "      
+
     },
     "badges": {
         "congratulations": "Congratulations",
         "earn": "you've just earned a new badge",
         "ok": "OK"
     },
-    "student_course": {
-        "modules": "Modules",
-        "videos": "Videos",
-        "start course": "Start Course",
-        "full screen": "Full Screen",
-        "lessons": "Lessons",
-        "continue course": "Continue Course",
-        "exitfullscreen": "Exit Full Screen",
-        "quiz_completed": "Successfully Completed!",
-        "go_idea_submission": "Continue",
-        "go_certificate": "Go to My Certificate",
-        "course_completed_succ": "Congratulations for successful completion of all the lessons!",
-        "continue_to_idea": "Click on continue to proceed to Idea Submission.",
-        "sdg": "Which Sustainable development Goal (SDG) are you targeting with your solution ?",
-        "sdg_desc": "(You can refer to the SDGs sheet from FIND Module and pick the right option )",
-        "others": "If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
-        "chars": "Characters Remaining",
-        "idea_submission": "Idea Submission",
-        "idea_submission_msg1": "Idea submission is",
-        "idea_status1": " initiated by ",
-        "idea_status2": " submitted by ",
-        "idea_submission_msg2": "your teammate ",
-        "idea_submission_msg3": " on "
+    "student_course":{
+        "modules":"Modules",
+        "videos":"Videos",
+        "start course":"Start Course",
+        "full screen":"Full Screen",
+        "lessons":"Lessons",
+        "continue course":"Continue Course",
+        "exitfullscreen":"Exit Full Screen",
+        "quiz_completed":"Successfully Completed!",
+        "go_idea_submission":"Continue",
+        "go_certificate":"Go to My Certificate",
+        "course_completed_succ":"Congratulations for successful completion of all the lessons!",
+        "continue_to_idea":"Click on continue to proceed to Idea Submission.",
+        "sdg":"Which Sustainable development Goal (SDG) are you targeting with your solution ?",
+        "sdg_desc":"(You can refer to the SDGs sheet from FIND Module and pick the right option )",
+        "others":"If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
+        "chars":"Characters Remaining",
+        "idea_submission":"Idea Submission",
+        "idea_submission_msg1":"Idea submission is",
+        "idea_status1":" initiated by ",
+        "idea_status2":" submitted by ",
+        "idea_submission_msg2":"your teammate ",
+        "idea_submission_msg3":" on ",
+        "idea_submission_date_com_desc":"Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
+        "go_to_course_button":"Go to course",
+        "go_to_post_survey_button":"Go to Post Survey"
+
     },
     "translation": {
         "tamil": "bhtn Content :-",

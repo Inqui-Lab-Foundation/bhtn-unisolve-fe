@@ -288,12 +288,14 @@ const LoginEvaluator = (props) => {
                                                     )
                                                 }
                                             />
-                                            {/* <div
-                                        className="text-primary text-center fs-4 pointer pt-1 mt-4"
-                                        onClick={() => setRegisterModalShow(true)}
-                                    >
-                                        Sign Up
-                                    </div> */}
+                                            <div
+                                                className="text-primary text-center fs-4 pointer pt-1 mt-4"
+                                                onClick={() =>
+                                                    setRegisterModalShow(true)
+                                                }
+                                            >
+                                                Sign Up
+                                            </div>
                                         </Col>
                                     </div>
                                 </Form>
