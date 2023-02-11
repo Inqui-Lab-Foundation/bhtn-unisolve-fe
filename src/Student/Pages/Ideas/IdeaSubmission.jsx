@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useLayoutEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,8 +6,8 @@ import CommonPage from '../../../components/CommonPage';
 import { getCurrentUser } from '../../../helpers/Utils';
 import { getStudentChallengeSubmittedResponse } from '../../../redux/studentRegistration/actions';
 import Layout from '../../Layout';
-import IdeasPageNew from './IdeasPageCopy';
-import SDG from './SDG';
+// import IdeasPageNew from './IdeasPageCopy';
+// import SDG from './SDG';
 import { useTranslation } from 'react-i18next';
 
 const IdeaSubmission = () => {
@@ -15,11 +16,13 @@ const IdeaSubmission = () => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-    const challengesSubmittedResponse  = useSelector(
+    const challengesSubmittedResponse = useSelector(
         (state) => state?.studentRegistration.challengesSubmittedResponse
     );
     const currentUser = getCurrentUser('current_user');
+    // eslint-disable-next-line no-unused-vars
     const [showChallenges, setShowChallenges] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [showCompleted, setShowCompleted] = useState(false);
     const [view, setView] = useState(false);
     useLayoutEffect(() => {
@@ -37,32 +40,40 @@ const IdeaSubmission = () => {
         ) {
             challengesSubmittedResponse[0].status === 'DRAFT'
                 ? setShowChallenges(true)
-                : view ? setShowChallenges(true) :setShowCompleted(true);
+                : view
+                ? setShowChallenges(true)
+                : setShowCompleted(true);
         } else {
             setShowChallenges(false);
         }
-    }, [challengesSubmittedResponse,view]);
-    const commonPageText = t("student.idea_submitted_desc");
-    const handleView = ()=>{
+    }, [challengesSubmittedResponse, view]);
+    const commonPageText = t('student.idea_submitted_description');
+    const handleView = () => {
         setShowChallenges(true);
         setShowCompleted(false);
         setView(true);
     };
-    return showCompleted ? (
+    return (
         <Layout>
             <CommonPage
                 text={commonPageText}
-                showButton={true}
+                showButton={false}
                 showChallenges={handleView}
             />
         </Layout>
-    ) : showChallenges ? (
-        <IdeasPageNew />
-    ) : (
-        <SDG setShowChallenges={setShowChallenges} />
-        // <Layout>
-        //     <CommonPage text={t("student_course.idea_submission_date_com_desc")} ideaSubmissionComButton={true}/>
-        // </Layout> 
     );
+    // return showCompleted ? (
+    //     <Layout>
+    //         <CommonPage
+    //             text={commonPageText}
+    //             showButton={true}
+    //             showChallenges={handleView}
+    //         />
+    //     </Layout>
+    // ) : showChallenges ? (
+    //     <IdeasPageNew />
+    // ) : (
+    //     <SDG setShowChallenges={setShowChallenges} />
+    // );
 };
 export default IdeaSubmission;
