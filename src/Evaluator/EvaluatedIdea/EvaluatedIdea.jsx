@@ -46,6 +46,7 @@ const EvaluatedIdea = () => {
     }, [status]);
     const [levelName, setLevelName]=React.useState('');
     const [evalSchema, setEvalSchema]=React.useState('');
+    const [tabledate,settabledate] = React.useState([]);
     
     React.useEffect(()=>{
         if(currentUser){
@@ -58,6 +59,12 @@ const EvaluatedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
+    useEffect(() => {
+        if(levelName!=='' && evalSchema!==''){
+            settabledate(evaluatedIdeaList);
+        }
+    }, [evaluatedIdeaList]);
+    
     const handleclickcall = () => {
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(filterParams,setshowspin));
@@ -78,9 +85,7 @@ const EvaluatedIdea = () => {
         statusparam +
         districtparam +
         sdgparam +
-        (reason && (sdgparam !== ''
-            ? '&rejected_reason=' + reason
-            : '?rejected_reason=' + reason));
+        (reason && '&rejected_reason=' + reason);
 
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
@@ -94,7 +99,7 @@ const EvaluatedIdea = () => {
     //     }
     // ];
     const evaluatedIdea = {
-        data: evaluatedIdeaList || [],
+        data: tabledate || [],
         columns: [
             {
                 name: 'No',
