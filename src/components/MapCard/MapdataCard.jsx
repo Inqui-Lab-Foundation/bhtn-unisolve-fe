@@ -220,11 +220,11 @@ const MapdataCard = ({ values, all, districtName }) => {
                     <Row>
                         <Col>
                             <div className="mb-5 d-flex align-items-center ">
-                                <img src={team} alt="teams" className="mx-4" />
+                                <img src={team1} alt="teams" className="mx-4" />
                                 <div>
                                     <h4>
-                                        {Number(values.boys) +
-                                            Number(values.girls)}
+                                        {Number(all.boys) +
+                                            Number(all.girls)}
                                     </h4>
                                     <small className="blue">UPSHIFTers</small>
                                 </div>
