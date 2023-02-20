@@ -59,7 +59,7 @@ const PostSurvey = () => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-    const showPage = topicTotalCount === topicCompletedCount;
+    const showPage = ideaSubmissionStatus && ideaSubmissionStatus !== "DRAFT" && (topicTotalCount === topicCompletedCount);
     const handleClick = () => {
         history.push('/student/my-certificate');
     };
