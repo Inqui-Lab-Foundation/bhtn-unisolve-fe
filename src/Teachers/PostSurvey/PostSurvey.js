@@ -129,11 +129,7 @@ const PostSurvey = () => {
                         <div className="aside  p-4 bg-white">
                             <h2>{t('teacher.post_survey')}</h2>
                             <CardBody>
-                                {dashboardStates &&
-                                dashboardStates.teams_count &&
-                                dashboardStates.ideas_count ===
-                                    dashboardStates.teams_count &&
-                                postSurveyStatus != 'COMPLETED' ? (
+                            {(dashboardStates && dashboardStates.teams_count && dashboardStates.ideas_count===dashboardStates.teams_count && postSurveyStatus != 'COMPLETED') ? (
                                     <>
                                         <UncontrolledAlert
                                             color="danger"
