@@ -4,12 +4,12 @@ import { getNormalHeaders } from '../../../helpers/Utils';
 import Layout from '../../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import { BreadcrumbTwo } from '../../../stories/BreadcrumbTwo/BreadcrumbTwo';
-// import { Button } from '../../../stories/Button';
+import { Button } from '../../../stories/Button';
 
 import axios from 'axios';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { URL, KEY } from '../../../constants/defaultValues';
 const ReportsView = () => {
     // const currentUser = getCurrentUser('current_user');
@@ -17,6 +17,7 @@ const ReportsView = () => {
     // const [rows, setRows] = React.useState([]);
     const [listData, setListData] = useState([]);
     const disTrict = JSON.parse(localStorage.getItem('district'));
+    const history = useHistory();
 
     const headingDetails = {
         title: 'View Reports',
@@ -69,7 +70,7 @@ const ReportsView = () => {
                         <Col className="col-auto">
                             <BreadcrumbTwo {...headingDetails} />
                         </Col>
-                        {/* <Col className="text-right">
+                        <Col className="text-right">
                             <Button
                                 label="Back"
                                 btnClass="primary mx-3"
@@ -77,7 +78,7 @@ const ReportsView = () => {
                                 shape="btn-square"
                                 onClick={() => history.push('/admin/reports')}
                             />
-                        </Col> */}
+                        </Col>
                     </Row>
                     <Col>
                         <div className="my-2">
