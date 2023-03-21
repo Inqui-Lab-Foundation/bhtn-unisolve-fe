@@ -31,7 +31,7 @@ const ReportFilter = () => {
                 <Row className="justify-content-center align-content-center filter-card">
                     <Col md={4}>
                         <Card>
-                            <h3 className="text-muted px-3 pt-3 text-center">Teacher Report</h3>
+                            <h3 className="text-muted px-3 pt-3 text-center">{report==='Download-Students-Report'? 'Students Reports':'Teacher Report'}</h3>
                             <FilterCard />
                         </Card>
                     </Col>
