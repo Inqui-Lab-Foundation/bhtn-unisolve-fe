@@ -88,7 +88,7 @@ const MyProfile = () => {
             },
             {
                 title: 'My Profile',
-                path: '/my-profile'
+                path: '/admin/my-profile'
             }
         ]
     };

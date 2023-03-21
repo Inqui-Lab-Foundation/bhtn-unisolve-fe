@@ -33,7 +33,7 @@ const Reports = () => {
         'Final Evaluation Challenges',
         'Final Winner Challenges'
     ];
-
+    
     return (
         <Layout>
             <Container className="mt-5 report-wrapper mb-5 pb-5">
