@@ -250,7 +250,7 @@ const LoginEvaluator = (props) => {
                                                         </small>
                                                     </FormGroup>
                                                 </Col>
-                                                <Col className="col-sm-8 text-right">
+                                                {/* <Col className="col-sm-8 text-right">
                                                     <Link
                                                         exact="true"
                                                         to="/evaluator/forgotpassword"
@@ -258,7 +258,7 @@ const LoginEvaluator = (props) => {
                                                     >
                                                         Forgot your password
                                                     </Link>
-                                                </Col>
+                                                </Col> */}
                                             </Row>
                                         </Col>
                                     </div>

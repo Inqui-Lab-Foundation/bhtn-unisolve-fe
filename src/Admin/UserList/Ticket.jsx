@@ -565,13 +565,13 @@ const TicketsPage = (props) => {
             {
                 name: 'Email',
                 selector: 'user.username',
-                width: '25%'
+                width: '20%'
             },
-            // {
-            //     name: 'Mobile',
-            //     selector: 'mobile',
-            //     width: '11%'
-            // },
+            {
+                name: 'Password',
+                selector: 'mobile',
+                width: '11%'
+            },
             {
                 name: 'District',
                 selector: 'district',
