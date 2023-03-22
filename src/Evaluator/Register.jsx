@@ -23,12 +23,12 @@ const Register = (props) => {
     // const [confirmPassType, setConfirmPassType] = React.useState('password');
     const dispatch = useDispatch();
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const inputPhone = {
         type: 'text',
-        placeholder: 'Enter Phone Number',
+        placeholder: 'Enter digit Password',
         className: 'defaultInput'
     };
 
@@ -73,9 +73,9 @@ const Register = (props) => {
         mobile: Yup.string()
             .required('required')
             .trim()
-            .matches(phoneRegExp, 'Contact number is not valid')
-            .min(10, 'Please enter valid number')
-            .max(10, 'Please enter valid number'),
+            .matches(/^[0-9\b]+$/, 'only digits')
+            .min(4, 'Please enter minimum 4 digits'),
+            // .max(10, 'Please enter valid number'),
         username: Yup.string()
             .trim()
             .email('Invalid username format')
@@ -325,7 +325,7 @@ const Register = (props) => {
                                             className="mb-2"
                                             htmlFor="mobile"
                                         >
-                                            Contact Number
+                                            Enter Password
                                         </Label>
                                         {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
                                         <InputBox
@@ -335,7 +335,7 @@ const Register = (props) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.mobile}
-                                            maxLength={10}
+                                           //maxLength={10}
                                         />
 
                                         {formik.touched.mobile &&
