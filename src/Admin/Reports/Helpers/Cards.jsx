@@ -13,7 +13,7 @@ import './table.css';
 import './button.css';
 import { useHistory } from 'react-router-dom';
 
-const Cards = ({ heading, list, reports, props, distList }) => {
+const Cards = ({ heading, list, reports, props, distList, evaluatorReports }) => {
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const [reportsData, setReportsData] = useState([]);
@@ -228,6 +228,34 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                                                 Filter
                                             </button>
                                         </Link>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </table>
+                </div>
+            </Card>
+            <Card>
+                <div className="App">
+                    <table>
+                        <tr className="th-background-color">
+                            <th className="column-size">Evaluator Count</th>
+                            <th>Actions</th>
+                        </tr>
+                        {evaluatorReports.map((val, key) => {
+                            return (
+                                <tr key={key} className="table_data_row">
+                                    <td>{val}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-primary  rounded-3"
+                                            onClick={() => {
+                                                handleDownload(val);
+                                            }}
+                                        >
+                                            <i className="fa fa-download me-2"></i>
+                                            Download
+                                        </button>
                                     </td>
                                 </tr>
                             );
