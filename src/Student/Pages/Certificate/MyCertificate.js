@@ -82,11 +82,11 @@ const Certificate = ({ type, currentUser, postSurveyStatus, language }) => {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: `${type ? '7.7rem' : '7.2rem'}`,
-                                left: `${type ? '5.5rem' : '8.4rem'}`,
+                                top: `${type ? '7.8rem' : '7.2rem'}`,
+                                left: `${type ? '4.8rem' : '8.4rem'}`,
                                 // top: `${type ? '9rem' : '12.8rem'}`,
                                 // left: `${type ? '10.3rem' : '6.5rem'}`,
-                                fontSize: '0.75rem',
+                                fontSize: '0.55rem',
                                 fontFamily: 'courier',
                                 fontWeight: 'bold',
                                 color: '#000000'
@@ -99,9 +99,9 @@ const Certificate = ({ type, currentUser, postSurveyStatus, language }) => {
                                 className="text-capitalize"
                                 style={{
                                     position: 'absolute',
-                                    top: `7.7rem`,
+                                    top: `7.8rem`,
                                     left: `16.5rem`,
-                                    fontSize: '0.75rem',
+                                    fontSize: '0.55rem',
                                     fontFamily: 'courier',
                                     fontWeight: 'bold',
                                     color: '#000000'
