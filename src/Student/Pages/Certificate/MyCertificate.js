@@ -82,8 +82,8 @@ const Certificate = ({ type, currentUser, postSurveyStatus, language }) => {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: `${type ? '8rem' : '7.4rem'}`,
-                                left: `${type ? '9rem' : '9rem'}`,
+                                top: `${type ? '7.7rem' : '7.2rem'}`,
+                                left: `${type ? '5.5rem' : '8.4rem'}`,
                                 // top: `${type ? '9rem' : '12.8rem'}`,
                                 // left: `${type ? '10.3rem' : '6.5rem'}`,
                                 fontSize: '0.75rem',
@@ -99,7 +99,7 @@ const Certificate = ({ type, currentUser, postSurveyStatus, language }) => {
                                 className="text-capitalize"
                                 style={{
                                     position: 'absolute',
-                                    top: `8rem`,
+                                    top: `7.7rem`,
                                     left: `16.5rem`,
                                     fontSize: '0.75rem',
                                     fontFamily: 'courier',
