@@ -77,7 +77,7 @@ const MyCertificate = () => {
                                         style={{
                                             position: 'absolute',
                                             top: '7.2rem',
-                                            left: '10rem',
+                                            left: '8rem',
                                             fontSize: '0.75rem',
                                             fontWeight:'bold',
                                             fontFamily:"courier",
