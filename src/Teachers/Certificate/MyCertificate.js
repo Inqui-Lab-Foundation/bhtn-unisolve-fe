@@ -56,7 +56,7 @@ const MyCertificate = () => {
             <Container className="presuervey mb-50 mt-5 ">
                 <Fragment>
                     <Card className="course-sec-basic p-5">
-                        {tempVar ? (
+                        {!tempVar ? (
                             <CardBody>
                                 <CardTitle
                                     className=" text-left pt-4 pb-4"
