@@ -105,7 +105,7 @@ const Certificate = ({
                                 className="text-capitalize"
                                 style={{
                                     position: 'absolute',
-                                    top: `${type ? '2rem' : '13rem'}`,
+                                    top: `${type ? '2rem' : '13.47rem'}`,
                                     left: `${type ? '4.8rem' : '5.3rem'}`,
                                     // top: `${type ? '9rem' : '12.8rem'}`,
                                     // left: `${type ? '10.3rem' : '6.5rem'}`,
