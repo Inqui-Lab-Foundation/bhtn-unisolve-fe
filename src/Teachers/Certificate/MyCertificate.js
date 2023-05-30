@@ -5,13 +5,14 @@ import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser, getNormalHeaders } from '../../helpers/Utils';
-import TeacherCertificate from '../../assets/media/img/certificates/certificate.png';
+import TeacherCertificate from '../../assets/media/img/certificates/Certificate_focal_teacher.png';
 import { useTranslation } from 'react-i18next';
 import { KEY, URL } from '../../constants/defaultValues';
 import { useSelector } from 'react-redux';
 import { getLanguage } from '../../constants/languageOptions';
 import Congo from '../../assets/media/survey-success.jpg';
 import axios from 'axios';
+import moment from 'moment';
 
 const MyCertificate = () => {
     const { t } = useTranslation();
@@ -19,8 +20,7 @@ const MyCertificate = () => {
     const currentUser = getCurrentUser('current_user');
     const language = useSelector((state) => state?.mentors.mentorLanguage);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
-    //let tempVar = postSurveyStatus === 'COMPLETED';
-    let tempVar = false;
+    let tempVar = postSurveyStatus === 'COMPLETED';
     const handleCertificateDownload = () => {
         const content = pdfRef.current;
         const doc = new jsPDF('l', 'px', [211, 298]);
@@ -52,6 +52,7 @@ const MyCertificate = () => {
                 return err.response;
             });
     }, [language]);
+    const date = new Date();
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">
@@ -77,9 +78,9 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '7.2rem',
-                                            left: '8rem',
-                                            fontSize: '0.75rem',
+                                            top: '8.8rem',
+                                            left: '4.9rem',
+                                            fontSize: '0.5rem',
                                             fontWeight:'bold',
                                             fontFamily:"courier",
                                             color:'#000000'
@@ -87,13 +88,13 @@ const MyCertificate = () => {
                                     >
                                         {currentUser?.data[0]?.full_name}
                                     </span>
-                                    {/* <span
+                                    <span
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '7.2rem',
-                                            left: '5rem',
-                                            fontSize: '0.75rem',
+                                            top: '8.8rem',
+                                            left: '16.5rem',
+                                            fontSize: '0.5rem',
                                             fontWeight:'bold',
                                             fontFamily:"courier",
                                             color:'#000000'
@@ -103,7 +104,23 @@ const MyCertificate = () => {
                                             currentUser?.data[0]
                                                 ?.organization_name
                                         }
-                                    </span> */}
+                                    </span>
+                                    <span
+                                        className="text-capitalize"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '14.8rem',
+                                            left: '4.5rem',
+                                            fontSize: '0.5rem',
+                                            fontWeight:'bold',
+                                            fontFamily:"courier",
+                                            color:'#000000'
+                                        }}
+                                    >
+                                        {moment(
+                                        date
+                                    ).format('DD-MM-YY')}
+                                    </span>
                                     <img
                                         src={TeacherCertificate}
                                         alt="certificate"
