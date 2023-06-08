@@ -78,7 +78,7 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '8.8rem',
+                                            top: '7.8rem',
                                             left: '4.9rem',
                                             fontSize: '0.5rem',
                                             fontWeight:'bold',
@@ -92,7 +92,7 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '8.8rem',
+                                            top: '7.8rem',
                                             left: '16.5rem',
                                             fontSize: '0.5rem',
                                             fontWeight:'bold',
@@ -109,8 +109,8 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '14.8rem',
-                                            left: '4.5rem',
+                                            top: '13.6rem',
+                                            left: '3.5rem',
                                             fontSize: '0.5rem',
                                             fontWeight:'bold',
                                             fontFamily:"courier",
