@@ -38,6 +38,7 @@ const Dashboard = () => {
     const currentUser = getCurrentUser('current_user');
     const [diesCode, setDiesCode] = useState('');
     const [orgData, setOrgData] = useState({});
+    const [multipleOrgData, setmultipleOrgData] = useState({});
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -45,55 +46,12 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const handleOnChange = (e) => {
         // We can give Dise Code//
-        localStorage.removeItem('organization_code');
         setCount(0);
         setDiesCode(e.target.value);
         setOrgData({});
         setError('');
+        setmultipleOrgData({});
     };
-    useEffect(() => {
-        const list = JSON.parse(localStorage.getItem('organization_code'));
-        setDiesCode(list);
-        apiCall(list);
-    }, []);
-    async function apiCall(list) {
-        // Dice code list API //
-        // list= Dise code  //
-        const body = JSON.stringify({
-            organization_code: list
-        });
-        var config = {
-            method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: body
-        };
-
-        await axios(config)
-            .then(function (response) {
-                if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
-                }
-            })
-            .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid UDISE Code');
-                }
-                setOrgData({});
-            });
-    }
-
     const handleSearch = (e) => {
         const body = JSON.stringify({
             organization_code: diesCode
@@ -110,26 +68,29 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
+                    setmultipleOrgData(response?.data?.data);
                     setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
+                }
+                if (response?.data?.count === 0) {
+                    setError('Entered Invalid Teacher Unique Code');
                 }
             })
             .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
+                if (error?.response?.data?.count === 0) {
                     setError('Entered Invalid Teacher Unique Code');
                 }
-                setOrgData({});
+                setmultipleOrgData({});
             });
         e.preventDefault();
     };
-
+    const handelSelectentor = (data) => {
+        setOrgData(data);
+        setMentorId(data.mentor.mentor_id);
+        setError('');
+        if (data.mentor.mentor_id) {
+            getMentorIdApi(data.mentor.mentor_id);
+        }
+    };
     async function getMentorIdApi(id) {
         // Mentor Id  Api//
         // id = Mentor Id //
@@ -288,6 +249,32 @@ const Dashboard = () => {
             }
         ]
     };
+    const MultipleMentorsData = {
+        data: multipleOrgData,
+        columns: [
+            {
+                name: 'Mentor Name',
+                selector: (row) => row?.mentor?.full_name,
+                center: true
+            },
+            {
+                name: 'Actions',
+                cell: (params) => {
+                    return [
+                        <div
+                            key={params}
+                            onClick={() => handelSelectentor(params)}
+                        >
+                            <div className="btn btn-primary btn-lg mr-5 mx-2">
+                                view
+                            </div>
+                        </div>
+                    ];
+                },
+                center: true
+            }
+        ]
+    };
     const handleRevoke = async (id, type) => {
         let submitData = {
             status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
@@ -346,7 +333,7 @@ const Dashboard = () => {
                     if (result.isConfirmed) {
                         deleteTempMentorById(id);
                         setOrgData({});
-                        setDiesCode('');
+                        setmultipleOrgData({});
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire('Cancelled', '', 'error');
@@ -358,7 +345,7 @@ const Dashboard = () => {
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
                 <h2 className="mb-5">Dashboard </h2>
-                {/* <div className="dashboard p-5 mb-5">
+                <div className="dashboard p-5 mb-5">
                     <div className="row">
                         <div style={{ flex: 1 }} className="col-lg-12">
                             Data
@@ -401,12 +388,23 @@ const Dashboard = () => {
                                     </Row>
                                 </Col>
                             </Row>
-
+                            {multipleOrgData.length !== undefined && multipleOrgData.length !==0 && multipleOrgData[0]?.mentor !== null && (
+                                <DataTableExtensions
+                                    print={false}
+                                    export={false}
+                                    {...MultipleMentorsData}
+                                >
+                                    <DataTable
+                                        data={multipleOrgData}
+                                        noHeader
+                                        highlightOnHover
+                                    />
+                                </DataTableExtensions>
+                            )}
                             {orgData &&
                             orgData?.organization_name &&
                             orgData?.mentor !== null ? (
                                 <>
-                                    
                                     <div className="mb-5 p-3" ref={pdfRef}>
                                         <div className="container-fluid card shadow border">
                                             <div className="row">
@@ -452,7 +450,7 @@ const Dashboard = () => {
                                                                 }
                                                             </p>
                                                         </li>
-                                                        <li className="d-flex justify-content-between">
+                                                        {/* <li className="d-flex justify-content-between">
                                                             Mentor Mobile:{' '}
                                                             <p>
                                                                 {
@@ -461,7 +459,7 @@ const Dashboard = () => {
                                                                         ?.mobile
                                                                 }
                                                             </p>
-                                                        </li>
+                                                        </li> */}
                                                         <li className="d-flex justify-content-between">
                                                             Mentor email:{' '}
                                                             <p>
@@ -488,12 +486,13 @@ const Dashboard = () => {
                                         </button>
                                         <button
                                             onClick={() =>
-                                                handleresetpassword( {
-                                                    mentor_id:orgData.mentor.mentor_id,
-                                                    organization_code:orgData.organization_code
-                                                }
-                                                    
-                                                )
+                                                handleresetpassword({
+                                                    mentor_id:
+                                                        orgData.mentor
+                                                            .mentor_id,
+                                                    organization_code:
+                                                        orgData.organization_code
+                                                })
                                             }
                                             className="btn btn-info rounded-pill px-4 btn-lg text-white"
                                         >
@@ -564,13 +563,13 @@ const Dashboard = () => {
                                 // !error &&
                                 // diesCode &&
                                 // orgData !== {} &&
-                                count != 0 && (
+                                multipleOrgData[0]?.mentor === null && (
                                     // <Card className="mt-3 p-4">
                                     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
                                         <span>Still No Teacher Registered</span>
                                     </div>
-                                    // </Card>
                                 )
+                                // </Card>
                             )}
                             {error && diesCode && (
                                 // <Card className="mt-3 p-4">
@@ -589,7 +588,7 @@ const Dashboard = () => {
                             )}
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         </Layout>
     );
