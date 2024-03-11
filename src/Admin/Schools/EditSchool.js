@@ -67,6 +67,8 @@ const EditSchool = (props) => {
             // principal_mobile: listId && listId.principal_mobile,
             principal_email: listId && listId.principal_email,
             organization_name: listId && listId.organization_name,
+            organization_type: listId && listId.organization_type,
+
             organization_code: listId && listId.organization_code,
             city: listId && listId.city,
             district: listId && listId.district,
@@ -86,6 +88,9 @@ const EditSchool = (props) => {
             ),
             organization_name: Yup.string().required(
                 'Organization  Name is Required'
+            ),
+            organization_type: Yup.string().required(
+                'Organization  Type is Required'
             ),
             organization_code: Yup.string()
                 .matches(
@@ -159,6 +164,34 @@ const EditSchool = (props) => {
                                                 {
                                                     formik.errors
                                                         .organization_code
+                                                }
+                                            </small>
+                                        ) : null}
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="organization_code"
+                                            // style={{ fontSize: 15 }}
+                                        >
+                                            Organization Type
+                                            <span required>*</span>
+                                        </Label>
+                                        <InputBox
+                                            {...inputDICE}
+                                            id="organization_type"
+                                            name="organization_type"
+                                            placeholder="Please enter Organization Type"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={
+                                                formik.values.organization_type
+                                            }
+                                        />
+                                        {formik.touched.organization_type &&
+                                        formik.errors.organization_type ? (
+                                            <small className="error-cls">
+                                                {
+                                                    formik.errors
+                                                        .organization_type
                                                 }
                                             </small>
                                         ) : null}
