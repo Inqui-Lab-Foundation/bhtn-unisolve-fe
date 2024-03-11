@@ -158,6 +158,14 @@ import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
 import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
 import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
+import StudentEdit from './Admin/UserList/StudentEdit';
+import AdminLatestNews from './Admin/LatestNews';
+import CreateLatestNews from './Admin/LatestNews/CreateLatestNews';
+import EditLatestNews from './Admin/LatestNews/editNews';
+import ReportsRegistration from './Admin/Reports/Helpers/ReportRegistration';
+import TeacherDetailed from './Admin/Reports/Helpers/TeacherProgressReport';
+import StudentReport from './Admin/Reports/Helpers/StudentProgressReport';
+import IdeaReports from './Admin/Reports/Helpers/IdeaDetailReport';
 
 const Routers = () => {
     // const history = useHistory();
@@ -194,7 +202,6 @@ const Routers = () => {
                         path="/login"
                         render={() => <LoginNew />}
                     />
-
                     <Route
                         exact={true}
                         path="/termsandconditions"
@@ -220,7 +227,6 @@ const Routers = () => {
                         path="/verifypassword"
                         render={() => <PasswordEmailConfirmation />}
                     />
-
                     <ProtectedRoute
                         exact
                         path="/dashboard"
@@ -304,7 +310,6 @@ const Routers = () => {
                         component={AddNewMember}
                     />
                     <ProtectedRoute path="/editMember" component={EditMember} />
-
                     <ProtectedRoute
                         exact
                         path="/my-profile"
@@ -320,7 +325,6 @@ const Routers = () => {
                         path="/samplelist"
                         component={SampleCourseList}
                     />
-
                     {/* ADMIN ROUTES */}
                     <Route
                         exact={true}
@@ -347,7 +351,6 @@ const Routers = () => {
                         path="/admin/settings"
                         component={AdminMySettings}
                     />
-
                     {/* <Route
             exact={true}
             path='/admin/tickets'
@@ -424,7 +427,6 @@ const Routers = () => {
                         path="/admin/notifications"
                         component={AdminNotification}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/add-mentor"
@@ -440,7 +442,41 @@ const Routers = () => {
                         path="/admin/edit-evaluator"
                         component={EditEvaluator}
                     />
-
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews"
+                        component={AdminLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/createLatestNews"
+                        component={CreateLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/editLatestNews"
+                        component={EditLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/reports-registration"
+                        component={ReportsRegistration}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/TeacherProgressDetailed"
+                        component={TeacherDetailed}
+                    />{' '}
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/StudentsProgressReport"
+                        component={StudentReport}
+                    />{' '}
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/ideareport"
+                        component={IdeaReports}
+                    />
                     <ProtectedRoute
                         exact={true}
                         path="/admin/problem-categories"
@@ -452,7 +488,6 @@ const Routers = () => {
                         path="/admin/add-problem-category"
                         component={AdminAddProblemcategory}
                     />
-
                     {/* <Route exact={true} path="/admin/ideas" component={AdminIdeas} /> */}
                     <ProtectedRoute
                         exact={true}
@@ -485,7 +520,6 @@ const Routers = () => {
                         path="/admin/edit-faq/:faqid"
                         component={EditFaq}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/edit-faqcategory"
@@ -556,19 +590,16 @@ const Routers = () => {
                         path="/admin/ideas"
                         component={AdminIdeas}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/challenges"
                         component={AdminChallenges}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/evaluationStatus"
                         component={AdminEvaluation}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/evaluationStatus/viewlist"
@@ -579,13 +610,11 @@ const Routers = () => {
                         path="/admin/evaluationStatus/viewfinallist"
                         component={Selectedfinallist}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/evaluationProcess"
                         component={AdminEvaluationProcess}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/pre-survey"
@@ -611,13 +640,16 @@ const Routers = () => {
                         path="/admin/reports-view"
                         component={ReportsView}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/change-password"
                         component={StudenetChangePSWModal}
                     />
-
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/stuEdit"
+                        component={StudentEdit}
+                    />
                     {/* TEACHERS ROUTES */}
                     <Route
                         exact={true}
@@ -629,7 +661,6 @@ const Routers = () => {
                         path="/teacher/dashboard"
                         component={TeacherDashboard}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/faq"
@@ -702,7 +733,6 @@ const Routers = () => {
                         path="/teacher/support-journey/add-ticket"
                         component={TeacherSupportAdd}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/support-journey/ans-ticket"
@@ -713,19 +743,16 @@ const Routers = () => {
                         path="/admin/support-journey/ans-ticket"
                         component={TicketResView}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/student/pre-survey"
                         component={StudentPreservey}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/student/post-survey"
                         component={StudentPostservey}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/post-survey"
@@ -736,7 +763,6 @@ const Routers = () => {
                         path="/teacher/my-certificate"
                         component={MyCertificate}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/student/my-certificate"
@@ -777,7 +803,6 @@ const Routers = () => {
                         path="/admin/create-translation"
                         component={CreateTranslation}
                     />
-
                     {/* evaluator routes */}
                     <Route
                         exact={true}
@@ -804,13 +829,11 @@ const Routers = () => {
                         path="/evaluator/submitted-ideas"
                         component={EvaluatorIdeaList}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/evaluator/instructions"
                         component={EvaluatorInstructions}
                     />
-
                     <ProtectedRoute
                         exact={true}
                         path="/evaluator/evaluated-ideas"

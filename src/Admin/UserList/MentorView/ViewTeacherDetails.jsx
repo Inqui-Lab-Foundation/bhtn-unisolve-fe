@@ -242,10 +242,10 @@ const Dashboard = () => {
                 }
             });
     };
-    console.log(
-        MentorData,
-        'MentorDataMentorDataMentorDataMentorDataMentorData'
-    );
+    // console.log(
+    //     MentorData,
+    //     'MentorDataMentorDataMentorDataMentorDataMentorData'
+    // );
     return (
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
