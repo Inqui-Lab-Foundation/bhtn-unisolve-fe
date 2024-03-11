@@ -167,34 +167,7 @@ const EditSchool = (props) => {
                                                 }
                                             </small>
                                         ) : null}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="organization_code"
-                                            // style={{ fontSize: 15 }}
-                                        >
-                                            Organization Type
-                                            <span required>*</span>
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="organization_type"
-                                            name="organization_type"
-                                            placeholder="Please enter Organization Type"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={
-                                                formik.values.organization_type
-                                            }
-                                        />
-                                        {formik.touched.organization_type &&
-                                        formik.errors.organization_type ? (
-                                            <small className="error-cls">
-                                                {
-                                                    formik.errors
-                                                        .organization_type
-                                                }
-                                            </small>
-                                        ) : null}
+
                                         <Label
                                             className="mb-2"
                                             htmlFor="organization_name"
@@ -219,6 +192,34 @@ const EditSchool = (props) => {
                                                 {
                                                     formik.errors
                                                         .organization_name
+                                                }
+                                            </small>
+                                        ) : null}
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="organization_code"
+                                            // style={{ fontSize: 15 }}
+                                        >
+                                            Institute/School Type
+                                            <span required>*</span>
+                                        </Label>
+                                        <InputBox
+                                            {...inputDICE}
+                                            id="organization_type"
+                                            name="organization_type"
+                                            placeholder="Please enter Organization Type"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={
+                                                formik.values.organization_type
+                                            }
+                                        />
+                                        {formik.touched.organization_type &&
+                                        formik.errors.organization_type ? (
+                                            <small className="error-cls">
+                                                {
+                                                    formik.errors
+                                                        .organization_type
                                                 }
                                             </small>
                                         ) : null}
