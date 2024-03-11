@@ -121,12 +121,12 @@ const ViewMore = () => {
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_id}</b>
                                 </CardText>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Mobile :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.mobile}</b>
-                                </CardText>
+                                </CardText> */}
                             </CardBody>
                         </Card>
                     </Row>

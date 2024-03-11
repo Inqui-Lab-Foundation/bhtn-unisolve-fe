@@ -16,10 +16,16 @@ import {
     updateStudentCertificate
 } from '../../../redux/studentRegistration/actions';
 //import CommonPage from '../../../components/CommonPage';
-//import moment from 'moment';
+import moment from 'moment';
 import Congo from '../../../assets/media/survey-success.jpg';
 
-const Certificate = ({ type, currentUser, postSurveyStatus, language }) => {
+const Certificate = ({
+    type,
+    currentUser,
+    postSurveyStatus,
+    language,
+    date
+}) => {
     const { t } = useTranslation();
     const pdfRef = useRef(null);
     const partRef = useRef(null);
@@ -94,6 +100,25 @@ const Certificate = ({ type, currentUser, postSurveyStatus, language }) => {
                         >
                             {currentUser?.data[0]?.full_name}
                         </span>
+                        {type != 'participate' && (
+                            <span
+                                className="text-capitalize"
+                                style={{
+                                    position: 'absolute',
+                                    top: `${type ? '2rem' : '13.47rem'}`,
+                                    left: `${type ? '4.8rem' : '5.3rem'}`,
+                                    // top: `${type ? '9rem' : '12.8rem'}`,
+                                    // left: `${type ? '10.3rem' : '6.5rem'}`,
+                                    fontSize: '0.55rem',
+                                    fontFamily: 'courier',
+                                    fontWeight: 'bold',
+                                    color: '#000000'
+                                }}
+                            >
+                                {date}
+                            </span>
+                        )}
+
                         {type && (
                             <span
                                 className="text-capitalize"
@@ -223,6 +248,9 @@ const MyCertificate = () => {
                                         all_topics_count ===
                                         topics_completed_count
                                     }
+                                    date={moment(
+                                        dashboardStatus?.course_completed_date
+                                    ).format('DD-MM-YY')}
                                 />
                             </Col>
                         </Row>

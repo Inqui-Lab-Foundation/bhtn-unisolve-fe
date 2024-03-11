@@ -37,8 +37,8 @@ const AddNewSchool = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const headingDetails = {
         title: 'Add New Institution Details',
 
@@ -61,6 +61,7 @@ const AddNewSchool = (props) => {
             principal_email: '',
             organization_name: '',
             organization_code: '',
+            organization_type: '',
             city: '',
             district: '',
             state: '',
@@ -68,11 +69,11 @@ const AddNewSchool = (props) => {
         },
 
         validationSchema: Yup.object({
-            principal_mobile: Yup.string()
-                .optional()
-                .matches(phoneRegExp, 'Mobile number is not valid')
-                .min(10, 'Enter a valid mobile number')
-                .max(10, 'Enter a valid mobile number'),
+            // principal_mobile: Yup.string()
+            //     .optional()
+            //     .matches(phoneRegExp, 'Mobile number is not valid')
+            //     .min(10, 'Enter a valid mobile number')
+            //     .max(10, 'Enter a valid mobile number'),
             principal_email: Yup.string()
                 .optional()
                 .email('Invalid email address format'),
@@ -80,7 +81,10 @@ const AddNewSchool = (props) => {
                 .optional()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid Name'),
             organization_name: Yup.string().required(
-                'Organization  Name is Required'
+                'Institute/School Name is Required'
+            ),
+            organization_type: Yup.string().required(
+                'Institute/School  Type is Required'
             ),
             organization_code: Yup.string()
                 .matches(
@@ -188,6 +192,34 @@ const AddNewSchool = (props) => {
                                                 {
                                                     formik.errors
                                                         .organization_name
+                                                }
+                                            </small>
+                                        ) : null}
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="organization_type"
+                                            // style={{ fontSize: 15 }}
+                                        >
+                                            Institute/School Type
+                                            <span required>*</span>
+                                        </Label>
+                                        <InputBox
+                                            {...inputDICE}
+                                            id="organization_type"
+                                            name="organization_type"
+                                            placeholder="Please enter Institute/School Type"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={
+                                                formik.values.organization_type
+                                            }
+                                        />
+                                        {formik.touched.organization_type &&
+                                        formik.errors.organization_type ? (
+                                            <small className="error-cls">
+                                                {
+                                                    formik.errors
+                                                        .organization_type
                                                 }
                                             </small>
                                         ) : null}

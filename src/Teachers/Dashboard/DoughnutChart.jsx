@@ -210,11 +210,11 @@ export default function DoughnutChart({ user }) {
         },
         {
             title: 'Certificate',
-            dataIndex: 'certificate_status',
+            dataIndex: 'certificate',
             align:"center",
             width: '10%',
             render: (_, record) =>
-                record?.certificate_status ? (
+                record?.certificate ? (
                     <FaCheckCircle size={20} color="green"/>
                 ) : (
                     <FaTimesCircle size={20} color="red" />
