@@ -20,11 +20,12 @@ const TeacherDetailed = () => {
     const [district, setdistrict] = React.useState('');
     const [category, setCategory] = useState('');
     const [isDownload, setIsDownload] = useState(false);
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    // const categoryData =
+    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
     const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
         []
     );
+    const categoryData = ['All Categorys', 'School', 'New School'];
     const [doughnutChartData, setDoughnutChartData] = useState(null);
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
@@ -313,7 +314,7 @@ const TeacherDetailed = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/reports/mentordetailsreport?district=${district}&category=${category}`,
+                `/reports/mentordetailsreport?district=${district}&organization_type=${category}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -361,7 +362,7 @@ const TeacherDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response, '1');
+                    console.log(response, '1');
                     const summary = response.data.data[0].summary;
                     const registerSchool = response.data.data[0].reg;
                     const regSchools = response.data.data[0].Regschool;
@@ -492,39 +493,39 @@ const TeacherDetailed = () => {
                         ]
                     };
 
-                    const stackedBarChartData = {
-                        labels: combinedArray.map((item) => item.district),
-                        datasets: [
-                            {
-                                label: 'No. of Teachers not started course',
-                                data: combinedArray.map(
-                                    (item) => item.courseNotStarted
-                                ),
-                                backgroundColor: 'rgba(255, 0, 0, 0.6)'
-                            },
-                            {
-                                label: 'No. of Teachers course IN progress',
-                                data: combinedArray.map(
-                                    (item) => item.courseINcompleted
-                                ),
-                                backgroundColor: 'rgba(255, 255, 0, 0.6)'
-                            },
-                            {
-                                label: 'No. of teachers Completed Course',
-                                data: combinedArray.map(
-                                    (item) => item.courseCompleted
-                                ),
-                                backgroundColor: 'rgba(0, 128, 0, 0.6)'
-                            }
-                        ]
-                    };
+                    // const stackedBarChartData = {
+                    //     labels: combinedArray.map((item) => item.district),
+                    //     datasets: [
+                    //         {
+                    //             label: 'No. of Teachers not started course',
+                    //             data: combinedArray.map(
+                    //                 (item) => item.courseNotStarted
+                    //             ),
+                    //             backgroundColor: 'rgba(255, 0, 0, 0.6)'
+                    //         },
+                    //         {
+                    //             label: 'No. of Teachers course IN progress',
+                    //             data: combinedArray.map(
+                    //                 (item) => item.courseINcompleted
+                    //             ),
+                    //             backgroundColor: 'rgba(255, 255, 0, 0.6)'
+                    //         },
+                    //         {
+                    //             label: 'No. of teachers Completed Course',
+                    //             data: combinedArray.map(
+                    //                 (item) => item.courseCompleted
+                    //             ),
+                    //             backgroundColor: 'rgba(0, 128, 0, 0.6)'
+                    //         }
+                    //     ]
+                    // };
                     var array = combinedArray;
                     array.push({ district: 'Total Count', ...total });
                     setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
-                    setBarChart2Data(stackedBarChartData);
+                    // setBarChart2Data(stackedBarChartData);
                     setTotalCount(total);
                 }
             })
@@ -885,7 +886,7 @@ const TeacherDetailed = () => {
                                                 </div>
                                             </div>
 
-                                            <div
+                                            {/* <div
                                                 className="col-md-6 chart-container mt-3"
                                                 style={{
                                                     width: '100%',
@@ -909,7 +910,7 @@ const TeacherDetailed = () => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 )}

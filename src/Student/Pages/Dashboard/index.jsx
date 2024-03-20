@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useLayoutEffect } from 'react';
 import Layout from '../../Layout.jsx';
@@ -28,6 +29,8 @@ import {
     getStudentDashboardTutorialVideos
 } from '../../../redux/studentRegistration/actions.js';
 // import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
+import { Card } from 'react-bootstrap';
+import LatestScrollNew from './LatestScrollNew.js';
 
 const Dashboard = () => {
     const language = useSelector(
@@ -234,104 +237,149 @@ const Dashboard = () => {
 
     return (
         <Layout>
-            <Container className="dashboard-wrapper">
-                <div className="d-flex justify-content-between align-items-center">
+            <Container>
+                <div
+                    className="d-flex justify-content-between align-items-center"
+                    style={{ margin: '1rem 0' }}
+                >
                     <h2>Dashboard</h2>
-                    {/* <div className='bg-white rounded p-3 d-flex align-items-center' style={{width:"max-content"}}>
+                </div>
+
+                {/* <div className='bg-white rounded p-3 d-flex align-items-center' style={{width:"max-content"}}>
                         <p>Preferred Language : </p>
                         <LanguageSelectorComp module="student" />
                     </div> */}
-                </div>
-                <hr />
-                <Row className="d-flex flex-start mb-5" style={{ gap: '1rem' }}>
-                    <TopSectionCard
-                        heading={cardData.idea.heading}
-                        deadline={cardData.idea.deadline}
-                        subHeading={cardData.idea.subHeading}
-                        footerText={cardData.idea.footerText}
-                        // teamImages={cardData.idea.teamImages}
-                        rightImage={cardData.idea.rightImage}
-                        position={cardData.idea.position}
-                    />
-                    <TopSectionCard
-                        heading={cardData.profile.heading}
-                        footerLabels={cardData.profile.footerLabels}
-                        rightImage={cardData.profile.rightImage}
-                        position={cardData.profile.position}
-                        name={
-                            currentUser && currentUser?.data[0]?.full_name
-                                ? currentUser?.data[0]?.full_name
-                                : '-'
-                        }
-                        email={
-                            currentUser && currentUser?.data[0]?.team_name
-                                ? currentUser?.data[0]?.team_name
-                                : '-'
-                        }
-                        mentorData={
-                            teamMember && teamMember?.team?.mentor
-                                ? teamMember?.team?.mentor
-                                : null
-                        }
-                    />
-                    <TopSectionCard
-                        heading={cardData.teacher.heading}
-                        footerLabels={cardData.teacher.footerLabels}
-                        rightImage={cardData.teacher.rightImage}
-                        position={cardData.teacher.position}
-                        type="teacher"
-                        organiZation={
-                            teamMember && teamMember?.team?.mentor
-                                ? teamMember?.team?.mentor?.organization
-                                : null
-                        }
-                    />
-                </Row>
-                <Row className="flex-start mb-5" style={{ gap: '1rem' }}>
-                    <DashboardOverviewCard
-                        title={'Completed Videos'}
-                        count={
-                            dashboardStatus &&
-                            dashboardStatus?.videos_completed_count
-                                ? dashboardStatus?.videos_completed_count
-                                : 0
-                        }
-                        image={vector2}
-                    />
-                    <DashboardOverviewCard
-                        title={'Completed Quiz'}
-                        count={
-                            dashboardStatus &&
-                            dashboardStatus?.quiz_completed_count
-                                ? dashboardStatus?.quiz_completed_count
-                                : 0
-                        }
-                        image={vector1}
-                    />
 
-                    <DashboardOverviewCard
-                        title={'Completed Worksheets'}
-                        count={
-                            dashboardStatus &&
-                            dashboardStatus?.worksheet_completed_count
-                                ? dashboardStatus?.worksheet_completed_count
-                                : 0
-                        }
-                        image={vector3}
-                    />
-                    <DashboardOverviewCard
-                        title={'Overall Progress'}
-                        count={
-                            Math.round(
-                                100 -
-                                    percentageBWNumbers(
-                                        dashboardStatus?.all_topics_count,
-                                        dashboardStatus?.topics_completed_count
-                                    )
-                            ) + ' %'
-                        }
-                        image={vector}
-                    />
+                <Row>
+                    <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
+                        <Row>
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '120px', weight: '100px' }}
+                            >
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Completed Videos
+                                    </label>
+
+                                    <Card.Text
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {dashboardStatus &&
+                                        dashboardStatus?.videos_completed_count
+                                            ? dashboardStatus?.videos_completed_count
+                                            : 0}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row>
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '120px', weight: '100px' }}
+                            >
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Course Completion
+                                    </label>
+                                    <Card.Text
+                                        style={{
+                                            fontSize: '40px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {Math.round(
+                                            100 -
+                                                percentageBWNumbers(
+                                                    dashboardStatus?.all_topics_count,
+                                                    dashboardStatus?.topics_completed_count
+                                                )
+                                        ) + '%'}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </Col>
+                    <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
+                        <Row>
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '120px', weight: '100px' }}
+                            >
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Completed Quiz
+                                    </label>
+                                    <Card.Text
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {dashboardStatus &&
+                                        dashboardStatus?.quiz_completed_count
+                                            ? dashboardStatus?.quiz_completed_count
+                                            : 0}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row>
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '120px', weight: '100px' }}
+                            >
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Earned Badges
+                                    </label>
+
+                                    <Card.Text
+                                        className="left-aligned"
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {dashboardStatus &&
+                                        dashboardStatus?.badges_earned_count
+                                            ? dashboardStatus?.badges_earned_count
+                                            : 0}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </Col>
+
+                    <Col>
+                        <Card bg="light" text="dark" className=" md-3 xs-12 ">
+                            <Card.Body style={{ overflowX: 'auto' }}>
+                                {/* <LatestNews usersdata={currentUser?.data} /> */}
+                                <LatestScrollNew
+                                    usersdata={currentUser?.data}
+                                />
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
                 <Row
                     className="course-team flex-start mb-5"

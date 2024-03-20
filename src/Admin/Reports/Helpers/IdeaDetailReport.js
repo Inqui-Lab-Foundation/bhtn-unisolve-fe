@@ -109,9 +109,9 @@ const IdeaReports = () => {
     };
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [category, setCategory] = useState('');
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-
+    // const categoryData =
+    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    const categoryData = ['All Categorys', 'School', 'New School'];
     const [downloadData, setDownloadData] = useState(null);
     const csvLinkRef = useRef();
     const csvLinkRefTable = useRef();
@@ -152,7 +152,7 @@ const IdeaReports = () => {
         },
 
         {
-            label: 'AFFORDABLE AND CLEANENERGY',
+            label: 'AFFORDABLE AND CLEAN ENERGY',
             key: 'AFFORDABLEANDCLEANENERGY'
         },
         {
@@ -284,10 +284,10 @@ const IdeaReports = () => {
         //     key: 'email'
         // },
 
-        {
-            label: 'Teacher Contact',
-            key: 'mobile'
-        },
+        // {
+        //     label: 'Teacher Contact',
+        //     key: 'mobile'
+        // },
 
         {
             label: 'Team Name',
@@ -303,26 +303,22 @@ const IdeaReports = () => {
         },
         {
             label: 'Idea Title',
-            key: '8'
+            key: '1'
         },
         // {
         //     label: 'Problem Statement',
         //     key: 'sub_category'
         // },
         {
-            label: 'Write down the Current State and Desired State related to the problem. ',
-            key: '1'
-        },
-        {
-            label: 'Write down the Effects and Causes of the problem.',
+            label: 'Write the problem that you have chosen to solve and why?',
             key: '2'
         },
         {
-            label: 'Which of the following problem finding techniques did your team used to FIND a problem',
+            label: 'Write your teams idea/solution for the problem identified above. Give as much detail as possible and explain your solution clearly.',
             key: '3'
         },
         {
-            label: 'Which of the following problem finding techniques were difficult to use.',
+            label: 'Which of the following problem finding techniques did your team used to FIND a problem',
             key: '4'
         },
         {
@@ -330,53 +326,29 @@ const IdeaReports = () => {
             key: '5'
         },
         {
-            label: 'Which of the following activities / techniques used to EXPLORE a problem were difficult to do or took a lot of time?',
+            label: 'Which of the following IDEATION TECHNIQUES did your team make use of to come-up with a solution? ',
             key: '6'
         },
         {
-            label: 'What did you feel/think after talking to stakeholders',
+            label: 'Which of the below feedback mechanisms did your team adopt?',
             key: '7'
         },
         {
-            label: 'Describe the solution to the problem your team found. ',
+            label: 'Did your team complete and submit worksheets to your School SIDP Guide Teacher?',
+            key: '8'
+        },
+        {
+            label: 'Mention at least one feedback that your team found to be most helpful in creating the final solution to your problem.',
             key: '9'
         },
         // {
         //     label: ' Explain your solution clearly - how does it work, who is it helping, how will it solve the problem.',
         //     key: '10'
         // },
-        {
-            label: 'Which of the following IDEATION TECHNIQUES did your team make use of to come-up with a solution? ',
-            key: '10'
-        },
-        {
-            label: 'Which of the following IDEATION TECHNIQUES were difficult to use/took a lot of time while thinking of a solution?',
-            key: '11'
-        },
-        {
-            label: 'Pick the actions your team did in your problem solving journey',
-            key: '12'
-        },
-        {
-            label: 'Mention at least one feedback that your team found to be most helpful in creating the final solution to your problem. (not more than 500 characters)',
-            key: '13'
-        },
 
         {
-            label: 'Which Prototyping Method did you choose to test your solution?',
-            key: '14'
-        },
-        {
-            label: 'Upload images/video of your prototype. (Upload all files at once. Not one after the other) ',
-            key: '15'
-        },
-        {
-            label: 'What are the materials you will need to make a working model of your solution?',
-            key: '16'
-        },
-        {
-            label: 'Did your team complete and submit the workbook to your school Guide teacher?',
-            key: '17'
+            label: 'Did your team make a prototype to test your solution?',
+            key: '10'
         }
     ];
     useEffect(() => {
@@ -441,7 +413,7 @@ const IdeaReports = () => {
     };
 
     const fetchData = () => {
-        const url = `/reports/ideadeatilreport?district=${RegTeachersdistrict}&category=${category}&sdg=${sdg}`;
+        const url = `/reports/ideadeatilreport?district=${RegTeachersdistrict}&organization_type=${category}&sdg=${sdg}`;
 
         const config = {
             method: 'get',
@@ -458,7 +430,7 @@ const IdeaReports = () => {
                     const transformedData = response.data.data.map((entry) => {
                         const { response, ...rest } = entry;
                         const parsedResponse = JSON.parse(response);
-
+                        console.log(parsedResponse, '222');
                         Object.keys(parsedResponse).forEach((key) => {
                             const { challenge_question_id, selected_option } =
                                 parsedResponse[key];

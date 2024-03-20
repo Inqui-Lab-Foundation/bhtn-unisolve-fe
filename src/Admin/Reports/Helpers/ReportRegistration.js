@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
 import Layout from '../../Layout';
@@ -24,8 +25,8 @@ const ReportsRegistration = () => {
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+
+    const categoryData = ['All Categorys', 'School', 'New School'];
 
     const [downloadData, setDownloadData] = useState(null);
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
@@ -67,15 +68,15 @@ const ReportsRegistration = () => {
         {
             label: 'Total Registered Teachers',
             key: 'total_registered_teachers'
-        },
-        {
-            label: 'Registered Male Teachers',
-            key: 'male_mentor_count'
-        },
-        {
-            label: 'Registered Female Teachers',
-            key: 'female_mentor_count'
         }
+        // {
+        //     label: 'Registered Male Teachers',
+        //     key: 'male_mentor_count'
+        // },
+        // {
+        //     label: 'Registered Female Teachers',
+        //     key: 'female_mentor_count'
+        // }
     ];
     const RegHeaders = [
         {
@@ -88,7 +89,7 @@ const ReportsRegistration = () => {
         },
         {
             label: 'School Type/Category',
-            key: 'organization.category'
+            key: 'organization.organization_type'
         },
         {
             label: 'District',
@@ -99,28 +100,28 @@ const ReportsRegistration = () => {
             key: 'organization.city'
         },
         {
-            label: 'HM Name',
+            label: 'Principal Name',
             key: 'organization.principal_name'
         },
         {
-            label: 'HM Contact',
+            label: 'Principal mobile number',
             key: 'organization.principal_mobile'
         },
         {
             label: 'Teacher Name',
             key: 'full_name'
         },
+        // {
+        //     label: 'Teacher Gender',
+        //     key: 'gender'
+        // },
+        // {
+        //     label: 'Teacher Contact',
+        //     key: 'mobile'
+        // },
         {
-            label: 'Teacher Gender',
-            key: 'gender'
-        },
-        {
-            label: 'Teacher Contact',
-            key: 'mobile'
-        },
-        {
-            label: 'Teacher WhatsApp Contact',
-            key: 'whatapp_mobile'
+            label: 'Teacher Email',
+            key: 'user.username'
         }
     ];
     const notRegHeaders = [
@@ -138,7 +139,7 @@ const ReportsRegistration = () => {
         },
         {
             label: 'School Type/Category',
-            key: 'category'
+            key: 'organization_type'
         },
         {
             label: 'District',
@@ -157,15 +158,15 @@ const ReportsRegistration = () => {
             key: 'country'
         },
         {
-            label: 'HM Name',
+            label: 'Principal Name',
             key: 'principal_name'
         },
         {
-            label: 'HM Contact',
+            label: 'Principal mobile number',
             key: 'principal_mobile'
         },
         {
-            label: 'HM Email',
+            label: 'Principal Email',
             key: 'principal_email'
         }
     ];
@@ -231,9 +232,9 @@ const ReportsRegistration = () => {
     const fetchData = (item) => {
         const url =
             item === 'Registered'
-                ? `/reports/mentorRegList?status=ACTIVE&district=${RegTeachersdistrict}&category=${category}`
+                ? `/reports/mentorRegList?status=ACTIVE&district=${RegTeachersdistrict}&organization_type=${category}`
                 : item === 'Not Registered'
-                ? `/reports/notRegistered?district=${RegTeachersdistrict}&category=${category}`
+                ? `/reports/notRegistered?district=${RegTeachersdistrict}&organization_type=${category}`
                 : '';
 
         const config = {
@@ -316,8 +317,6 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response, '1');
-
                     const chartTableData = response?.data?.data || [];
                     setChartTableData(chartTableData);
                     setDownloadTableData(chartTableData);
@@ -517,7 +516,7 @@ const ReportsRegistration = () => {
                                                                     Registered
                                                                     Teachers
                                                                 </th>
-                                                                <th>
+                                                                {/* <th>
                                                                     Registered
                                                                     Male
                                                                     Teachers
@@ -526,7 +525,7 @@ const ReportsRegistration = () => {
                                                                     Registered
                                                                     Female
                                                                     Teachers
-                                                                </th>
+                                                                </th> */}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -569,7 +568,7 @@ const ReportsRegistration = () => {
                                                                                 item.total_registered_teachers
                                                                             }
                                                                         </td>
-                                                                        <td>
+                                                                        {/* <td>
                                                                             {
                                                                                 item.male_mentor_count
                                                                             }
@@ -578,7 +577,7 @@ const ReportsRegistration = () => {
                                                                             {
                                                                                 item.female_mentor_count
                                                                             }
-                                                                        </td>
+                                                                        </td> */}
                                                                     </tr>
                                                                 )
                                                             )}
@@ -611,7 +610,7 @@ const ReportsRegistration = () => {
                                                             />
                                                         )}
                                                     </div>
-                                                    <div className="col-md-12 text-center mt-3">
+                                                    {/* <div className="col-md-12 text-center mt-3">
                                                         <p
                                                             style={{
                                                                 paddingLeft:
@@ -626,9 +625,9 @@ const ReportsRegistration = () => {
                                                                 {newFormat}
                                                             </b>
                                                         </p>
-                                                    </div>
+                                                    </div> */}
 
-                                                    <div className="col-md-12 doughnut-chart-container">
+                                                    {/* <div className="col-md-12 doughnut-chart-container">
                                                         {registeredGenderChartData && (
                                                             <Doughnut
                                                                 data={
@@ -639,7 +638,7 @@ const ReportsRegistration = () => {
                                                                 }
                                                             />
                                                         )}
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>
@@ -657,7 +656,7 @@ const ReportsRegistration = () => {
                                         //     setDownloadComplete(true);
                                         // }}
                                     >
-                                        Download Table CSV
+                                        {/* Download Table CSV */}
                                     </CSVLink>
                                 )}
                                 {downloadData && (

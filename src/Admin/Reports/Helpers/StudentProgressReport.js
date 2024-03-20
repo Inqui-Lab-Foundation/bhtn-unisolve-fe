@@ -16,7 +16,7 @@ import { getDistrictData } from '../../../redux/studentRegistration/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../Helpers/Select';
 import axios from 'axios';
-import { categoryValue } from '../../Schools/constentText';
+// import { categoryValue } from '../../Schools/constentText';
 import '../reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
@@ -98,9 +98,9 @@ const StudentReport = () => {
     };
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [category, setCategory] = useState('');
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-
+    // const categoryData =
+    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    const categoryData = ['All Categorys', 'School', 'New School'];
     const [downloadData, setDownloadData] = useState(null);
     const csvLinkRef = useRef();
     const csvLinkRefTable = useRef();
@@ -323,7 +323,7 @@ const StudentReport = () => {
     };
 
     const fetchData = () => {
-        const url = `/reports/studentdetailsreport?district=${RegTeachersdistrict}&category=${category}`;
+        const url = `/reports/studentdetailsreport?district=${RegTeachersdistrict}&organization_type=${category}`;
 
         const config = {
             method: 'get',
