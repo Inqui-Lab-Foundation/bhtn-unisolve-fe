@@ -344,7 +344,234 @@ const Dashboard = () => {
                 }
             });
     };
-
+    useEffect(() => {
+        adminTeamsCount();
+        adminSudentCount();
+        adminideasCount();
+        adminMentorCount();
+        adminSudentbygenderCount();
+        adminSchoolCount();
+        adminmentorCourseCount();
+        adminStudentCourseCount();
+        adminRegschoolsCount();
+    }, []);
+    const [totalteamsCount, setTotalteamsCount] = useState('-');
+    const [totalStudentCount, setTotalStudentCount] = useState('-');
+    const [totalideasCount, setTotalideasCount] = useState('-');
+    const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
+        useState('-');
+    const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const [totalRegschoolsCount, setTotalRegschoolsCount] = useState('-');
+    const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
+    const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
+    const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
+    const [totalSchoolCount, setTotalSchoolCount] = useState('-');
+    const [mentorCoursesCompletedCount, setMentorCoursesCompletedCount] =
+        useState('-');
+    const [studentCoursesCompletedCount, setStudentCoursesCompletedCount] =
+        useState('-');
+    const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
+        useState('-');
+    const adminTeamsCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/teamCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalteamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminRegschoolsCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/schoolRegCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalRegschoolsCount(response.data.data[0].RegSchools);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/studentCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalStudentCount(response.data.data[0].student_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminideasCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/ideasCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalideasCount(response.data.data[0].initiated_ideas);
+                    setTotalSubmittedideasCount(
+                        response.data.data[0].submitted_ideas
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminMentorCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/mentorCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalMentorCount(response.data.data[0].mentorCount);
+                    setTotalMentorMaleCount(response.data.data[0].mentorMale);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentbygenderCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/studentCountbygender`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalStudentMaleCount(response.data.data[0].studentMale);
+                    setTotalStudentFemaleCount(
+                        response.data.data[0].studentFemale
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSchoolCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalSchoolCount(response.data.data[0].schoolCount);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminmentorCourseCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/mentorCourseCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setMentorCoursesCompletedCount(
+                        response.data.data[0].mentorCoursesCompletedCount
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminStudentCourseCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/studentCourseCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setStudentCoursesCompletedCount(
+                        response.data.data[0].StudentCoursesCompletedCount
+                    );
+                    setTotalstudentCoursesCount(response.data.data[0].started);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     return (
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
@@ -379,7 +606,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalSchoolCount} */}
+                                                {totalSchoolCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -403,7 +630,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalRegschoolsCount} */}
+                                                {totalRegschoolsCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -427,7 +654,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalMentorCount} */}
+                                                {totalMentorCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -451,7 +678,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {mentorCoursesCompletedCount} */}
+                                                {mentorCoursesCompletedCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -482,7 +709,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalteamsCount} */}
+                                                {totalteamsCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -510,7 +737,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalSubmittedideasCount} */}
+                                                {totalSubmittedideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -538,8 +765,8 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalideasCount -
-                                                totalSubmittedideasCount} */}
+                                                {totalideasCount -
+                                                    totalSubmittedideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -567,7 +794,8 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalteamsCount - totalideasCount} */}
+                                                {totalteamsCount -
+                                                    totalideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -598,7 +826,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalStudentCount} */}
+                                                {totalStudentCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -626,7 +854,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {studentCoursesCompletedCount} */}
+                                                {studentCoursesCompletedCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -654,8 +882,8 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalstudentCoursesCount -
-                                                studentCoursesCompletedCount} */}
+                                                {totalstudentCoursesCount -
+                                                    studentCoursesCompletedCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -683,8 +911,8 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalStudentCount -
-                                                totalstudentCoursesCount} */}
+                                                {totalStudentCount -
+                                                    totalstudentCoursesCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -698,7 +926,7 @@ const Dashboard = () => {
                                     // height: '150px'
                                 }}
                             >
-                                <Row>
+                                {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -722,11 +950,11 @@ const Dashboard = () => {
                                                 }}
                                             >
                                                 {/* {totalMentorMaleCount} */}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-                                <Row>
+                                {/* </Card.Text> */}
+                                {/* </Card.Body> */}
+                                {/* </Card> */}
+                                {/* </Row>  */}
+                                {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -749,12 +977,11 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalMentorCount -
-                                                totalMentorMaleCount} */}
+                                              
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
+                                </Row> */}
 
                                 <Row>
                                     <Card
@@ -762,7 +989,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '150px'
+                                            height: '310px'
                                         }}
                                     >
                                         <Card.Body>
@@ -779,7 +1006,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalStudentMaleCount} */}
+                                                {totalStudentMaleCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -790,7 +1017,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '150px'
+                                            height: '310px'
                                         }}
                                     >
                                         <Card.Body>
@@ -807,7 +1034,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {/* {totalStudentFemaleCount} */}
+                                                {totalStudentFemaleCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

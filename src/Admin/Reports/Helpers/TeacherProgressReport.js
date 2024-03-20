@@ -20,11 +20,12 @@ const TeacherDetailed = () => {
     const [district, setdistrict] = React.useState('');
     const [category, setCategory] = useState('');
     const [isDownload, setIsDownload] = useState(false);
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    // const categoryData =
+    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
     const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
         []
     );
+    const categoryData = ['All Categorys', 'School', 'New School'];
     const [doughnutChartData, setDoughnutChartData] = useState(null);
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
@@ -99,7 +100,7 @@ const TeacherDetailed = () => {
         },
         {
             label: 'School Type/Category',
-            key: 'category'
+            key: 'organization_type'
         },
         {
             label: 'District',
@@ -121,18 +122,18 @@ const TeacherDetailed = () => {
             label: 'Teacher Name',
             key: 'Teacher Name'
         },
-        {
-            label: 'Teacher Gender',
-            key: 'Teacher Gender'
-        },
-        {
-            label: 'Teacher Contact',
-            key: 'Teacher Contact'
-        },
-        {
-            label: 'Teacher WhatsApp Contact',
-            key: 'Teacher WhatsApp Contact'
-        },
+        // {
+        //     label: 'Teacher Gender',
+        //     key: 'Teacher Gender'
+        // },
+        // {
+        //     label: 'Teacher Contact',
+        //     key: 'Teacher Contact'
+        // },
+        // {
+        //     label: 'Teacher WhatsApp Contact',
+        //     key: 'Teacher WhatsApp Contact'
+        // },
         {
             label: 'Pre Survey Status',
             key: 'Pre Survey Status'
@@ -313,7 +314,7 @@ const TeacherDetailed = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/reports/mentordetailsreport?district=${district}&category=${category}`,
+                `/reports/mentordetailsreport?district=${district}&organization_type=${category}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -361,7 +362,7 @@ const TeacherDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response, '1');
+                    console.log(response, '1');
                     const summary = response.data.data[0].summary;
                     const registerSchool = response.data.data[0].reg;
                     const regSchools = response.data.data[0].Regschool;

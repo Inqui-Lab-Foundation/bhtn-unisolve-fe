@@ -1,19 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect } from "react";
-import "./Header.scss";
-import { FaBars } from "react-icons/fa";
-import { Row, Col, Navbar } from "reactstrap";
-import AvatarImg from "../../../assets/media/img/Avatar.png";
+import React, { useEffect } from 'react';
+import './Header.scss';
+import { FaBars } from 'react-icons/fa';
+import { Row, Col, Navbar } from 'reactstrap';
+import AvatarImg from '../../../assets/media/img/Avatar.png';
 
-import { getAdminNotificationsList } from "../../../redux/actions";
-import { connect } from "react-redux";
-import { getCurrentUser} from "../../../helpers/Utils";
-
+import { getAdminNotificationsList } from '../../../redux/actions';
+import { connect } from 'react-redux';
+import { getCurrentUser } from '../../../helpers/Utils';
 
 const Header = (props) => {
-
-    const currentUser = getCurrentUser("current_user");
+    const currentUser = getCurrentUser('current_user');
 
     return (
         <header>
@@ -28,9 +26,7 @@ const Header = (props) => {
                         </div>
                         <Navbar>
                             <Row className="justify-content-between w-100">
-                                <Col
-                                    className="d-flex profile-section text-right order-lg-1 order-0"
-                                >
+                                <Col className="d-flex profile-section text-right order-lg-1 order-0">
                                     <div className="d-flex align-items-center profile">
                                         <div className="d-flex align-items-center profile">
                                             <img
@@ -38,8 +34,10 @@ const Header = (props) => {
                                                 className="img-fluid"
                                             />
                                             <span className="header-name-size text-capitalize">
+                                                Welcome{' '}
                                                 {currentUser?.data[0]
-                                                    ?.full_name || ''}
+                                                    ?.full_name || ''}{' '}
+                                                User
                                             </span>
                                         </div>
                                     </div>
@@ -59,6 +57,6 @@ const mapStateToProps = ({ adminNotifications }) => {
 };
 
 export default connect(mapStateToProps, {
-    getAdminNotificationsListActions: getAdminNotificationsList,
+    getAdminNotificationsListActions: getAdminNotificationsList
 })(Header);
 // export default Header;
