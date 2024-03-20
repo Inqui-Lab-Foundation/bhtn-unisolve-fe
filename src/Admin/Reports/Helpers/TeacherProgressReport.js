@@ -100,7 +100,7 @@ const TeacherDetailed = () => {
         },
         {
             label: 'School Type/Category',
-            key: 'category'
+            key: 'organization_type'
         },
         {
             label: 'District',
@@ -122,18 +122,18 @@ const TeacherDetailed = () => {
             label: 'Teacher Name',
             key: 'Teacher Name'
         },
-        {
-            label: 'Teacher Gender',
-            key: 'Teacher Gender'
-        },
-        {
-            label: 'Teacher Contact',
-            key: 'Teacher Contact'
-        },
-        {
-            label: 'Teacher WhatsApp Contact',
-            key: 'Teacher WhatsApp Contact'
-        },
+        // {
+        //     label: 'Teacher Gender',
+        //     key: 'Teacher Gender'
+        // },
+        // {
+        //     label: 'Teacher Contact',
+        //     key: 'Teacher Contact'
+        // },
+        // {
+        //     label: 'Teacher WhatsApp Contact',
+        //     key: 'Teacher WhatsApp Contact'
+        // },
         {
             label: 'Pre Survey Status',
             key: 'Pre Survey Status'
@@ -493,39 +493,39 @@ const TeacherDetailed = () => {
                         ]
                     };
 
-                    // const stackedBarChartData = {
-                    //     labels: combinedArray.map((item) => item.district),
-                    //     datasets: [
-                    //         {
-                    //             label: 'No. of Teachers not started course',
-                    //             data: combinedArray.map(
-                    //                 (item) => item.courseNotStarted
-                    //             ),
-                    //             backgroundColor: 'rgba(255, 0, 0, 0.6)'
-                    //         },
-                    //         {
-                    //             label: 'No. of Teachers course IN progress',
-                    //             data: combinedArray.map(
-                    //                 (item) => item.courseINcompleted
-                    //             ),
-                    //             backgroundColor: 'rgba(255, 255, 0, 0.6)'
-                    //         },
-                    //         {
-                    //             label: 'No. of teachers Completed Course',
-                    //             data: combinedArray.map(
-                    //                 (item) => item.courseCompleted
-                    //             ),
-                    //             backgroundColor: 'rgba(0, 128, 0, 0.6)'
-                    //         }
-                    //     ]
-                    // };
+                    const stackedBarChartData = {
+                        labels: combinedArray.map((item) => item.district),
+                        datasets: [
+                            {
+                                label: 'No. of Teachers not started course',
+                                data: combinedArray.map(
+                                    (item) => item.courseNotStarted
+                                ),
+                                backgroundColor: 'rgba(255, 0, 0, 0.6)'
+                            },
+                            {
+                                label: 'No. of Teachers course IN progress',
+                                data: combinedArray.map(
+                                    (item) => item.courseINcompleted
+                                ),
+                                backgroundColor: 'rgba(255, 255, 0, 0.6)'
+                            },
+                            {
+                                label: 'No. of teachers Completed Course',
+                                data: combinedArray.map(
+                                    (item) => item.courseCompleted
+                                ),
+                                backgroundColor: 'rgba(0, 128, 0, 0.6)'
+                            }
+                        ]
+                    };
                     var array = combinedArray;
                     array.push({ district: 'Total Count', ...total });
                     setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
-                    // setBarChart2Data(stackedBarChartData);
+                    setBarChart2Data(stackedBarChartData);
                     setTotalCount(total);
                 }
             })
@@ -886,7 +886,7 @@ const TeacherDetailed = () => {
                                                 </div>
                                             </div>
 
-                                            {/* <div
+                                            <div
                                                 className="col-md-6 chart-container mt-3"
                                                 style={{
                                                     width: '100%',
@@ -910,7 +910,7 @@ const TeacherDetailed = () => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </div> */}
+                                            </div>
                                         </div>
                                     </div>
                                 )}
