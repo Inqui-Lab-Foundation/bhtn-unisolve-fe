@@ -349,6 +349,10 @@ const IdeaReports = () => {
         {
             label: 'Did your team make a prototype to test your solution?',
             key: '10'
+        },
+        {
+            label: 'If yes, upload images of your prototype. (THIS IS NOT MANDATORY)',
+            key: '11'
         }
     ];
     useEffect(() => {
@@ -508,7 +512,6 @@ const IdeaReports = () => {
         axios(config)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res, 'chart');
                     const chartTableData = res?.data?.data || [];
 
                     const total = chartTableData.reduce(

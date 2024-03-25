@@ -93,18 +93,31 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
+                width: '7%'
+            },
+            {
+                name: 'UDISE',
+                selector: (row) => row.organization_code || '',
+                sortable: true,
                 width: '10%'
             },
+            {
+                name: 'CID',
+                selector: (row) => row.challenge_response_id || '',
+                sortable: true,
+                width: '10%'
+            },
+           
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name || '',
                 sortable: true,
-                width: '21%'
+                width: '15%'
             },
             {
                 name: 'SDG',
                 selector: (row) => row.sdg,
-                width: '21%'
+                width: '18%'
             },
             {
                 name: 'Submitted By',

@@ -274,6 +274,14 @@ const Dashboard = () => {
                                     <div className="col">
                                         <ul className="p-0">
                                             <li className="d-flex justify-content-between">
+                                                UDISE:{' '}
+                                                <p>
+                                                    {
+                                                        MentorData?.organization_code
+                                                    }
+                                                </p>
+                                            </li>
+                                            <li className="d-flex justify-content-between">
                                                 School:
                                                 <p>
                                                     {
@@ -289,6 +297,7 @@ const Dashboard = () => {
                                                 District:{' '}
                                                 <p>{MentorData?.district}</p>
                                             </li>
+
                                             <li className="d-flex justify-content-between">
                                                 Mentor Name:{' '}
                                                 <p>{MentorData?.full_name}</p>
