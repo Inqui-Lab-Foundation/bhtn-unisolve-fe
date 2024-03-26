@@ -81,6 +81,8 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
+    const [isideadisable, setIsideadisable] = useState(false);
+
     useEffect(() => {
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
         dispatch(getStudentChallengeSubmittedResponse(teamId));
@@ -226,6 +228,30 @@ export default function DoughnutChart({ user }) {
                 )
         }
     ];
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    } else {
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
     const handleRevoke = async (id, type) => {
         // const handleRevokeId = encryptGlobal(JSON.stringify(id));
         let submitData = {
@@ -350,12 +376,11 @@ export default function DoughnutChart({ user }) {
                                 <Button
                                     label={'Revoke'}
                                     size="small"
-                                    btnClass={`${
-                                        challengesSubmittedResponse[0]
-                                            ?.status === 'SUBMITTED'
-                                            ? 'btn btn-success'
-                                            : 'default'
-                                    }`}
+                                    className={
+                                        isideadisable
+                                            ? `btn btn-success btn-lg mr-5 mx-2`
+                                            : `btn btn-lg mr-5 mx-2`
+                                    }
                                     onClick={() =>
                                         handleRevoke(
                                             challengesSubmittedResponse[0]
@@ -364,6 +389,7 @@ export default function DoughnutChart({ user }) {
                                                 .status
                                         )
                                     }
+                                    disabled={!isideadisable}
                                 />
                             ) : (
                                 ''

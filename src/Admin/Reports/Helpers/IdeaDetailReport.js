@@ -134,12 +134,12 @@ const IdeaReports = () => {
         labels: [],
         datasets: []
     });
-    const fullDistrictsNamesWithAllDistrict = useSelector(
+    const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
-        (item) => item !== 'All Districts'
-    );
+    // let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
+    //     (item) => item !== 'All Districts'
+    // );
 
     const summaryHeaders = [
         {

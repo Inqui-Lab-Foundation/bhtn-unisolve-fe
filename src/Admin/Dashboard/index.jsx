@@ -48,6 +48,8 @@ const Dashboard = () => {
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
+    const [isideadisable, setIsideadisable] = useState(false);
+
     const handleOnChange = (e) => {
         // We can give Dise Code//
         setCount(0);
@@ -199,6 +201,30 @@ const Dashboard = () => {
         });
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    } else {
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -240,11 +266,27 @@ const Dashboard = () => {
                                 )
                             }
                         >
-                            {params.ideaStatus == 'SUBMITTED' && (
-                                <div className="btn btn-success btn-lg mr-5 mx-2">
-                                    Revoke
-                                </div>
-                            )}
+                            {params.ideaStatus == 'SUBMITTED' &&
+                                params.evaluation_status === null && (
+                                    <Button
+                                        key={params}
+                                        className={
+                                            isideadisable
+                                                ? `btn btn-success btn-lg mr-5 mx-2`
+                                                : `btn btn-lg mr-5 mx-2`
+                                        }
+                                        label={'REVOKE'}
+                                        size="small"
+                                        // shape="btn-square"
+                                        onClick={() =>
+                                            handleRevoke(
+                                                params.challenge_response_id,
+                                                params.ideaStatus
+                                            )
+                                        }
+                                        disabled={!isideadisable}
+                                    />
+                                )}
                         </Link>
                     ];
                 },
