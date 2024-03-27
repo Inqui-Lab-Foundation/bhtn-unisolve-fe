@@ -297,7 +297,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={FaqIcon}
@@ -313,7 +313,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink exact={true} to={'/admin/translation'}>
                             Tranlsation
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <SubMenu
                         title="Settings"
                         icon={<img src={TicketIcon} />}

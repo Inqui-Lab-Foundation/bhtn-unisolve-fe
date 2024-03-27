@@ -208,7 +208,7 @@ const TicketsPage = (props) => {
     const handleTeacherview = (item) => {
         props.history.push({
             pathname: `/admin/mentorDetails`,
-            data: item,
+            data: item
         });
     };
 
@@ -466,16 +466,30 @@ const TicketsPage = (props) => {
                 // center: true,
             },
             {
+                name: 'UDISE',
+                selector: (row) =>
+                    row.team.mentor.organization.organization_code,
+
+                width: '10%'
+            },
+            {
+                name: 'School Name',
+                selector: (row) =>
+                    row.team.mentor.organization.organization_name,
+
+                width: '13%'
+            },
+            {
                 name: 'Team Name',
                 selector: 'team.team_name',
                 // sortable: true,
-                width: '17%'
+                width: '10%'
                 // center: true,
             },
             {
                 name: 'Student Name',
                 selector: 'full_name',
-                width: '20%'
+                width: '13%'
                 // center: true,
             },
             {
