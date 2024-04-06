@@ -8,38 +8,40 @@ import { Row, Col, Navbar } from 'reactstrap';
 
 import AvatarImg from '../assets/media/img/Avatar.png';
 
-import {getCurrentUser} from "../helpers/Utils"; 
+import { getCurrentUser } from '../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import i18next from 'i18next';
-import { getPresurveyData, getStudentGlobalLanguage } from '../redux/studentRegistration/actions';
+import {
+    getPresurveyData,
+    getStudentGlobalLanguage
+} from '../redux/studentRegistration/actions';
 
 const Header = (props) => {
-    const dispatch= useDispatch();
-    const currentUser = getCurrentUser("current_user");
+    const dispatch = useDispatch();
+    const currentUser = getCurrentUser('current_user');
     const presuveyStatusGl = useSelector(
-        (state) =>
-            state?.studentRegistration?.presuveyStatusGl
+        (state) => state?.studentRegistration?.presuveyStatusGl
     );
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
     useLayoutEffect(() => {
-        if(!presuveyStatusGl && currentUser)
+        if (!presuveyStatusGl && currentUser)
             dispatch(getPresurveyData(language));
-    }, [presuveyStatusGl,language,dispatch]);
-    
-    const localLang = JSON.parse(localStorage.getItem("s_language"));
+    }, [presuveyStatusGl, language, dispatch]);
+
+    const localLang = JSON.parse(localStorage.getItem('s_language'));
     useEffect(() => {
-        if(localLang){
+        if (localLang) {
             i18next.changeLanguage(localLang.code);
             dispatch(getStudentGlobalLanguage(localLang));
         }
     }, []);
-    
+
     window.onunload = function () {
         localStorage.setItem('headerOption', JSON.stringify('Home'));
     };
-    
+
     return (
         <header>
             <div className="header-comp sticky-top py-4">
@@ -76,10 +78,11 @@ const Header = (props) => {
                                     </div> */}
                                     <div className="d-flex align-items-center profile">
                                         <img src={AvatarImg} />
-                                        <span className='header-name-size'>
+                                        <span className="header-name-size">
+                                            Welcome Student{' '}
                                             {currentUser?.data[0].full_name}
-                                        </span> 
-                                        {/* <CommonDropDownComp {...profileOpt} /> */}        
+                                        </span>
+                                        {/* <CommonDropDownComp {...profileOpt} /> */}
                                     </div>
                                 </Col>
                             </Row>

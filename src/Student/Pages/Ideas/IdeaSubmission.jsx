@@ -1,4 +1,5 @@
-import { useLayoutEffect } from 'react';
+/* eslint-disable indent */
+import { useLayoutEffect, useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonPage from '../../../components/CommonPage';
@@ -8,6 +9,7 @@ import Layout from '../../Layout';
 import IdeasPageNew from './IdeasPageCopy';
 import SDG from './SDG';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const IdeaSubmission = () => {
     const { t } = useTranslation();
@@ -15,13 +17,15 @@ const IdeaSubmission = () => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-    const challengesSubmittedResponse  = useSelector(
+    const challengesSubmittedResponse = useSelector(
         (state) => state?.studentRegistration.challengesSubmittedResponse
     );
     const currentUser = getCurrentUser('current_user');
     const [showChallenges, setShowChallenges] = useState(false);
     const [showCompleted, setShowCompleted] = useState(false);
     const [view, setView] = useState(false);
+    const [isideadisable, setIsideadisable] = useState(false);
+
     useLayoutEffect(() => {
         dispatch(
             getStudentChallengeSubmittedResponse(
@@ -37,13 +41,40 @@ const IdeaSubmission = () => {
         ) {
             challengesSubmittedResponse[0].status === 'DRAFT'
                 ? setShowChallenges(true)
-                : view ? setShowChallenges(true) :setShowCompleted(true);
+                : view
+                ? setShowChallenges(true)
+                : setShowCompleted(true);
         } else {
             setShowChallenges(false);
         }
-    }, [challengesSubmittedResponse,view]);
-    const commonPageText = t("student.idea_submitted_desc");
-    const handleView = ()=>{
+    }, [challengesSubmittedResponse, view]);
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response, 'eee');
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    } else {
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
+    const commonPageText = t('student.idea_submitted_desc');
+    const handleView = () => {
         setShowChallenges(true);
         setShowCompleted(false);
         setView(true);
@@ -58,11 +89,15 @@ const IdeaSubmission = () => {
         </Layout>
     ) : showChallenges ? (
         <IdeasPageNew />
-    ) : (
+    ) : isideadisable ? (
         <SDG setShowChallenges={setShowChallenges} />
-        // <Layout>
-        //     <CommonPage text={t("student_course.idea_submission_date_com_desc")} ideaSubmissionComButton={true}/>
-        // </Layout> 
+    ) : (
+        <Layout>
+            <CommonPage
+                text={t('student_course.idea_submission_date_com_desc')}
+                ideaSubmissionComButton={true}
+            />
+        </Layout>
     );
 };
 export default IdeaSubmission;

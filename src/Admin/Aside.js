@@ -20,6 +20,7 @@ import {
     SidebarContent
 } from 'react-pro-sidebar';
 import { FaBars, FaHouseUser, FaLightbulb, FaPen } from 'react-icons/fa';
+import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
@@ -177,6 +178,33 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={
                             <img
+                                src={LatestNewsIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="school"
+                            />
+                        }
+                        className={
+                            location.pathname === '/admin/LatestNews' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/LatestNews'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                LatestNews
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
                                 src={SchoolIcon}
                                 className="img-fluid"
                                 alt="school"
@@ -269,7 +297,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={FaqIcon}
@@ -285,7 +313,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink exact={true} to={'/admin/translation'}>
                             Tranlsation
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <SubMenu
                         title="Settings"
                         icon={<img src={TicketIcon} />}

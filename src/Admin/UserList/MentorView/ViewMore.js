@@ -14,11 +14,11 @@ const ViewMore = () => {
         (history && history.location && history.location.data) || {};
     var teamId = [];
     teamId.push({ mentor_id: MentorData.mentor_id });
-    
+
     const handleBack = () => {
         history.push({
             pathname: '/admin/mentorDetails',
-            data:MentorData
+            data: MentorData
         });
     };
     useEffect(() => {
@@ -26,43 +26,41 @@ const ViewMore = () => {
     }, []);
 
     async function apiCall(Ocode) {
-            // Dice code list API //
-            // list= Dise code  //
-            const body = JSON.stringify({
-                organization_code: Ocode
+        // Dice code list API //
+        // list= Dise code  //
+        const body = JSON.stringify({
+            organization_code: Ocode
+        });
+        var config = {
+            method: 'post',
+            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: body
+        };
+
+        await axios(config)
+            .then(function (response) {
+                if (response.status == 200) {
+                    setOrgData(response?.data?.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
             });
-            var config = {
-                method: 'post',
-                url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: body
-            };
-    
-            await axios(config)
-                .then(function (response) {
-                    if (response.status == 200) {
-                        setOrgData(response?.data?.data[0]);
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
+    }
 
     return (
         <Layout>
             <Container className="mt-5 pt-5 dynamic-form">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <p>hihi</p>
+                    {/* <p>hihi</p> */}
                     <Button
                         label="Back"
                         btnClass="primary"
                         size="small"
-                        onClick={
-                            handleBack
-                        }
+                        onClick={handleBack}
                     />
                 </div>
                 <Row>
@@ -106,12 +104,12 @@ const ViewMore = () => {
                                 </span>
                                 <b>{orgDaTa.district}</b>
                             </CardText>
-                            <CardText>
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>state :</b>
                                 </span>
                                 <b>{orgDaTa.state}</b>
-                            </CardText>
+                            </CardText> */}
                             <CardText>
                                 <span className="mx-3">
                                     <b>Country :</b>

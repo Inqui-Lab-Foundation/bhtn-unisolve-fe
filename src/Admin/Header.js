@@ -101,10 +101,12 @@ const Header = (props) => {
                                                 className="img-fluid"
                                             />
                                             <span className="header-name-size">
+                                                welcome{' '}
                                                 {
                                                     currentUser?.data[0]
                                                         ?.full_name
-                                                }
+                                                }{' '}
+                                                user
                                             </span>
                                         </div>
 
